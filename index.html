@@ -1774,6 +1774,21 @@ const interfaceTranslations = {"Periodic Table of the Elements": "Bảng tuần 
 const categoryTranslations = {"alkali": "Kim loại kiềm", "alkaline": "Kim loại kiềm thổ", "transition": "Kim loại chuyển tiếp", "post-transition": "Kim loại sau chuyển tiếp", "metalloid": "Á kim", "nonmetal": "Phi kim", "halogen": "Halogen", "noble": "Khí hiếm", "lanthanide": "Họ Lantan", "actinide": "Họ Actini"};
 function viName(element) { return vietnameseElementNames[element.n - 1] || element.name; }
 function displayName(element) { return element.name; } // Element names always remain in English.
+
+// Vietnamese textbook A/B group notation; English uses IUPAC groups 1–18.
+const traditionalGroupLabels = {
+    1:'IA', 2:'IIA', 3:'IIIB', 4:'IVB', 5:'VB', 6:'VIB',
+    7:'VIIB', 8:'VIIIB', 9:'VIIIB', 10:'VIIIB', 11:'IB', 12:'IIB',
+    13:'IIIA', 14:'IVA', 15:'VA', 16:'VIA', 17:'VIIA', 18:'VIIIA'
+};
+function displayGroup(element) {
+    if (currentLanguage !== 'vi') return element.group || '—';
+    // The f-block series does not have an individual A/B group assignment.
+    if ((element.category === 'lanthanide' || element.category === 'actinide') &&
+        element.n !== 57 && element.n !== 89) return '—';
+    return traditionalGroupLabels[element.group] || '—';
+}
+
 function categoryLabel(category) { return currentLanguage === 'vi' ? categoryTranslations[category] : category.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase()); }
 function translateStaticUI() {
     document.documentElement.lang = currentLanguage;
@@ -2471,7 +2486,7 @@ function selectElement(element) {
         element.period;
 
     infoGroup.textContent =
-        element.group || "—";
+        displayGroup(element);
 
     infoShells.textContent =
         element.shells.join(", ");
