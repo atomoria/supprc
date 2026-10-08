@@ -1065,6 +1065,13 @@ body.panel-open{overflow:hidden}
 .quiz-muted{color:#c2cde0;font-size:.92rem}
 @media(max-width:480px){.quiz-dialog{padding:17px}.quiz-options{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.quiz-progress>div{transition:none}}
+
+/* Compact, bilingual explanations linked to the existing category filters. */
+.category-explanation{margin-top:12px;padding:13px 17px;border:1px solid rgba(214,182,129,.48);border-left:3px solid #d6b681;border-radius:9px;background:linear-gradient(115deg,rgba(23,38,57,.94),rgba(9,19,34,.95));color:#e9e2d3;box-shadow:0 5px 16px #0002}
+.category-explanation-heading{font-family:Arial,"Noto Sans",sans-serif;color:#f3d59e;font-size:13px;font-weight:700;line-height:1.55}
+.category-explanation p{font-family:Arial,"Noto Sans",sans-serif;font-size:13px;line-height:1.7;margin:5px 0 0;letter-spacing:0;overflow-wrap:break-word}
+@media(max-width:600px){.category-explanation{padding:11px 13px}.category-explanation p{font-size:12px}}
+
 </style>
 </head>
 
@@ -1120,6 +1127,10 @@ body.panel-open{overflow:hidden}
         <button data-category="noble">Noble gases</button>
         <button data-category="lanthanide">Lanthanides</button>
         <button data-category="actinide">Actinides</button>
+    </div>
+    <div id="categoryExplanation" class="category-explanation" role="status" aria-live="polite">
+      <div class="category-explanation-heading" id="categoryExplanationHeading"></div>
+      <p id="categoryExplanationText"></p>
     </div>
 
 </section>
@@ -1932,6 +1943,7 @@ function setLanguage(language) {
     currentLanguage = language;
     try { localStorage.setItem('periodic-table-language', language); } catch (e) {}
     translateStaticUI();
+    updateCategoryExplanation();
     updatePanelLanguage();
     buildTable();
     if (selectedElement) selectElement(selectedElement, false);
@@ -2774,6 +2786,62 @@ clearSearch.addEventListener(
 );
 
 
+
+/* Category descriptions: explanations, not redundant element lists. */
+const CATEGORY_EXPLANATIONS = {
+  all: {
+    en:['Why are elements classified?','The periodic table arranges elements by atomic number. Elements in the same column often have similar valence-electron structures and chemical behavior; the colored categories also group elements by broader shared properties.'],
+    vi:['Vì sao các nguyên tố được phân loại?','Bảng tuần hoàn sắp xếp các nguyên tố theo số hiệu nguyên tử. Các nguyên tố cùng cột thường có cấu trúc electron hóa trị và tính chất hóa học tương tự; các nhóm màu còn phân loại theo những đặc điểm chung rộng hơn.']
+  },
+  alkali: {
+    en:['Alkali metals','These Group 1 metals (excluding hydrogen) have one valence electron. They readily lose it to form +1 ions and are generally highly reactive.'],
+    vi:['Kim loại kiềm','Các kim loại nhóm IA (không bao gồm Hydrogen) có một electron hóa trị. Chúng dễ nhường electron này để tạo ion +1 và thường phản ứng rất mạnh.']
+  },
+  alkaline: {
+    en:['Alkaline earth metals','These Group 2 metals have two valence electrons and commonly form +2 ions. They share characteristic metallic and reactive behavior, although reactivity varies across the group.'],
+    vi:['Kim loại kiềm thổ','Các kim loại nhóm IIA có hai electron hóa trị và thường tạo ion +2. Chúng có những tính chất kim loại và khả năng phản ứng tương đồng, nhưng mức độ phản ứng khác nhau giữa các nguyên tố.']
+  },
+  transition: {
+    en:['Transition metals','These metals occupy the central d-block region. Many form ions with incomplete d subshells, show multiple oxidation states, and form coordination compounds; individual properties vary.'],
+    vi:['Kim loại chuyển tiếp','Các kim loại này nằm ở vùng khối d giữa bảng tuần hoàn. Nhiều nguyên tố tạo ion có phân lớp d chưa bão hòa, có nhiều số oxi hóa và tạo hợp chất phối trí; tính chất cụ thể có thể khác nhau.']
+  },
+  'post-transition': {
+    en:['Post-transition metals','This conventional category covers several metals beyond the d-block. They generally show metallic bonding but often have lower melting points or different bonding behavior than many transition metals; the exact membership varies by source.'],
+    vi:['Kim loại sau chuyển tiếp','Đây là nhóm phân loại quy ước gồm một số kim loại nằm sau khối d. Chúng có liên kết kim loại nhưng thường có nhiệt độ nóng chảy thấp hơn hoặc kiểu liên kết khác nhiều kim loại chuyển tiếp; cách xếp loại có thể khác nhau giữa các nguồn.']
+  },
+  metalloid: {
+    en:['Metalloids','Metalloids have a mixture of metallic and nonmetallic characteristics. Several are semiconductors, and the boundary between metalloids and other categories is not universally agreed upon.'],
+    vi:['Á kim','Á kim thể hiện cả đặc điểm của kim loại và phi kim. Một số là chất bán dẫn; ranh giới phân loại giữa á kim và các nhóm khác chưa hoàn toàn thống nhất.']
+  },
+  nonmetal: {
+    en:['Nonmetals','These elements generally lack typical metallic properties and often form covalent bonds. Their physical states and reactivities vary greatly, so the category describes broad similarities rather than identical behavior.'],
+    vi:['Phi kim','Các nguyên tố này nhìn chung không có những tính chất đặc trưng của kim loại và thường tạo liên kết cộng hóa trị. Trạng thái vật chất và khả năng phản ứng rất đa dạng, vì vậy đây là nhóm có các đặc điểm chung chứ không hoàn toàn giống nhau.']
+  },
+  halogen: {
+    en:['Halogens','Group 17 elements have seven valence electrons in their neutral atoms. They often gain or share one electron in compounds and commonly form salts with metals; reactivity varies down the group.'],
+    vi:['Halogen','Các nguyên tố nhóm VIIA có bảy electron hóa trị trong nguyên tử trung hòa. Chúng thường nhận hoặc dùng chung một electron khi tạo hợp chất và dễ tạo muối với kim loại; mức độ phản ứng thay đổi trong nhóm.']
+  },
+  noble: {
+    en:['Noble gases','Group 18 elements have filled outer electron shells (helium has two electrons). This makes most of them relatively unreactive, although some heavier noble gases can form compounds.'],
+    vi:['Khí hiếm','Các nguyên tố nhóm VIIIA có lớp electron ngoài cùng đã bão hòa (Helium có hai electron). Vì vậy, phần lớn khá kém hoạt động hóa học, dù một số khí hiếm nặng vẫn có thể tạo hợp chất.']
+  },
+  lanthanide: {
+    en:['Lanthanides','This series is associated with filling the 4f subshell. Many members show similar chemistry, commonly form +3 ions, and are often discussed together as rare-earth elements.'],
+    vi:['Họ Lantan','Dãy nguyên tố này gắn với sự điền electron vào phân lớp 4f. Nhiều nguyên tố có tính chất hóa học tương tự, thường tạo ion +3 và hay được nghiên cứu cùng nhóm đất hiếm.']
+  },
+  actinide: {
+    en:['Actinides','This series is associated with the 5f subshell. All actinides are radioactive, and several can exhibit multiple oxidation states; many heavier members are synthetic and poorly characterized.'],
+    vi:['Họ Actini','Dãy nguyên tố này gắn với phân lớp 5f. Tất cả đều có tính phóng xạ; một số có nhiều số oxi hóa. Nhiều nguyên tố nặng trong dãy được tổng hợp nhân tạo và chưa được nghiên cứu đầy đủ.']
+  }
+};
+function updateCategoryExplanation(){
+  const key=document.querySelector('.legend button.active')?.dataset.category || 'all';
+  const entry=CATEGORY_EXPLANATIONS[key] || CATEGORY_EXPLANATIONS.all;
+  const [heading,description]=entry[currentLanguage==='vi'?'vi':'en'];
+  document.getElementById('categoryExplanationHeading').textContent=heading;
+  document.getElementById('categoryExplanationText').textContent=description;
+}
+
 /* =========================================================
    CATEGORY FILTER
 ========================================================= */
@@ -2793,6 +2861,7 @@ document
                     );
 
                 button.classList.add("active");
+                updateCategoryExplanation();
 
 
                 const category =
@@ -3003,6 +3072,7 @@ document.getElementById('langEN').addEventListener('click', () => setLanguage('e
 document.getElementById('langVI').addEventListener('click', () => setLanguage('vi'));
 try { currentLanguage = localStorage.getItem('periodic-table-language') === 'vi' ? 'vi' : 'en'; } catch (e) {}
 translateStaticUI();
+updateCategoryExplanation();
 buildTable();
 
 
