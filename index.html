@@ -994,6 +994,77 @@ html[lang="vi"] .info-panel .description {
 .atom-3d-canvas:active { cursor:grabbing; }
 .atom-3d-canvas:focus-visible { outline:2px solid #e6c58e; outline-offset:3px; }
 .atom-3d-hint { font: 11px/1.5 system-ui,sans-serif; color:#c8bda9; text-align:center; padding:7px 3px 0; }
+
+/* Verified encyclopedia: concise summaries with expandable details */
+.encyclopedia {margin:20px 0 24px;color:#f2e8d9;font-family:Arial,'Noto Sans',sans-serif;line-height:1.65}
+.encyclopedia h3{font-size:1.12rem;letter-spacing:.02em;color:#f1d59d;margin:0 0 10px}
+.encyclopedia .encyclopedia-intro{border-left:3px solid #d6ae70;padding:9px 13px;background:#102437;border-radius:6px;margin-bottom:12px}
+.encyclopedia details{border:1px solid #987c53a0;border-radius:10px;margin:9px 0;background:#122438}
+.encyclopedia summary{cursor:pointer;padding:12px 13px;color:#f2d6a0;font-weight:700}
+.encyclopedia .encyclopedia-body{padding:0 14px 14px;font-size:.94rem}
+.encyclopedia .fact{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid #ffffff18}
+.encyclopedia .fact span:first-child{color:#c7d5dc}
+.encyclopedia .fact span:last-child{text-align:right}
+.encyclopedia a{color:#b7dfff;text-decoration:underline;text-underline-offset:3px}
+.encyclopedia .review-status{font-size:.84rem;color:#c9c0ad}
+
+/* Keep the global language switch behind the modal drawer, not over its controls. */
+body.panel-open .language-switch{visibility:hidden!important;pointer-events:none!important}
+/* Moonlit hybrid: full-width periodic table + slide-out quick view + expanded reader */
+.main-layout{display:block!important;position:relative}
+.table-panel{width:100%;max-width:none}
+.panel-backdrop{position:fixed;inset:0;background:rgba(2,8,18,.54);backdrop-filter:blur(2px);z-index:11998;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+body.panel-open .panel-backdrop{opacity:1;visibility:visible}
+#infoPanel.info-panel{position:fixed!important;right:0!important;left:auto!important;top:0!important;bottom:0!important;z-index:11999;width:min(460px,100vw)!important;max-width:none!important;height:100dvh!important;overflow-y:auto;overscroll-behavior:contain;transform:translateX(105%);transition:transform .32s ease,width .32s ease;box-sizing:border-box;margin:0!important;border-radius:18px 0 0 18px!important;scrollbar-width:thin;scrollbar-color:#a78453 #101b2a;order:unset!important}
+body.panel-open #infoPanel{transform:translateX(0)}
+body.panel-expanded #infoPanel{width:min(850px,100vw)!important}
+body.panel-expanded #infoPanel .info-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+body.panel-expanded #infoPanel .info-heading{min-height:255px}
+#infoPanel .panel-toolbar{position:sticky;top:-15px;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 4px 12px;background:linear-gradient(#101c2b 85%,#101c2bdf);border-bottom:1px solid #987c5377;margin-bottom:12px}
+.panel-eyebrow{font-size:.72rem;letter-spacing:.14em;font-weight:700;color:#e7c58d}
+.panel-actions{display:flex;align-items:center;gap:7px}
+#infoPanel .panel-action{font:600 .78rem Arial,'Noto Sans',sans-serif;cursor:pointer;border:1px solid #a88959;border-radius:9px;padding:9px 11px;background:#23354a;color:#f9e5bd;white-space:nowrap}
+#infoPanel .panel-action:hover,#infoPanel .panel-action:focus-visible{background:#37506a;outline:2px solid #e2b777;outline-offset:2px}
+#infoPanel .panel-action.primary{background:#a47b44;color:#0c1725;border-color:#e5be79}
+#infoPanel .panel-action.icon-action{font-size:1rem;padding:7px 11px}
+/* In quick view, hide deep reading content; keep atomic model and overview accessible. */
+body:not(.panel-expanded) #infoPanel .encyclopedia{display:none}
+body:not(.panel-expanded) #infoPanel .configuration-section{display:none}
+body:not(.panel-expanded) #infoPanel .info-heading{min-height:210px}
+body:not(.panel-expanded) #infoPanel .info-heading::before{font-size:clamp(2.4rem,4vw,3.5rem)}
+body:not(.panel-expanded) #infoPanel .big-symbol{width:90px;height:90px;font-size:2.8rem}
+body:not(.panel-expanded) #infoPanel .info-card{padding:10px}
+body:not(.panel-expanded) #infoPanel .electron-section{margin-top:12px}
+#infoPanel #backButton{display:none}
+body.panel-open{overflow:hidden}
+@media(max-width:600px){#infoPanel.info-panel{width:100vw!important;border-radius:0!important;padding:12px!important}#infoPanel .panel-toolbar{top:-12px}.panel-eyebrow{display:none}body.panel-expanded #infoPanel .info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){#infoPanel.info-panel,.panel-backdrop{transition:none!important}}
+
+
+/* Moonlit study quiz — isolated from the element drawer */
+.quiz-launch{position:absolute;top:9px;right:14px;z-index:5;display:flex;justify-content:flex-end;margin:0}.quiz-launch button{font-size:12px;min-height:30px;padding:6px 12px;box-shadow:0 2px 12px #0006}.quiz-launch button:hover{filter:brightness(1.12)}
+@media(max-width:650px){.quiz-launch{position:relative;top:auto;right:auto;justify-content:flex-end;margin:0 0 12px}.table-panel::before{padding-right:0}}
+.quiz-launch button,.quiz-action{border:1px solid #d8b779;border-radius:10px;background:linear-gradient(145deg,#d9b87e,#9c7643);color:#101d2d;font-weight:800;padding:11px 18px;cursor:pointer}
+.quiz-overlay{position:fixed;inset:0;z-index:20000;background:rgba(4,11,24,.85);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(8px)}
+.quiz-overlay.open{display:flex}
+.quiz-dialog{width:min(100%,590px);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#1a2c46,#0c192e);color:#f5eddd;border:1px solid #c6a16b;border-radius:20px;box-shadow:0 25px 80px #000a;padding:25px;font-family:Arial,'Noto Sans',sans-serif}
+.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.quiz-head h2{margin:0;color:#f1d49b;font-size:1.4rem}
+.quiz-close{border:1px solid #a5a5a5;background:transparent;color:white;border-radius:9px;font-size:22px;cursor:pointer;padding:3px 11px}
+.quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+.quiz-option{border:1px solid #627997;border-radius:11px;padding:14px 9px;background:#243955;color:#fff;cursor:pointer;font:inherit;min-height:52px;overflow-wrap:anywhere}
+.quiz-option:focus-visible,.quiz-close:focus-visible,.quiz-action:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.quiz-option.correct{background:#1b5947;border-color:#89e1ad}
+.quiz-option.incorrect{background:#66333b;border-color:#f4a4a4}
+.quiz-option:disabled{cursor:default;opacity:1}
+.quiz-progress{height:7px;border-radius:9px;background:#334761;overflow:hidden;margin:13px 0 20px}
+.quiz-progress>div{height:100%;background:#d9b87e;transition:width .25s}
+.quiz-question{font-size:1.2rem;font-weight:700;line-height:1.5;margin:12px 0}
+.quiz-feedback{min-height:46px;line-height:1.5;color:#e5d4b8}
+.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.quiz-muted{color:#c2cde0;font-size:.92rem}
+@media(max-width:480px){.quiz-dialog{padding:17px}.quiz-options{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.quiz-progress>div{transition:none}}
 </style>
 </head>
 
@@ -1031,6 +1102,7 @@ html[lang="vi"] .info-panel .description {
 <main class="main-layout">
 
 <section class="table-panel" id="periodicTableSection">
+    <div class="quiz-launch"><button id="openChemQuiz" type="button">✦ Chemistry Quiz / Trắc nghiệm</button></div>
 
     <div class="table-scroll">
         <div class="periodic-table" id="periodicTable"></div>
@@ -1053,6 +1125,17 @@ html[lang="vi"] .info-panel .description {
 </section>
 
 
+
+<div id="chemQuizOverlay" class="quiz-overlay" role="presentation">
+  <section class="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="quizHeading" tabindex="-1">
+    <div class="quiz-head"><h2 id="quizHeading">Chemistry Quiz</h2><button class="quiz-close" id="closeChemQuiz" type="button" aria-label="Close">×</button></div>
+    <p id="quizIntro" class="quiz-muted"></p><div class="quiz-progress"><div id="quizProgress"></div></div>
+    <p id="quizQuestion" class="quiz-question"></p><div id="quizOptions" class="quiz-options"></div>
+    <div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
+    <div class="quiz-footer"><span id="quizScore" class="quiz-muted"></span><button class="quiz-action" id="quizNext" type="button" hidden></button></div>
+  </section>
+</div>
+<div id="panelBackdrop" class="panel-backdrop" aria-hidden="true"></div>
 <aside
     class="info-panel"
     id="infoPanel"
@@ -1060,6 +1143,13 @@ html[lang="vi"] .info-panel .description {
     tabindex="-1"
 >
 
+    <div class="panel-toolbar">
+      <span class="panel-eyebrow" id="panelEyebrow">ELEMENT PREVIEW</span>
+      <div class="panel-actions">
+        <button type="button" id="panelExpand" class="panel-action primary" aria-expanded="false">Explore in Detail ↗</button>
+        <button type="button" id="panelClose" class="panel-action icon-action" aria-label="Close information panel">✕</button>
+      </div>
+    </div>
     <div class="info-label">Selected element</div>
 
     <div class="info-heading">
@@ -1155,6 +1245,8 @@ html[lang="vi"] .info-panel .description {
         Carbon is a nonmetal and is the basis of many important
         compounds and forms of life.
     </div>
+
+    <section class="encyclopedia" id="elementEncyclopedia" aria-label="Element encyclopedia"></section>
 
     <button
         class="back-btn"
@@ -1840,8 +1932,9 @@ function setLanguage(language) {
     currentLanguage = language;
     try { localStorage.setItem('periodic-table-language', language); } catch (e) {}
     translateStaticUI();
+    updatePanelLanguage();
     buildTable();
-    if (selectedElement) selectElement(selectedElement);
+    if (selectedElement) selectElement(selectedElement, false);
     performSearch();
     const activeCategory = document.querySelector('.legend button.active')?.dataset.category || 'all';
     if (activeCategory !== 'all') document.querySelectorAll('.element').forEach(card => {
@@ -2416,7 +2509,110 @@ document.querySelectorAll('[data-copy-config]').forEach(button => {
     });
 });
 
-function selectElement(element) {
+
+/* Carefully sourced initial entries. All other elements explicitly remain pending review. */
+const VERIFIED_ENCYCLOPEDIA = {
+  6: {
+    overview: {en:'Carbon forms several allotropes, including diamond and graphite, and is central to the chemistry of living things.',vi:'Carbon tồn tại ở nhiều dạng thù hình, trong đó có kim cương và than chì, đồng thời giữ vai trò trung tâm trong hóa học của sự sống.'},
+    physical: [
+      ['State at 20°C','Trạng thái ở 20°C','Solid','Chất rắn'],
+      ['Density: graphite','Khối lượng riêng: than chì','2.2 g/cm³','2,2 g/cm³'],
+      ['Density: diamond','Khối lượng riêng: kim cương','3.513 g/cm³','3,513 g/cm³'],
+      ['Phase change','Chuyển pha','Sublimes at about 3825°C (RSC reference conditions)','Thăng hoa ở khoảng 3825°C (theo điều kiện tham chiếu của RSC)']
+    ],
+    chemical: {en:'Carbon can form strong bonds with itself, producing chains and many other structures. Its allotropes have very different physical properties.',vi:'Carbon có thể tạo liên kết bền với chính nó, hình thành chuỗi và nhiều cấu trúc khác. Các dạng thù hình của carbon có tính chất vật lí rất khác nhau.'},
+    uses: {en:'Graphite is used in pencils and electrodes; activated carbon in filtration; diamond in cutting and drilling; carbon fibres in lightweight composites.',vi:'Than chì được dùng trong bút chì và điện cực; carbon hoạt tính dùng để lọc; kim cương dùng để cắt và khoan; sợi carbon dùng trong vật liệu composite nhẹ.'},
+    sources:[['Royal Society of Chemistry','https://periodic-table.rsc.org/element/6/carbon']]
+  },
+  26: {
+    overview:{en:'Iron is a widely used transition metal. Most refined iron goes into steel, and iron is also essential to oxygen transport in the human body.',vi:'Iron là kim loại chuyển tiếp được sử dụng rộng rãi. Phần lớn iron tinh luyện được dùng để sản xuất thép; nguyên tố này cũng thiết yếu đối với quá trình vận chuyển oxy trong cơ thể.'},
+    physical:[
+      ['State at 20°C','Trạng thái ở 20°C','Solid','Chất rắn'],
+      ['Density','Khối lượng riêng','7.87 g/cm³','7,87 g/cm³'],
+      ['Melting point','Nhiệt độ nóng chảy','1538°C','1538°C'],
+      ['Boiling point','Nhiệt độ sôi','2861°C','2861°C']
+    ],
+    chemical:{en:'Iron commonly forms compounds containing Fe(II) and Fe(III). In damp air, iron can corrode and form rust.',vi:'Iron thường tạo hợp chất chứa Fe(II) và Fe(III). Trong không khí ẩm, iron có thể bị ăn mòn và tạo gỉ.'},
+    uses:{en:'Iron is primarily used to manufacture steel for buildings, bridges, vehicles and machinery. Iron-based catalysts are also used in industrial chemistry.',vi:'Iron chủ yếu được dùng sản xuất thép cho công trình, cầu, phương tiện và máy móc. Chất xúc tác chứa iron cũng được sử dụng trong công nghiệp hóa học.'},
+    sources:[['Royal Society of Chemistry','https://periodic-table.rsc.org/element/26/iron']]
+  }
+};
+
+/* Reference-level profiles for all elements. These are NOT marked as fully verified
+   encyclopedia entries; detailed properties and uses require individual source review. */
+const ELEMENT_STATES_GAS = new Set([1,2,7,8,9,10,17,18,36,54,86]);
+const ELEMENT_STATES_LIQUID = new Set([35,80]);
+const ELEMENT_STATES_UNCERTAIN = new Set([104,105,106,107,108,109,110,111,112,113,114,115,116,117,118]);
+const CATEGORY_CONTEXT = {
+  alkali:['Alkali metals generally react readily and tend to form +1 ions.','Kim loại kiềm nhìn chung dễ phản ứng và thường tạo ion mang điện tích +1.'],
+  alkaline:['Alkaline earth metals commonly form +2 ions.','Kim loại kiềm thổ thường tạo ion mang điện tích +2.'],
+  transition:['Transition metals often exhibit variable oxidation states; behavior depends on the element.','Nhiều kim loại chuyển tiếp có nhiều số oxi hóa; tính chất cụ thể tùy nguyên tố.'],
+  'post-transition':['This metal belongs to the post-transition region; its chemistry must be considered individually.','Kim loại này thuộc vùng sau chuyển tiếp; cần xem xét riêng tính chất hóa học của từng nguyên tố.'],
+  metalloid:['Metalloids have properties intermediate between typical metals and nonmetals.','Á kim có những tính chất trung gian giữa kim loại và phi kim điển hình.'],
+  nonmetal:['Nonmetals display varied bonding and reactivity depending on the element.','Phi kim có kiểu liên kết và mức độ phản ứng đa dạng tùy nguyên tố.'],
+  halogen:['Halogens are group 17 elements and often form compounds with metals.','Halogen thuộc nhóm 17 và thường tạo hợp chất với kim loại.'],
+  noble:['Noble gases are generally relatively unreactive, although some can form compounds.','Khí hiếm nhìn chung ít phản ứng, dù một số nguyên tố vẫn có thể tạo hợp chất.'],
+  lanthanide:['Lanthanides are metallic elements with closely related chemistry, often featuring the +3 oxidation state.','Các nguyên tố họ Lanthanide là kim loại có tính chất hóa học gần nhau, thường gặp số oxi hóa +3.'],
+  actinide:['Actinides are radioactive elements; their chemical behavior varies considerably.','Các nguyên tố họ Actinide có tính phóng xạ; tính chất hóa học của chúng khá đa dạng.']
+};
+function referenceProfile(element) {
+  const vi=currentLanguage==='vi';
+  const context=CATEGORY_CONTEXT[element.category] || ['Properties depend on the element.','Tính chất phụ thuộc từng nguyên tố.'];
+  const state=ELEMENT_STATES_UNCERTAIN.has(element.n)
+    ? [ 'Not reliably established', 'Chưa được xác định đáng tin cậy' ]
+    : ELEMENT_STATES_GAS.has(element.n) ? ['Gas','Khí']
+    : ELEMENT_STATES_LIQUID.has(element.n) ? ['Liquid','Lỏng'] : ['Solid','Rắn'];
+  return {
+    overview: vi
+      ? `${element.name} (số hiệu nguyên tử ${element.n}) thuộc nhóm ${element.category.replaceAll("-"," ")}. ${context[1]}`
+      : `${element.name} (atomic number ${element.n}) belongs to the ${element.category.replaceAll("-"," ")} category. ${context[0]}`,
+    state:state[vi?1:0], chemical:context[vi?1:0],
+    source:`https://periodic-table.rsc.org/element/${element.n}`
+  };
+}
+
+function renderEncyclopedia(element) {
+  const host=document.getElementById('elementEncyclopedia');
+  if (!host) return;
+  const vi=currentLanguage==='vi', entry=VERIFIED_ENCYCLOPEDIA[element.n];
+  host.replaceChildren();
+  const heading=document.createElement('h3');heading.textContent=vi?'Khám phá nguyên tố':'Explore this element';host.append(heading);
+  const intro=document.createElement('div');intro.className='encyclopedia-intro';
+  intro.textContent=entry?entry.overview[vi?'vi':'en']:(vi?'Nội dung chuyên sâu của nguyên tố này đang chờ kiểm chứng. Không hiển thị dữ liệu chưa xác minh.':'This element’s extended profile is awaiting verification. Unverified facts are not displayed.');
+  host.append(intro);
+  if (!entry) {
+    const ref=referenceProfile(element);
+    intro.textContent=ref.overview;
+    const make=(title,value)=>{const d=document.createElement('details');const s=document.createElement('summary');s.textContent=title;const b=document.createElement('div');b.className='encyclopedia-body';b.textContent=value;d.append(s,b);host.append(d);};
+    make(vi?'Tính chất vật lí':'Physical properties',(vi?'Trạng thái ở khoảng 20°C: ':'State near 20°C: ')+ref.state);
+    make(vi?'Tính chất hóa học':'Chemical properties',ref.chemical);
+    make(vi?'Ứng dụng thực tế':'Real-world applications',vi?'Ứng dụng cụ thể cần được đối chiếu theo nguồn khoa học cho nguyên tố này. Xem liên kết tham khảo bên dưới.':'Element-specific applications are pending individual source review. See the reference below.');
+    const d=document.createElement('details');const summary=document.createElement('summary');summary.textContent=vi?'Nguồn tham khảo':'Sources';
+    const body=document.createElement('div');body.className='encyclopedia-body';
+    const a=document.createElement('a');a.href=ref.source;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Royal Society of Chemistry — '+element.name;
+    body.append(a);d.append(summary,body);host.append(d);
+    const status=document.createElement('p');status.className='review-status';status.textContent=vi?'Hồ sơ cơ bản · Các số liệu chi tiết và ứng dụng đang chờ xác minh riêng.':'Basic reference profile · Detailed measurements and applications pending individual verification.';host.append(status);
+    return;
+  }
+  const addSection=(title,fill,open=false)=>{
+    const d=document.createElement('details');d.open=open;
+    const summary=document.createElement('summary');summary.textContent=title;
+    const body=document.createElement('div');body.className='encyclopedia-body';fill(body);
+    d.append(summary,body);host.append(d);
+  };
+  addSection(vi?'Tính chất vật lí':'Physical properties',body=>{
+    entry.physical.forEach(f=>{const row=document.createElement('div');row.className='fact';const label=document.createElement('span');label.textContent=f[vi?1:0];const value=document.createElement('span');value.textContent=f[vi?3:2];row.append(label,value);body.append(row);});
+  },true);
+  addSection(vi?'Tính chất hóa học':'Chemical properties',body=>{body.textContent=entry.chemical[vi?'vi':'en'];});
+  addSection(vi?'Ứng dụng thực tế':'Real-world applications',body=>{body.textContent=entry.uses[vi?'vi':'en'];});
+  addSection(vi?'Nguồn tham khảo':'Sources',body=>{
+    entry.sources.forEach(([label,url])=>{const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label;body.append(a);});
+    const note=document.createElement('p');note.className='review-status';note.textContent=vi?'Các giá trị phụ thuộc điều kiện đo hoặc dạng thù hình nếu có ghi chú.':'Values may depend on measurement conditions or allotrope as noted.';body.append(note);
+  });
+}
+
+function selectElement(element, openPanel = true) {
+    if (openPanel) openElementPanel();
     selectedElement = element;
     const japanesePalettes = {
         alkali: ["#b54b4b", "#802e3a"],
@@ -2484,6 +2680,7 @@ function selectElement(element) {
 
     infoDescription.textContent =
         getDescription(element);
+    renderEncyclopedia(element);
 
 
     /*
@@ -2492,47 +2689,6 @@ function selectElement(element) {
 
     createElectronDiagram(element);
     updateConfiguration(element);
-
-
-    /*
-       Automatically move user to
-       information panel.
-    */
-
-    const isMobile =
-        window.innerWidth <= 1000;
-
-    if (isMobile) {
-
-        setTimeout(() => {
-
-            infoPanel.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-            setTimeout(() => {
-
-                infoPanel.focus({
-                    preventScroll: true
-                });
-
-            }, 450);
-
-        }, 50);
-
-    } else {
-
-        /*
-           On desktop the panel is already visible,
-           so only ensure it is comfortably visible.
-        */
-
-        infoPanel.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
-    }
 
 
     /*
@@ -2673,19 +2829,50 @@ document
    BACK TO TABLE
 ========================================================= */
 
-backButton.addEventListener(
-    "click",
-    () => {
-
-        document
-            .getElementById("periodicTableSection")
-            .scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-    }
-);
-
+const panelBackdrop = document.getElementById('panelBackdrop');
+const panelExpand = document.getElementById('panelExpand');
+const panelClose = document.getElementById('panelClose');
+let panelLastFocus = null;
+function updatePanelLanguage(){
+  const vi = currentLanguage === 'vi';
+  document.getElementById('panelEyebrow').textContent = vi ? 'THÔNG TIN NGUYÊN TỐ' : 'ELEMENT PREVIEW';
+  panelExpand.textContent = document.body.classList.contains('panel-expanded')
+    ? (vi ? '← Xem nhanh' : '← Quick View')
+    : (vi ? 'Khám phá chi tiết ↗' : 'Explore in Detail ↗');
+  panelExpand.setAttribute('aria-expanded',String(document.body.classList.contains('panel-expanded')));
+  panelClose.setAttribute('aria-label',vi?'Đóng bảng thông tin':'Close information panel');
+}
+function openElementPanel(){
+  if(!document.body.classList.contains('panel-open')) panelLastFocus=document.activeElement;
+  document.body.classList.add('panel-open');
+  document.body.classList.remove('panel-expanded');
+  infoPanel.scrollTop=0;
+  updatePanelLanguage();
+  panelClose.focus({preventScroll:true});
+}
+function closeElementPanel(){
+  document.body.classList.remove('panel-open','panel-expanded');
+  updatePanelLanguage();
+  if(panelLastFocus && panelLastFocus.isConnected) panelLastFocus.focus({preventScroll:true});
+}
+panelExpand.addEventListener('click',()=>{
+  document.body.classList.toggle('panel-expanded');
+  infoPanel.scrollTop=0;
+  updatePanelLanguage();
+});
+panelClose.addEventListener('click',closeElementPanel);
+panelBackdrop.addEventListener('click',closeElementPanel);
+backButton.addEventListener('click',closeElementPanel);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape' && document.body.classList.contains('panel-open')) closeElementPanel();
+  if(e.key==='Tab' && document.body.classList.contains('panel-open')){
+    const focusable=[...infoPanel.querySelectorAll('button:not([disabled]),a[href],input,select,[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length);
+    if(!focusable.length)return;
+    const first=focusable[0],last=focusable[focusable.length-1];
+    if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus()}
+  }
+});
 
 /* =========================================================
    KEYBOARD SEARCH
@@ -2722,6 +2909,89 @@ searchInput.addEventListener(
 );
 
 
+
+/* =========================================================
+   BILINGUAL CHEMISTRY QUIZ (10 questions per round)
+   Facts are derived from the existing 118-element dataset.
+========================================================= */
+const quizUI = {
+  overlay:document.getElementById('chemQuizOverlay'),dialog:document.querySelector('.quiz-dialog'),
+  heading:document.getElementById('quizHeading'),intro:document.getElementById('quizIntro'),
+  question:document.getElementById('quizQuestion'),options:document.getElementById('quizOptions'),
+  feedback:document.getElementById('quizFeedback'),score:document.getElementById('quizScore'),
+  next:document.getElementById('quizNext'),progress:document.getElementById('quizProgress')
+};
+let quizQuestions=[],quizIndex=0,quizCorrect=0,quizAnswered=false,quizPreviousFocus=null;
+const quizText = {
+ en:{title:'Chemistry Quiz',intro:'10 questions · Elements, symbols, atomic numbers and periods',
+ score:'Score',next:'Next question',results:'Round complete!',again:'Play again',
+ correct:'Correct!',wrong:'Not quite.',answer:'Correct answer:',
+ questions:[e=>`What is the symbol for ${e.name}?`,e=>`Which element has the symbol ${e.s}?`,
+ e=>`What is the atomic number of ${e.name}?`,e=>`Which period contains ${e.name}?`]},
+ vi:{title:'Trắc nghiệm hóa học',intro:'10 câu hỏi · Nguyên tố, kí hiệu, số hiệu nguyên tử và chu kì',
+ score:'Điểm',next:'Câu tiếp theo',results:'Hoàn thành lượt chơi!',again:'Chơi lại',
+ correct:'Chính xác!',wrong:'Chưa đúng.',answer:'Đáp án đúng:',
+ questions:[e=>`Kí hiệu hóa học của ${e.name} là gì?`,e=>`Nguyên tố nào có kí hiệu ${e.s}?`,
+ e=>`Số hiệu nguyên tử của ${e.name} là bao nhiêu?`,e=>`${e.name} thuộc chu kì nào?`]}
+};
+const quizShuffle = arr => {const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function createQuizQuestion(element,type){
+ const value = (e)=>type===0?e.s:type===1?e.name:type===2?String(e.n):String(e.period);
+ const answer=value(element);
+ const pool=quizShuffle([...new Set(elements.map(value).filter(x=>x!==answer))]);
+ const options=quizShuffle([answer,...pool.slice(0,3)]);
+ return {element,type,answer,options};
+}
+function startChemQuiz(){
+ const chosen=quizShuffle(elements).slice(0,10);
+ quizQuestions=chosen.map((e,i)=>createQuizQuestion(e,i%4));
+ quizIndex=0;quizCorrect=0;renderChemQuiz();
+}
+function renderChemQuiz(){
+ const t=quizText[currentLanguage==='vi'?'vi':'en'];
+ quizUI.heading.textContent=t.title;quizUI.intro.textContent=t.intro;
+ quizUI.options.replaceChildren();quizUI.feedback.textContent='';quizAnswered=false;
+ quizUI.progress.style.width=`${quizIndex/quizQuestions.length*100}%`;
+ quizUI.score.textContent=`${t.score}: ${quizCorrect} / ${quizQuestions.length}`;
+ if(quizIndex>=quizQuestions.length){
+   quizUI.question.textContent=`${t.results} ${quizCorrect} / ${quizQuestions.length}`;
+   quizUI.progress.style.width='100%';quizUI.next.hidden=false;quizUI.next.textContent=t.again;return;
+ }
+ const q=quizQuestions[quizIndex];quizUI.question.textContent=`${quizIndex+1}. ${t.questions[q.type](q.element)}`;
+ quizUI.next.hidden=true;quizUI.next.textContent=t.next;
+ q.options.forEach(opt=>{
+  const button=document.createElement('button');button.type='button';button.className='quiz-option';button.textContent=opt;
+  button.addEventListener('click',()=>{
+   if(quizAnswered)return;quizAnswered=true;
+   const right=opt===q.answer;if(right)quizCorrect++;
+   quizUI.options.querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.textContent===q.answer)b.classList.add('correct');else if(b===button)b.classList.add('incorrect')});
+   quizUI.feedback.textContent=right?t.correct:`${t.wrong} ${t.answer} ${q.answer}`;
+   quizUI.score.textContent=`${t.score}: ${quizCorrect} / ${quizQuestions.length}`;
+   quizUI.next.hidden=false;quizUI.next.focus();
+  });
+  quizUI.options.appendChild(button);
+ });
+}
+function openChemQuiz(){quizPreviousFocus=document.activeElement;quizUI.overlay.classList.add('open');document.body.style.overflow='hidden';startChemQuiz();document.getElementById('closeChemQuiz').focus()}
+function closeChemQuiz(){quizUI.overlay.classList.remove('open');document.body.style.overflow='';quizPreviousFocus?.focus()}
+document.getElementById('openChemQuiz').addEventListener('click',openChemQuiz);
+document.getElementById('closeChemQuiz').addEventListener('click',closeChemQuiz);
+quizUI.next.addEventListener('click',()=>{if(quizIndex>=quizQuestions.length)startChemQuiz();else{quizIndex++;renderChemQuiz()}});
+quizUI.overlay.addEventListener('click',e=>{if(e.target===quizUI.overlay)closeChemQuiz()});
+document.addEventListener('keydown',e=>{
+ if(!quizUI.overlay.classList.contains('open'))return;
+ if(e.key==='Escape'){e.preventDefault();closeChemQuiz();return}
+ if(e.key==='Tab'){
+  const focusable=[...quizUI.dialog.querySelectorAll('button:not([hidden]):not([disabled])')];
+  const first=focusable[0],last=focusable[focusable.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+});
+// Language changes re-render the current question without resetting the score.
+const originalSetLanguage=setLanguage;
+setLanguage=function(lang){originalSetLanguage(lang);if(quizUI.overlay.classList.contains('open'))renderChemQuiz()};
+
 /* =========================================================
    INITIALIZE
 ========================================================= */
@@ -2743,7 +3013,7 @@ buildTable();
 const defaultElement =
     elements.find(e => e.n === 6);
 
-selectElement(defaultElement);
+selectElement(defaultElement, false);
 
 </script>
 
