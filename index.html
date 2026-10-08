@@ -419,6 +419,30 @@ h1 {
 
 /* Diagram */
 
+/* Animated Bohr-style electron illustration */
+.electron-orbit-rotor {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    animation: electron-orbit var(--orbit-duration, 12s) linear infinite;
+    animation-direction: var(--orbit-direction, normal);
+    will-change: transform;
+}
+@keyframes electron-orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.electron-diagram .electron {
+    box-shadow: 0 0 7px rgba(204,225,255,.5);
+}
+.electron-diagram .electron.outer {
+    box-shadow: 0 0 12px rgba(96,165,250,.85);
+}
+@media (prefers-reduced-motion: reduce) {
+    .electron-orbit-rotor { animation: none !important; }
+}
+
+
 .electron-diagram {
     position: relative;
     width: min(360px, 100%);
@@ -963,6 +987,13 @@ html[lang="vi"] .info-panel .description {
   word-spacing: normal;
   text-rendering: optimizeLegibility;
 }
+
+/* Moonlit Japan interactive 3D electron visualization */
+.electron-diagram { width:min(360px,100%); height:auto; aspect-ratio:auto; display:block; }
+.atom-3d-canvas { display:block; width:100%; aspect-ratio:1; height:auto; cursor:grab; touch-action:none; border-radius:14px; border:1px solid rgba(223,187,120,.25); background:rgba(6,13,25,.25); }
+.atom-3d-canvas:active { cursor:grabbing; }
+.atom-3d-canvas:focus-visible { outline:2px solid #e6c58e; outline-offset:3px; }
+.atom-3d-hint { font: 11px/1.5 system-ui,sans-serif; color:#c8bda9; text-align:center; padding:7px 3px 0; }
 </style>
 </head>
 
@@ -2130,178 +2161,130 @@ function buildTable() {
    ELECTRON DIAGRAM
 ========================================================= */
 
+/* Interactive perspective-projected 3D Bohr-style visualization.
+   Self-contained Canvas renderer: no external scripts or CDN required. */
+let atom3DController = null;
 function createElectronDiagram(element) {
-
-    electronDiagram.innerHTML = "";
-    shellInfo.innerHTML = "";
-
+    if (atom3DController) atom3DController.dispose();
+    electronDiagram.replaceChildren();
+    shellInfo.replaceChildren();
     const shells = element.shells;
-
-    const outermost =
-        shells.length - 1;
-
-    const valence =
-        shells[outermost];
-
-    valenceCount.textContent =
-        `${valence} ${currentLanguage === "vi" ? "e⁻ hóa trị" : "valence e⁻"}`;
-
-    /*
-       Nucleus
-    */
-
-    const nucleus =
-        document.createElement("div");
-
-    nucleus.className =
-        "electron-nucleus";
-
-    nucleus.innerHTML = `
-        <div class="nucleus-symbol">
-            ${element.s}
-        </div>
-
-        <div class="nucleus-number">
-            Z = ${element.n}
-        </div>
-    `;
-
-    electronDiagram.appendChild(nucleus);
-
-
-    /*
-       Shell diameters.
-    */
-
-    const diagramWidth = electronDiagram.clientWidth || 320;
-    const shellScale = Math.min(1, (diagramWidth - 24) / 304);
-    const sizes = [
-        78,
-        116,
-        154,
-        192,
-        230,
-        268,
-        304
-    ];
-
-
-    shells.forEach(
-        (electronCount, shellIndex) => {
-
-            const shell =
-                document.createElement("div");
-
-            const isOuter =
-                shellIndex === outermost;
-
-            shell.className =
-                "electron-shell" +
-                (isOuter ? " outermost" : "");
-
-            const size =
-                sizes[
-                    Math.min(
-                        shellIndex,
-                        sizes.length - 1
-                    )
-                ] * shellScale;
-
-            shell.style.width =
-                `${size}px`;
-
-            shell.style.height =
-                `${size}px`;
-
-
-            /*
-               Place electrons around the shell.
-            */
-
-            for (
-                let i = 0;
-                i < electronCount;
-                i++
-            ) {
-
-                const electron =
-                    document.createElement("div");
-
-                electron.className =
-                    "electron" +
-                    (isOuter ? " outer" : "");
-
-
-                /*
-                   Rotate starting position
-                   so the diagram looks balanced.
-                */
-
-                const angle =
-                    (360 / electronCount) * i - 90;
-
-                const radius =
-                    size / 2;
-
-
-                const x =
-                    50 +
-                    (
-                        Math.cos(
-                            angle * Math.PI / 180
-                        ) *
-                        radius /
-                        size
-                    ) * 100;
-
-
-                const y =
-                    50 +
-                    (
-                        Math.sin(
-                            angle * Math.PI / 180
-                        ) *
-                        radius /
-                        size
-                    ) * 100;
-
-
-                electron.style.left =
-                    `${x}%`;
-
-                electron.style.top =
-                    `${y}%`;
-
-
-                shell.appendChild(electron);
+    const outermost = shells.length - 1;
+    valenceCount.textContent = `${shells[outermost]} ${currentLanguage === "vi" ? "e⁻ hóa trị" : "valence e⁻"}`;
+    shells.forEach((count, index) => {
+        const label = document.createElement('div');
+        label.className = 'shell-count' + (index === outermost ? ' outer' : '');
+        label.textContent = `${currentLanguage === 'vi' ? 'Lớp' : 'Shell'} ${index+1}: ${count} e⁻` +
+            (index === outermost ? (currentLanguage === 'vi' ? ' • NGOÀI CÙNG' : ' • OUTERMOST') : '');
+        shellInfo.appendChild(label);
+    });
+    const canvas = document.createElement('canvas');
+    canvas.className = 'atom-3d-canvas';
+    canvas.setAttribute('role','img');
+    canvas.setAttribute('aria-label', `${element.name}: interactive three-dimensional Bohr-style model, ${shells.join(', ')} electrons by shell`);
+    canvas.tabIndex = 0;
+    electronDiagram.appendChild(canvas);
+    const hint = document.createElement('div');
+    hint.className = 'atom-3d-hint';
+    hint.textContent = currentLanguage === 'vi' ? 'Kéo để xoay · Cuộn để thu phóng · Nhấp đúp để đặt lại' : 'Drag to rotate · Scroll to zoom · Double-click to reset';
+    electronDiagram.appendChild(hint);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) { hint.textContent = '3D canvas unavailable'; return; }
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let yaw = -.38, pitch = -.27, zoom = 1, phase = 0, raf = 0, disposed = false;
+    let dragging = false, lastX = 0, lastY = 0, lastTime = 0;
+    const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+    function resize() {
+        const r = canvas.getBoundingClientRect();
+        const size = Math.max(100, Math.round(r.width || 320));
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(size*dpr); canvas.height = Math.round(size*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        draw();
+    }
+    function project(x,y,z,size) {
+        const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
+        const xx=x*cy-z*sy, zz=x*sy+z*cy;
+        const yy=y*cp-zz*sp, depth=y*sp+zz*cp;
+        const perspective=3.8/(3.8-depth*.55);
+        return {x:size/2+xx*size*.34*zoom*perspective,
+                y:size/2+yy*size*.34*zoom*perspective,
+                depth, scale:perspective};
+    }
+    function draw() {
+        if(disposed) return;
+        const size=canvas.clientWidth||320;
+        ctx.clearRect(0,0,size,size);
+        const bg=ctx.createRadialGradient(size*.5,size*.48,4,size*.5,size*.5,size*.53);
+        bg.addColorStop(0,'rgba(40,64,92,.38)'); bg.addColorStop(1,'rgba(5,12,25,.06)');
+        ctx.fillStyle=bg;ctx.fillRect(0,0,size,size);
+        const objects=[];
+        shells.forEach((count,k)=>{
+            const radius=.24+k*(.71/Math.max(1,shells.length-1));
+            const tilt=.48+k*.31, spin=k*1.31;
+            function point(t) {
+                const x=radius*Math.cos(t), y=radius*Math.sin(t);
+                return project(x*Math.cos(spin)-y*Math.sin(spin)*Math.cos(tilt),
+                    y*Math.sin(tilt), x*Math.sin(spin)+y*Math.cos(spin)*Math.cos(tilt),size);
             }
-
-
-            electronDiagram.appendChild(shell);
-
-
-            /*
-               Shell information labels.
-            */
-
-            const label =
-                document.createElement("div");
-
-            label.className =
-                "shell-count" +
-                (isOuter ? " outer" : "");
-
-            label.textContent =
-                `${currentLanguage === "vi" ? "Lớp" : "Shell"} ${shellIndex + 1}: ${electronCount} e⁻` +
-                (
-                    isOuter
-                        ? (currentLanguage === "vi" ? " • NGOÀI CÙNG" : " • OUTERMOST")
-                        : ""
-                );
-
-            shellInfo.appendChild(label);
+            // Split orbit into depth-sorted segments, so front electrons obscure back lines.
+            for(let j=0;j<100;j++) {
+                const p=point(j*Math.PI*2/100),q=point((j+1)*Math.PI*2/100);
+                objects.push({kind:'line',depth:(p.depth+q.depth)/2,p,q,outer:k===outermost});
+            }
+            for(let j=0;j<count;j++) {
+                const t=j*2*Math.PI/count + phase*(.48/(1+k*.55))*(k%2?-1:1);
+                objects.push({kind:'electron',depth:point(t).depth,p:point(t),outer:k===outermost});
+            }
+        });
+        objects.push({kind:'nucleus',depth:0});
+        objects.sort((a,b)=>a.depth-b.depth);
+        for(const item of objects) {
+            if(item.kind==='line') {
+                ctx.strokeStyle=item.outer?'rgba(223,178,255,.52)':'rgba(148,195,225,.32)';
+                ctx.lineWidth=item.outer?1.35:1.05;
+                ctx.beginPath();ctx.moveTo(item.p.x,item.p.y);ctx.lineTo(item.q.x,item.q.y);ctx.stroke();
+            } else if(item.kind==='electron') {
+                const r=clamp((item.outer?4.1:3.1)*item.p.scale*zoom,1.8,6.2);
+                ctx.shadowColor=item.outer?'#dc9fff':'#8edaff';ctx.shadowBlur=item.outer?15:10;
+                ctx.fillStyle=item.outer?'#f3d1ff':'#b6eaff';ctx.beginPath();
+                ctx.arc(item.p.x,item.p.y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+            } else {
+                const x=size/2,y=size/2,r=clamp(size*.073*zoom,13,28);
+                const glow=ctx.createRadialGradient(x-r*.25,y-r*.3,1,x,y,r*1.8);
+                glow.addColorStop(0,'#fff4c8');glow.addColorStop(.42,'#dfad73');glow.addColorStop(1,'rgba(130,63,76,0)');
+                ctx.fillStyle=glow;ctx.beginPath();ctx.arc(x,y,r*1.8,0,Math.PI*2);ctx.fill();
+                ctx.fillStyle='#21182c';ctx.strokeStyle='#f0c68c';ctx.lineWidth=1.6;
+                ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();
+                ctx.fillStyle='#fff0d2';ctx.textAlign='center';ctx.textBaseline='middle';
+                ctx.font=`bold ${Math.max(11,Math.min(17,r*.8))}px Georgia,serif`;
+                ctx.fillText(element.s,x,y-3);
+                ctx.font=`${Math.max(8,Math.min(10,r*.43))}px sans-serif`;
+                ctx.fillText('Z='+element.n,x,y+r*.47);
+            }
         }
-    );
+    }
+    function frame(now) {
+        if(disposed) return;
+        if(!motion.matches && !document.hidden) {
+            phase+=Math.min((now-(lastTime||now))/1000,.05);
+            draw();
+        }
+        lastTime=now;raf=requestAnimationFrame(frame);
+    }
+    function down(e) {dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);}
+    function move(e) {if(!dragging)return;yaw+=(e.clientX-lastX)*.012;pitch=clamp(pitch+(e.clientY-lastY)*.012,-1.5,1.5);lastX=e.clientX;lastY=e.clientY;draw();}
+    function up(){dragging=false;}
+    function wheel(e){e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.65,1.7);draw();}
+    function reset(){yaw=-.38;pitch=-.27;zoom=1;draw();}
+    function key(e){if(e.key==='ArrowLeft')yaw-=.12;else if(e.key==='ArrowRight')yaw+=.12;else if(e.key==='ArrowUp')pitch-=.12;else if(e.key==='ArrowDown')pitch+=.12;else if(e.key==='+'||e.key==='=')zoom=clamp(zoom*1.1,.65,1.7);else if(e.key==='-')zoom=clamp(zoom/1.1,.65,1.7);else return;e.preventDefault();draw();}
+    canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);
+    canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
+    canvas.addEventListener('wheel',wheel,{passive:false});canvas.addEventListener('dblclick',reset);
+    canvas.addEventListener('keydown',key);
+    const observer=new ResizeObserver(resize);observer.observe(canvas);
+    resize();raf=requestAnimationFrame(frame);
+    atom3DController={dispose(){disposed=true;cancelAnimationFrame(raf);observer.disconnect();}};
 }
 
 
