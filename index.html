@@ -1042,8 +1042,8 @@ body.panel-open{overflow:hidden}
 
 
 /* Moonlit study quiz — isolated from the element drawer */
-.quiz-launch{position:absolute;top:9px;right:14px;z-index:5;display:flex;justify-content:flex-end;margin:0}.quiz-launch button{font-size:12px;min-height:30px;padding:6px 12px;box-shadow:0 2px 12px #0006}.quiz-launch button:hover{filter:brightness(1.12)}
-@media(max-width:650px){.quiz-launch{position:relative;top:auto;right:auto;justify-content:flex-end;margin:0 0 12px}.table-panel::before{padding-right:0}}
+.quiz-launch{position:relative;z-index:5;display:flex;justify-content:flex-end;margin:0 3px 10px}.quiz-launch button{font-size:12px;min-height:30px;padding:6px 12px;box-shadow:0 2px 12px #0006}.quiz-launch button:hover{filter:brightness(1.12)}
+@media(max-width:650px){.quiz-launch{justify-content:flex-end;margin:0 2px 9px}.table-panel::before{padding-right:0}}
 .quiz-launch button,.quiz-action{border:1px solid #d8b779;border-radius:10px;background:linear-gradient(145deg,#d9b87e,#9c7643);color:#101d2d;font-weight:800;padding:11px 18px;cursor:pointer}
 .quiz-overlay{position:fixed;inset:0;z-index:20000;background:rgba(4,11,24,.85);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(8px)}
 .quiz-overlay.open{display:flex}
@@ -1101,8 +1101,8 @@ body.panel-open{overflow:hidden}
 
 <main class="main-layout">
 
+<div class="quiz-launch"><button id="openChemQuiz" type="button">✦ Chemistry Quiz / Trắc nghiệm</button></div>
 <section class="table-panel" id="periodicTableSection">
-    <div class="quiz-launch"><button id="openChemQuiz" type="button">✦ Chemistry Quiz / Trắc nghiệm</button></div>
 
     <div class="table-scroll">
         <div class="periodic-table" id="periodicTable"></div>
