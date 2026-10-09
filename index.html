@@ -1107,6 +1107,12 @@ body.panel-open{overflow:hidden}
 .science-footer a{color:#b9def7;text-decoration:underline;text-underline-offset:2px}
 .science-footer .science-footer-sources{margin-top:10px}
 @media(max-width:600px){.science-footer{margin:20px 12px;padding:12px 0;font-size:12px}}
+.guide-launch-btn{white-space:nowrap;border-color:#d8b778;color:#f8e2ad;background:linear-gradient(135deg,#2c3850,#384461);font-weight:700}
+.guide-launch-btn:hover{background:#455676;border-color:#f2d39b}
+.element-guide-dialog{max-width:650px;max-height:min(84vh,760px);overflow-y:auto}
+.element-guide-content ul{padding-left:23px;line-height:1.65;color:#e3ebf7}
+.element-guide-content li{margin-bottom:12px}
+@media(max-width:540px){.search-area{flex-wrap:wrap}.guide-launch-btn{flex:1 1 auto}}
 </style>
 </head>
 
@@ -1139,6 +1145,7 @@ body.panel-open{overflow:hidden}
         <button class="clear-btn" id="clearSearch">
             Clear
         </button>
+        <button class="clear-btn guide-launch-btn" id="openElementGuide" type="button" aria-haspopup="dialog">✦ Element Guide</button>
     </div>
 </header>
 
@@ -1173,11 +1180,16 @@ body.panel-open{overflow:hidden}
 
 
 
+<div id="elementGuideOverlay" class="quiz-overlay" role="presentation">
+  <section class="quiz-dialog element-guide-dialog" role="dialog" aria-modal="true" aria-labelledby="quizGuideTitle" tabindex="-1">
+    <div class="quiz-head"><h2 id="quizGuideTitle">How to locate an element</h2><button class="quiz-close" id="closeElementGuide" type="button" aria-label="Close guide">×</button></div>
+    <div id="quizGuideContent" class="element-guide-content"></div>
+  </section>
+</div>
 <div id="chemQuizOverlay" class="quiz-overlay" role="presentation">
   <section class="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="quizHeading" tabindex="-1">
     <div class="quiz-head"><h2 id="quizHeading">Chemistry Quiz</h2><button class="quiz-close" id="closeChemQuiz" type="button" aria-label="Close">×</button></div>
     <p id="quizIntro" class="quiz-muted"></p>
-    <details class="quiz-study-guide" id="quizStudyGuide"><summary id="quizGuideTitle"></summary><div id="quizGuideContent"></div></details>
     <div class="quiz-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="quizProgress"></div></div>
     <p id="quizQuestion" class="quiz-question"></p>
     <details class="quiz-hint" id="quizHint"><summary id="quizHintTitle"></summary><p id="quizHintText"></p></details>
@@ -4112,6 +4124,7 @@ const quizLearning = {
 function updateQuizLearning(type){
  const lang=currentLanguage==='vi'?'vi':'en', l=quizLearning[lang];
  document.getElementById('quizGuideTitle').textContent=l.guideTitle;
+ document.getElementById('openElementGuide').textContent=lang==='vi'?'✦ Mẹo tìm nguyên tố':'✦ Element Guide';
  const content=document.getElementById('quizGuideContent');
  content.replaceChildren();
  const list=document.createElement('ul');
@@ -4222,9 +4235,26 @@ document.addEventListener('keydown',e=>{
   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
  }
 });
+// The element guide is accessible from the main search toolbar.
+const elementGuideOverlay=document.getElementById('elementGuideOverlay');
+const elementGuideLaunch=document.getElementById('openElementGuide');
+const elementGuideClose=document.getElementById('closeElementGuide');
+function closeElementGuide(){elementGuideOverlay.classList.remove('open');elementGuideLaunch.focus()}
+elementGuideLaunch.addEventListener('click',()=>{
+ updateQuizLearning(0);
+ elementGuideOverlay.classList.add('open');
+ elementGuideClose.focus();
+});
+elementGuideClose.addEventListener('click',closeElementGuide);
+elementGuideOverlay.addEventListener('click',e=>{if(e.target===elementGuideOverlay)closeElementGuide()});
+document.addEventListener('keydown',e=>{
+ if(!elementGuideOverlay.classList.contains('open'))return;
+ if(e.key==='Escape'){e.preventDefault();closeElementGuide()}
+ if(e.key==='Tab'){e.preventDefault();elementGuideClose.focus()}
+});
 // Language changes re-render the current question without resetting the score.
 const originalSetLanguage=setLanguage;
-setLanguage=function(lang){originalSetLanguage(lang);if(quizUI.overlay.classList.contains('open'))renderChemQuiz()};
+setLanguage=function(lang){originalSetLanguage(lang);updateQuizLearning(quizQuestions[quizIndex]?.type ?? 0);if(quizUI.overlay.classList.contains('open'))renderChemQuiz()};
 
 /* =========================================================
    INITIALIZE
@@ -4237,6 +4267,7 @@ document.getElementById('langEN').addEventListener('click', () => setLanguage('e
 document.getElementById('langVI').addEventListener('click', () => setLanguage('vi'));
 try { currentLanguage = localStorage.getItem('periodic-table-language') === 'vi' ? 'vi' : 'en'; } catch (e) {}
 translateStaticUI();
+updateQuizLearning(0);
 updateCategoryExplanation();
 buildTable();
 
