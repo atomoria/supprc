@@ -1298,7 +1298,7 @@ body.panel-open{overflow:hidden}
 <footer class="science-footer" aria-label="Scientific accuracy and sources" id="scienceFooter">
   <details>
     <summary id="scienceFooterTitle">About &amp; Scientific Accuracy</summary>
-    <p id="scienceFooterDescription">This periodic table is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values.</p>
+    <p id="scienceFooterDescription">This periodic table is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values. Atomic weights use CIAAW 2024 abridged values where available; bracketed whole numbers represent isotope mass numbers, not standard atomic weights. The 34 isotope mass numbers have been aligned with the CIAAW/NUBASE2020 reference table; some isotopes have multiple plausible selections.</p>
     <p class="science-footer-sources"><span id="scienceFooterSourcesLabel">Authoritative references:</span> <a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener noreferrer">IUPAC</a> · <a href="https://www.rsc.org/periodic-table" target="_blank" rel="noopener noreferrer">Royal Society of Chemistry</a> · <a href="https://physics.nist.gov/PhysRefData/ASD/" target="_blank" rel="noopener noreferrer">NIST</a></p>
   </details>
 </footer>
@@ -1316,24 +1316,24 @@ const elements = [
 
 /* Period 1 */
 {
-    n:1,s:"H",name:"Hydrogen",mass:"1.008",
+    n:1,s:"H",name:"Hydrogen",mass:"1.0080",
     category:"nonmetal",period:1,group:1,
     shells:[1]
 },
 {
-    n:2,s:"He",name:"Helium",mass:"4.003",
+    n:2,s:"He",name:"Helium",mass:"4.0026",
     category:"noble",period:1,group:18,
     shells:[2]
 },
 
 /* Period 2 */
 {
-    n:3,s:"Li",name:"Lithium",mass:"6.941",
+    n:3,s:"Li",name:"Lithium",mass:"6.94",
     category:"alkali",period:2,group:1,
     shells:[2,1]
 },
 {
-    n:4,s:"Be",name:"Beryllium",mass:"9.012",
+    n:4,s:"Be",name:"Beryllium",mass:"9.0122",
     category:"alkaline",period:2,group:2,
     shells:[2,2]
 },
@@ -1405,7 +1405,7 @@ const elements = [
     shells:[2,8,7]
 },
 {
-    n:18,s:"Ar",name:"Argon",mass:"39.948",
+    n:18,s:"Ar",name:"Argon",mass:"39.95",
     category:"noble",period:3,group:18,
     shells:[2,8,8]
 },
@@ -1519,7 +1519,7 @@ const elements = [
     shells:[2,8,18,9,2]
 },
 {
-    n:40,s:"Zr",name:"Zirconium",mass:"91.224",
+    n:40,s:"Zr",name:"Zirconium",mass:"91.222",
     category:"transition",period:5,group:4,
     shells:[2,8,18,10,2]
 },
@@ -1926,8 +1926,72 @@ const elements = [
     shells:[2,8,18,32,32,18,8]
 }
 
+
 ];
 
+/* =========================================================
+   SCIENTIFIC DATA PROVENANCE — AUDIT PHASES 2–4
+   These are metadata wrappers around the existing display data.
+   CIAAW abridged values are source-tagged; isotope mass numbers remain
+   placeholders pending isotope-specific confirmation.
+========================================================= */
+const SCIENTIFIC_REFERENCE_URLS = Object.freeze({
+    atomicWeights: 'https://www.ciaaw.org/abridged-atomic-weights.htm',
+    configurations: 'https://www.nist.gov/pml/atomic-spectra-database',
+    periodicTable: 'https://periodic-table.rsc.org/'
+});
+
+const CIAAW_2024_ABRIDGED = Object.freeze(["1.0080", "4.0026", "6.94", "9.0122", "10.81", "12.011", "14.007", "15.999", "18.998", "20.180", "22.990", "24.305", "26.982", "28.085", "30.974", "32.06", "35.45", "39.95", "39.098", "40.078", "44.956", "47.867", "50.942", "51.996", "54.938", "55.845", "58.933", "58.693", "63.546", "65.38", "69.723", "72.630", "74.922", "78.971", "79.904", "83.798", "85.468", "87.62", "88.906", "91.222", "92.906", "95.95", "-", "101.07", "102.91", "106.42", "107.87", "112.41", "114.82", "118.71", "121.76", "127.60", "126.90", "131.29", "132.91", "137.33", "138.91", "140.12", "140.91", "144.24", "-", "150.36", "151.96", "157.25", "158.93", "162.50", "164.93", "167.26", "168.93", "173.05", "174.97", "178.49", "180.95", "183.84", "186.21", "190.23", "192.22", "195.08", "196.97", "200.59", "204.38", "207.2", "208.98", "-", "-", "-", "-", "-", "-", "232.04", "231.04", "238.03", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]);
+const CIAAW_NUBASE2020_ISOTOPE_OPTIONS = Object.freeze({"43":[97,98],"61":[145],"84":[209],"85":[210],"86":[222],"87":[223],"88":[226],"89":[227],"93":[237],"94":[244],"95":[243],"96":[247],"97":[247],"98":[251],"99":[252],"100":[257],"101":[258],"102":[259],"103":[262,266],"104":[267],"105":[268],"106":[269,271],"107":[270,274],"108":[269,270],"109":[277,278],"110":[281],"111":[282],"112":[285],"113":[285,286],"114":[289,290],"115":[288,289,290],"116":[291,292,293],"117":[294],"118":[294]});
+const CIAAW_ISOTOPE_REFERENCE = "https://ciaaw.org/radioactive-elements.htm";
+const CIAAW_NO_STANDARD_WEIGHT = Object.freeze([43, 61, 84, 85, 86, 87, 88, 89, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]);
+for (const element of elements) {
+    const standard = CIAAW_2024_ABRIDGED[element.n - 1];
+    const hasStandard = standard !== '-';
+    const isotopeOptions = CIAAW_NUBASE2020_ISOTOPE_OPTIONS[element.n] || null;
+    const legacyMassNumber = hasStandard ? null : Number(element.mass);
+    const isotopeMassNumber = hasStandard ? null : (isotopeOptions.includes(legacyMassNumber) ? legacyMassNumber : isotopeOptions[0]);
+    const isotopeConfirmed = !hasStandard && isotopeOptions.includes(isotopeMassNumber);
+    element.atomicWeight = {
+        kind: hasStandard ? 'abridgedStandardAtomicWeight' : 'isotopeMassNumber',
+        display: hasStandard ? standard : '[' + isotopeMassNumber + ']',
+        value: hasStandard ? Number(standard) : null,
+        isotopeMassNumber: isotopeMassNumber,
+        isotopeNotation: hasStandard ? null : element.s + '-' + isotopeMassNumber,
+        isotopeSelectionBasis: hasStandard ? null : (isotopeOptions.length > 1 ? 'One of multiple CIAAW/NUBASE2020 candidates; no uniquely established longest-lived isotope' : 'Listed in CIAAW/NUBASE2020 radioactive-elements table'),
+        isotopeAlternatives: hasStandard ? [] : isotopeOptions.filter(m => m !== isotopeMassNumber),
+        verification: hasStandard ? 'sourceCheckedCIAAW2024' : (isotopeConfirmed ? 'isotopeMassNumberCheckedCIAAWNUBASE2020' : 'massNumberRequiresIsotopeVerification'),
+        source: hasStandard ? 'CIAAW Abridged Standard Atomic Weights 2024' : (isotopeConfirmed ? 'CIAAW radioactive elements — NUBASE2020 (2022 table)' : 'Isotope identity not independently verified'),
+        reference: hasStandard ? SCIENTIFIC_REFERENCE_URLS.atomicWeights : CIAAW_ISOTOPE_REFERENCE
+    };
+    element.electronConfigurationReview = {
+        verification: element.n >= 104 ? 'predictedRequiresReview' : 'pendingIndividualReferenceCheck',
+        reference: SCIENTIFIC_REFERENCE_URLS.configurations,
+        note: element.n >= 104 ? 'Ground-state configuration is theoretical or uncertain; verify independently.' : 'Electron-count and shell consistency checks do not constitute external scientific verification.'
+    };
+    element.classificationReview = {
+        verification: 'pending',
+        note: 'Teaching category; boundaries are conventional and distinct from numbered groups.'
+    };
+    element.profileReview = 'pending';
+    element.displayColumn = element.group;
+}
+
+function getAtomicWeightDisplay(element) {
+    return element.atomicWeight.display;
+}
+function getAtomicWeightMeaning(element) {
+    if (element.atomicWeight.kind === 'abridgedStandardAtomicWeight')
+        return currentLanguage === 'vi' ? 'Nguyên tử khối tiêu chuẩn rút gọn (CIAAW 2024)' : 'Abridged standard atomic weight (CIAAW 2024)';
+    if (element.atomicWeight.verification === 'isotopeMassNumberCheckedCIAAWNUBASE2020') {
+        const alternatives = element.atomicWeight.isotopeAlternatives;
+        if (alternatives.length) return currentLanguage === 'vi'
+            ? 'Số khối đồng vị theo CIAAW/NUBASE2020; có các đồng vị ứng viên khác: ' + alternatives.join(', ') + '. Không phải nguyên tử khối tiêu chuẩn.'
+            : 'CIAAW/NUBASE2020 isotope mass number; other plausible candidates: ' + alternatives.join(', ') + '. Not a standard atomic weight.';
+        return currentLanguage === 'vi' ? 'Số khối đồng vị theo CIAAW/NUBASE2020; không phải nguyên tử khối tiêu chuẩn' : 'CIAAW/NUBASE2020 isotope mass number; not a standard atomic weight';
+    }
+    return currentLanguage === 'vi' ? 'Số khối đồng vị chưa được kiểm chứng độc lập; không phải nguyên tử khối tiêu chuẩn' : 'Isotope mass number not independently verified; not a standard atomic weight';
+}
 
 /* =========================================================
    DESCRIPTION GENERATOR
@@ -1961,8 +2025,8 @@ function translateStaticUI() {
     const viDisclaimer = currentLanguage === 'vi';
     document.getElementById('scienceFooterTitle').textContent = viDisclaimer ? 'Giới thiệu & Độ chính xác khoa học' : 'About & Scientific Accuracy';
     document.getElementById('scienceFooterDescription').textContent = viDisclaimer
-      ? 'Bảng tuần hoàn này là tài liệu tham khảo phục vụ học tập. Mô hình nguyên tử chuyển động chỉ minh họa sự phân bố electron theo lớp, không mô tả quỹ đạo chuyển động thực tế của electron. Các giá trị khoa học có thể phụ thuộc vào điều kiện đo; một số tính chất, đặc biệt ở các nguyên tố tổng hợp tồn tại rất ngắn, chỉ là dự đoán, chưa chắc chắn hoặc chưa được đo. Không phải hồ sơ của mọi nguyên tố đều đã được kiểm chứng riêng; hãy tham khảo các nguồn khoa học được dẫn liên kết trước khi sử dụng số liệu cụ thể.'
-      : 'This periodic table is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values.';
+      ? 'Bảng tuần hoàn này là tài liệu tham khảo phục vụ học tập. Mô hình nguyên tử chuyển động chỉ minh họa sự phân bố electron theo lớp, không mô tả quỹ đạo chuyển động thực tế của electron. Các giá trị khoa học có thể phụ thuộc vào điều kiện đo; một số tính chất, đặc biệt ở các nguyên tố tổng hợp tồn tại rất ngắn, chỉ là dự đoán, chưa chắc chắn hoặc chưa được đo. Không phải hồ sơ của mọi nguyên tố đều đã được kiểm chứng riêng. Số khối của 34 nguyên tố không có nguyên tử khối tiêu chuẩn được đối chiếu với CIAAW/NUBASE2020; một số có nhiều đồng vị ứng viên. Hãy tham khảo các nguồn khoa học được dẫn liên kết trước khi sử dụng số liệu cụ thể.'
+      : 'This periodic table is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values. Atomic weights use CIAAW 2024 abridged values where available; bracketed whole numbers represent isotope mass numbers, not standard atomic weights. The 34 isotope mass numbers have been aligned with the CIAAW/NUBASE2020 reference table; some isotopes have multiple plausible selections.';
     document.getElementById('scienceFooterSourcesLabel').textContent = viDisclaimer ? 'Nguồn tham khảo khoa học:' : 'Authoritative references:';
     document.documentElement.lang = currentLanguage;
     document.title = currentLanguage === 'vi' ? 'Bảng tuần hoàn các nguyên tố hóa học' : 'Interactive Periodic Table';
@@ -2186,6 +2250,7 @@ function createElementCard(element, allowUnpositioned = false) {
     button.dataset.viName = viName(element).toLocaleLowerCase("vi");
     button.dataset.symbol = element.s.toLowerCase();
     button.dataset.category = element.category;
+    button.title = `${element.name} — ${getAtomicWeightMeaning(element)}: ${getAtomicWeightDisplay(element)}`;
 
     button.innerHTML = `
         <div class="element-number">
@@ -2201,7 +2266,7 @@ function createElementCard(element, allowUnpositioned = false) {
         </div>
 
         <div class="element-mass">
-            ${element.mass}
+            ${getAtomicWeightDisplay(element)}
         </div>
     `;
 
@@ -2520,6 +2585,62 @@ const configExceptions = {
     92:{'5f':3,'6d':1},93:{'5f':4,'6d':1},96:{'5f':7,'6d':1},
     103:{'6d':0,'7p':1},110:{'7s':1,'6d':9},111:{'7s':1,'6d':10}
 };
+/* Phase 7: externally cross-checked exceptional configurations, not a blanket certification. */
+const PHASE7_CHECKED_CONFIGURATIONS = Object.freeze([24, 29, 41, 42, 44, 45, 46, 47, 57, 58, 64, 78, 79, 89, 90, 91, 92, 93, 96]);
+const PHASE7_CONFIGURATION_SOURCE = "https://edu.rsc.org/feature/the-trouble-with-the-aufbau-principle/2000133.article";
+for (const element of elements) {
+    if (PHASE7_CHECKED_CONFIGURATIONS.includes(element.n)) {
+        element.electronConfigurationReview = {
+            verification: 'crossCheckedPublishedException',
+            reference: PHASE7_CONFIGURATION_SOURCE,
+            note: 'Exceptional ground-state configuration cross-checked against RSC Education; other properties are not certified.'
+        };
+    }
+}
+/* Phase 7 continuation: first 20 neutral-atom configurations checked against NIST SRD 111. */
+const NIST_FIRST20_SOURCE = "https://www.nist.gov/pml/ground-levels-and-ionization-energies-neutral-atoms";
+for (const element of elements) {
+    if (element.n >= 1 && element.n <= 20) {
+        element.electronConfigurationReview = {
+            verification: 'crossCheckedNISTNeutralGroundState',
+            reference: NIST_FIRST20_SOURCE,
+            note: 'Ground-state configuration cross-checked with NIST SRD 111; other element properties are not certified.'
+        };
+    }
+}
+/* Phase 7: NIST neutral-atom reference cross-check, Z=21–92.
+   Verified against https://www.nist.gov/pml/atomic-reference-data-electronic-structure-calculations/atomic-reference-data-electronic-8
+   Do not treat the electron-shell animation as a literal electron trajectory. */
+const NIST_VERIFIED_21_TO_92 = Object.freeze([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92]);
+for (const element of elements) {
+    if (NIST_VERIFIED_21_TO_92.includes(element.n)) {
+        element.electronConfigurationReview = {
+            verification: 'crossCheckedNISTNeutralGroundState',
+            reference: 'https://www.nist.gov/pml/atomic-reference-data-electronic-structure-calculations/atomic-reference-data-electronic-8',
+            note: 'Neutral ground-state configuration cross-checked against NIST reference; other properties are not certified.'
+        };
+    }
+}
+/* Phase 7 closure: all 118 records assigned an explicit evidence status.
+   Z=93–103 have not been individually confirmed against a primary reference in this audit.
+   Z=104–118 use model-dependent configurations; none is certified as measured. */
+const PHASE7_UNRESOLVED = Object.freeze(Array.from({length: 11}, (_, i) => i + 93));
+const PHASE7_THEORETICAL = Object.freeze(Array.from({length: 15}, (_, i) => i + 104));
+for (const element of elements) {
+    if (PHASE7_UNRESOLVED.includes(element.n)) {
+        element.electronConfigurationReview = {
+            verification: 'provisionalNeedsPrimarySource',
+            reference: SCIENTIFIC_REFERENCE_URLS.configurations,
+            note: 'Provisional neutral-atom configuration; individual primary-source comparison still required. Do not label as verified.'
+        };
+    } else if (PHASE7_THEORETICAL.includes(element.n)) {
+        element.electronConfigurationReview = {
+            verification: 'theoreticalNotExperimentallyEstablished',
+            reference: SCIENTIFIC_REFERENCE_URLS.configurations,
+            note: 'Model-dependent ground-state configuration; experimentally unconfirmed or uncertain. Not a measured electron trajectory.'
+        };
+    }
+}
 const nobleCores = [[2,'He'],[10,'Ne'],[18,'Ar'],[36,'Kr'],[54,'Xe'],[86,'Rn']];
 function orbitalOccupancy(atomicNumber) {
     let remaining = atomicNumber;
@@ -2554,9 +2675,24 @@ function updateConfiguration(element) {
     const abbreviated = core ? `[${core[1]}] ${formatConfiguration(occupancy, core[0])}` : full;
     document.getElementById('configurationFull').innerHTML = full;
     document.getElementById('configurationShort').innerHTML = abbreviated;
-    document.getElementById('configurationNote').textContent = element.n >= 104
-        ? (currentLanguage === 'vi' ? 'Cấu hình electron dự đoán; cấu trúc của các nguyên tố siêu nặng chưa được xác nhận đầy đủ bằng thực nghiệm.' : 'Predicted electron configuration; superheavy-element structures may not be experimentally confirmed.')
-        : (currentLanguage === 'vi' ? 'Cấu hình electron trạng thái cơ bản của nguyên tử trung hòa.' : 'Ground-state electron configuration of a neutral atom.');
+    const isPredicted = element.n >= 104;
+    const phase7Checked = element.electronConfigurationReview.verification === 'crossCheckedPublishedException';
+    const nistChecked = element.electronConfigurationReview.verification === 'crossCheckedNISTNeutralGroundState';
+    const isPalladium = element.n === 46;
+    const isLawrencium = element.n === 103;
+    document.getElementById('configurationNote').textContent = isPredicted
+        ? (currentLanguage === 'vi' ? 'Cấu hình electron được dự đoán bằng lý thuyết, chưa được xác nhận đầy đủ bằng thực nghiệm. Không xem đây là dữ liệu đã kiểm chứng.' : 'Theoretical/predicted electron configuration, not fully established experimentally. Do not treat this as verified data.')
+        : isPalladium
+        ? (currentLanguage === 'vi' ? 'Palladium có cấu hình [Kr] 4d¹⁰ (không có electron 5s ở trạng thái cơ bản). Vì vậy mô hình chỉ hiển thị bốn lớp electron có electron, dù Pd thuộc chu kì 5.' : 'Palladium has the ground-state configuration [Kr] 4d¹⁰ (no 5s electron). The shell illustration therefore shows four occupied shells even though Pd belongs to Period 5.')
+        : isLawrencium
+        ? (currentLanguage === 'vi' ? 'Cấu hình [Rn] 5f¹⁴ 7s² 7p¹ thường được dùng cho lawrencium, nhưng mục này chưa được đối chiếu độc lập với nguồn gốc trong đợt kiểm tra này. Mô hình electron chỉ mang tính minh họa.' : 'Lawrencium is commonly represented as [Rn] 5f¹⁴ 7s² 7p¹, but this entry has not been independently checked against a primary source in this audit. The shell model is illustrative.')
+        : element.electronConfigurationReview.verification === 'provisionalNeedsPrimarySource'
+        ? (currentLanguage === 'vi' ? 'Cấu hình tạm thời: chưa được đối chiếu độc lập với tài liệu gốc. Không nên coi đây là dữ liệu đã xác minh.' : 'Provisional configuration: individual primary-source verification is outstanding. Do not treat this as verified data.')
+        : nistChecked
+        ? (currentLanguage === 'vi' ? 'Cấu hình electron trạng thái cơ bản đã được đối chiếu với dữ liệu NIST. Hình minh họa quỹ đạo electron không biểu diễn chuyển động thực tế.' : 'Ground-state electron configuration cross-checked against NIST data. The electron-shell animation does not depict real electron trajectories.')
+        : phase7Checked
+        ? (currentLanguage === 'vi' ? 'Cấu hình ngoại lệ đã được đối chiếu với tài liệu của Hiệp hội Hóa học Hoàng gia (RSC). Mô hình lớp electron vẫn chỉ mang tính minh họa.' : 'This exceptional configuration was cross-checked against Royal Society of Chemistry educational references. The shell animation remains illustrative.')
+        : (currentLanguage === 'vi' ? 'Cấu hình electron trạng thái cơ bản của nguyên tử trung hòa. Đang chờ đối chiếu riêng từng nguyên tố với nguồn tham khảo.' : 'Ground-state electron configuration of a neutral atom. Individual reference verification remains pending.');
     document.querySelectorAll('[data-copy-config]').forEach(button => {
         button.dataset.copyText = configurationText(button.dataset.copyConfig === 'full' ? full : abbreviated);
     });
@@ -2731,7 +2867,9 @@ function selectElement(element, openPanel = true) {
         element.n;
 
     infoMass.textContent =
-        element.mass;
+        getAtomicWeightDisplay(element);
+    infoMass.title = getAtomicWeightMeaning(element);
+    infoMass.setAttribute("aria-label", getAtomicWeightMeaning(element) + ": " + getAtomicWeightDisplay(element));
 
     infoPeriod.textContent =
         element.period;
