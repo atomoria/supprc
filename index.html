@@ -1071,6 +1071,10 @@ body.panel-open{overflow:hidden}
 .quiz-progress{height:7px;border-radius:9px;background:#334761;overflow:hidden;margin:13px 0 20px}
 .quiz-progress>div{height:100%;background:#d9b87e;transition:width .25s}
 .quiz-question{font-size:1.2rem;font-weight:700;line-height:1.5;margin:12px 0}
+.quiz-study-guide{margin:12px 0;padding:12px 14px;border:1px solid #627997;border-radius:12px;background:#142740;line-height:1.55}
+.quiz-study-guide summary,.quiz-hint summary{cursor:pointer;color:#f1d49b;font-weight:700}
+.quiz-study-guide p,.quiz-hint p{margin:8px 0 0;color:#dce6f5}
+.quiz-hint{margin:10px 0 4px;padding:10px 12px;border-left:3px solid #d9b87e;background:#192e49;border-radius:8px}
 .quiz-feedback{min-height:46px;line-height:1.5;color:#e5d4b8}
 .quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .quiz-muted{color:#c2cde0;font-size:.92rem}
@@ -1172,8 +1176,12 @@ body.panel-open{overflow:hidden}
 <div id="chemQuizOverlay" class="quiz-overlay" role="presentation">
   <section class="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="quizHeading" tabindex="-1">
     <div class="quiz-head"><h2 id="quizHeading">Chemistry Quiz</h2><button class="quiz-close" id="closeChemQuiz" type="button" aria-label="Close">×</button></div>
-    <p id="quizIntro" class="quiz-muted"></p><div class="quiz-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="quizProgress"></div></div>
-    <p id="quizQuestion" class="quiz-question"></p><div id="quizOptions" class="quiz-options"></div>
+    <p id="quizIntro" class="quiz-muted"></p>
+    <details class="quiz-study-guide" id="quizStudyGuide"><summary id="quizGuideTitle"></summary><div id="quizGuideContent"></div></details>
+    <div class="quiz-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="quizProgress"></div></div>
+    <p id="quizQuestion" class="quiz-question"></p>
+    <details class="quiz-hint" id="quizHint"><summary id="quizHintTitle"></summary><p id="quizHintText"></p></details>
+    <div id="quizOptions" class="quiz-options"></div>
     <div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
     <div class="quiz-footer"><span id="quizScore" class="quiz-muted"></span><button class="quiz-action" id="quizNext" type="button" hidden></button></div>
   </section>
@@ -4038,33 +4046,129 @@ const quizUI = {
 };
 let quizQuestions=[],quizIndex=0,quizCorrect=0,quizAnswered=false,quizSelectedAnswer=null,quizPreviousFocus=null;
 const quizText = {
- en:{title:'Chemistry Quiz',intro:'10 questions · Elements, symbols, atomic numbers and periods',
+ en:{title:'Chemistry Challenge',intro:'10 harder questions · Electron shells, periodic groups and atomic structure',
  score:'Score',next:'Next question',results:'Round complete!',again:'Play again',
- correct:'Correct!',wrong:'Not quite.',answer:'Correct answer:',
- questions:[e=>`What is the symbol for ${e.name}?`,e=>`Which element has the symbol ${e.s}?`,
- e=>`What is the atomic number of ${e.name}?`,e=>`Which period contains ${e.name}?`]},
- vi:{title:'Trắc nghiệm hóa học',intro:'10 câu hỏi · Nguyên tố, kí hiệu, số hiệu nguyên tử và chu kì',
+ correct:'Correct! ',wrong:'Not quite. ',answer:'Correct answer: ',
+ questions:[
+ q=>`A neutral atom of ${q.element.name} has ${q.element.n} electrons. How many electrons are in its outermost occupied shell?`,
+ q=>`Which element is in the same periodic-table group as ${q.element.name}?`,
+ q=>`An atom has electrons distributed among shells as ${q.element.shells.join('–')}. What is its atomic number?`,
+ q=>`Which electron-shell distribution belongs to ${q.element.name}?`,
+ q=>`Which element is in the same period as ${q.element.name}, but in a different group?`
+ ]},
+ vi:{title:'Thử thách hóa học',intro:'10 câu nâng cao · Lớp electron, nhóm tuần hoàn và cấu tạo nguyên tử',
  score:'Điểm',next:'Câu tiếp theo',results:'Hoàn thành lượt chơi!',again:'Chơi lại',
- correct:'Chính xác!',wrong:'Chưa đúng.',answer:'Đáp án đúng:',
- questions:[e=>`Kí hiệu hóa học của ${e.name} là gì?`,e=>`Nguyên tố nào có kí hiệu ${e.s}?`,
- e=>`Số hiệu nguyên tử của ${e.name} là bao nhiêu?`,e=>`${e.name} thuộc chu kì nào?`]}
+ correct:'Chính xác! ',wrong:'Chưa đúng. ',answer:'Đáp án đúng: ',
+ questions:[
+ q=>`Nguyên tử trung hòa của ${q.element.name} có ${q.element.n} electron. Lớp electron ngoài cùng có bao nhiêu electron?`,
+ q=>`Nguyên tố nào thuộc cùng nhóm trong bảng tuần hoàn với ${q.element.name}?`,
+ q=>`Một nguyên tử có phân bố electron theo các lớp là ${q.element.shells.join('–')}. Số hiệu nguyên tử của nó là bao nhiêu?`,
+ q=>`Phân bố electron theo lớp nào thuộc về ${q.element.name}?`,
+ q=>`Nguyên tố nào cùng chu kì nhưng khác nhóm với ${q.element.name}?`
+ ]}
 };
+const quizLearning = {
+ en:{
+  guideTitle:'How to locate an element — quick guide',
+  guide:[
+   'Period = horizontal row. An element in period 3 is on the third row of the main table.',
+   'Group = vertical column, numbered 1–18. Elements in one group share a column.',
+   'For main-group elements, groups 1–2 are on the left and groups 13–18 on the right; groups 3–12 occupy the middle.',
+   'Atomic number (Z) = number of protons; in a neutral atom, it also equals the number of electrons.',
+   'Electron-shell numbers add up to Z. The number of occupied shells gives the period (in the ground-state model used here).',
+   'For main-group elements, outer-shell electron counts usually follow groups 1–2 → 1–2, and 13–18 → 3–8; helium is an exception with 2.',
+   'The two separated rows below the main table belong to the f-block (lanthanoids and actinoids).'
+  ],
+  hintTitle:'Need a strategy? Show a hint',
+  hints:[
+   'Find the electron-shell distribution in the question. Its last entry gives the number of electrons in the outermost occupied shell.',
+   'Look for another element in the same vertical column. Check its group number, not just its color.',
+   'Add all the electron counts shown. For a neutral atom, the total is the atomic number.',
+   'Match the total electron count and the number of occupied shells. Eliminate options that fail either check.',
+   'Elements in the same horizontal row have the same period number. Their group numbers must differ here.'
+  ]
+ },
+ vi:{
+  guideTitle:'Mẹo tìm nguyên tố trong bảng tuần hoàn',
+  guide:[
+   'Chu kì là hàng ngang. Nguyên tố thuộc chu kì 3 nằm ở hàng thứ ba của bảng chính.',
+   'Nhóm là cột dọc, đánh số từ 1 đến 18. Các nguyên tố cùng nhóm nằm trên một cột.',
+   'Với các nguyên tố nhóm chính, nhóm 1–2 ở bên trái, nhóm 13–18 ở bên phải; nhóm 3–12 nằm giữa.',
+   'Số hiệu nguyên tử (Z) bằng số proton; ở nguyên tử trung hòa, Z cũng bằng số electron.',
+   'Cộng số electron trên các lớp sẽ được Z. Số lớp có electron cho biết chu kì (theo mô hình trạng thái cơ bản ở đây).',
+   'Với nguyên tố nhóm chính, số electron lớp ngoài cùng thường là 1–2 ở nhóm 1–2, và 3–8 ở nhóm 13–18; helium là ngoại lệ với 2 electron.',
+   'Hai hàng tách riêng phía dưới thuộc khối f (họ lanthanoid và actinoid).'
+  ],
+  hintTitle:'Cần gợi ý? Bấm để xem',
+  hints:[
+   'Xem phân bố electron theo lớp trong câu hỏi. Số cuối cùng là số electron ở lớp ngoài cùng.',
+   'Tìm nguyên tố khác cùng cột dọc. So sánh số nhóm thay vì chỉ nhìn màu ô.',
+   'Cộng số electron ở tất cả các lớp. Với nguyên tử trung hòa, tổng này bằng số hiệu nguyên tử.',
+   'So sánh tổng electron và số lớp có electron. Loại các phương án không khớp một trong hai điều kiện.',
+   'Các nguyên tố cùng hàng ngang có cùng chu kì. Trong câu này, chúng phải khác nhóm.'
+  ]
+ }
+};
+function updateQuizLearning(type){
+ const lang=currentLanguage==='vi'?'vi':'en', l=quizLearning[lang];
+ document.getElementById('quizGuideTitle').textContent=l.guideTitle;
+ const content=document.getElementById('quizGuideContent');
+ content.replaceChildren();
+ const list=document.createElement('ul');
+ for(const item of l.guide){const li=document.createElement('li');li.textContent=item;list.append(li)}
+ content.append(list);
+ document.getElementById('quizHintTitle').textContent=l.hintTitle;
+ document.getElementById('quizHintText').textContent=l.hints[type]||'';
+}
 const quizShuffle = arr => {const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const quizMainGroup = elements.filter(e=>e.n<=54 && e.group!==null &&
+ ([1,2,13,14,15,16,17,18].includes(e.group)));
+const quizShellString = e=>e.shells.join('–');
 function createQuizQuestion(element,type){
- const value = (e)=>type===0?e.s:type===1?e.name:type===2?String(e.n):String(e.period);
- const answer=value(element);
- const pool=quizShuffle([...new Set(elements.map(value).filter(x=>x!==answer))]);
- const options=quizShuffle([answer,...pool.slice(0,3)]);
- return {element,type,answer,options};
+ let answer,pool,explain;
+ if(type===0){
+   answer=String(element.shells[element.shells.length-1]);
+   pool=['1','2','3','4','5','6','7','8'].filter(v=>v!==answer);
+   explain={en:`The shell distribution is ${quizShellString(element)}; the final number counts electrons in the outermost occupied shell.`,
+    vi:`Phân bố electron theo lớp là ${quizShellString(element)}; số cuối cùng cho biết số electron ở lớp ngoài cùng.`};
+ }else if(type===1){
+   const matches=quizMainGroup.filter(e=>e.group===element.group&&e.n!==element.n);
+   const target=quizShuffle(matches)[0];
+   answer=target.name;
+   pool=quizShuffle(quizMainGroup.filter(e=>e.group!==element.group)).map(e=>e.name);
+   explain={en:`${element.name} and ${target.name} are both in group ${element.group}.`,
+    vi:`${element.name} và ${target.name} đều thuộc nhóm ${element.group}.`};
+ }else if(type===2){
+   answer=String(element.n);
+   pool=quizShuffle(elements.filter(e=>e.n!==element.n && Math.abs(e.n-element.n)<=9)).map(e=>String(e.n));
+   explain={en:`Adding the shell populations (${element.shells.join(' + ')}) gives ${element.n} electrons, equal to the atomic number of a neutral atom.`,
+    vi:`Tổng electron các lớp (${element.shells.join(' + ')}) là ${element.n}; nguyên tử trung hòa có số electron bằng số hiệu nguyên tử.`};
+ }else if(type===3){
+   answer=quizShellString(element);
+   pool=quizShuffle(elements.filter(e=>e.n!==element.n)).map(quizShellString);
+   explain={en:`${element.name} has ${element.n} electrons distributed as ${answer}.`,
+    vi:`${element.name} có ${element.n} electron phân bố theo các lớp là ${answer}.`};
+ }else{
+   const matches=quizMainGroup.filter(e=>e.period===element.period&&e.group!==element.group);
+   const target=quizShuffle(matches)[0];
+   answer=target.name;
+   pool=quizShuffle(quizMainGroup.filter(e=>e.period!==element.period)).map(e=>e.name);
+   explain={en:`${element.name} and ${target.name} are in period ${element.period}, but in groups ${element.group} and ${target.group}.`,
+    vi:`${element.name} và ${target.name} cùng chu kì ${element.period}, nhưng thuộc nhóm ${element.group} và ${target.group}.`};
+ }
+ const options=quizShuffle([answer,...new Set(pool.filter(x=>x!==answer))].slice(0,4));
+ return {element,type,answer,options,explain};
 }
 function startChemQuiz(){
- const chosen=quizShuffle(elements).slice(0,10);
- quizQuestions=chosen.map((e,i)=>createQuizQuestion(e,i%4));
+ const types=quizShuffle([0,1,2,3,4,0,1,2,3,4]);
+ const chosen=quizShuffle(quizMainGroup).slice(0,10);
+ quizQuestions=chosen.map((e,i)=>createQuizQuestion(e,types[i]));
  quizIndex=0;quizCorrect=0;quizAnswered=false;quizSelectedAnswer=null;renderChemQuiz();
 }
 function renderChemQuiz(){
  const t=quizText[currentLanguage==='vi'?'vi':'en'];
  quizUI.heading.textContent=t.title;quizUI.intro.textContent=t.intro;
+ updateQuizLearning(quizQuestions[quizIndex]?.type ?? 0);
  const preserveAnswer=quizAnswered && quizSelectedAnswer!==null;
  quizUI.options.replaceChildren();quizUI.feedback.textContent='';if(!preserveAnswer)quizAnswered=false;
  quizUI.progress.style.width=`${quizIndex/quizQuestions.length*100}%`;
@@ -4075,7 +4179,8 @@ function renderChemQuiz(){
    quizUI.question.textContent=`${t.results} ${quizCorrect} / ${quizQuestions.length}`;
    quizUI.progress.style.width='100%';quizUI.progress.parentElement.setAttribute('aria-valuenow','10');quizUI.next.hidden=false;quizUI.next.textContent=t.again;return;
  }
- const q=quizQuestions[quizIndex];quizUI.question.textContent=`${quizIndex+1}. ${t.questions[q.type](q.element)}`;
+ if(!preserveAnswer)document.getElementById('quizHint').open=false;
+ const q=quizQuestions[quizIndex];quizUI.question.textContent=`${quizIndex+1}. ${t.questions[q.type](q)}`;
  quizUI.next.hidden=true;quizUI.next.textContent=t.next;
  q.options.forEach(opt=>{
   const button=document.createElement('button');button.type='button';button.className='quiz-option';button.textContent=opt;
@@ -4083,7 +4188,7 @@ function renderChemQuiz(){
    if(quizAnswered)return;quizAnswered=true;quizSelectedAnswer=opt;
    const right=opt===q.answer;if(right)quizCorrect++;
    quizUI.options.querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.textContent===q.answer)b.classList.add('correct');else if(b===button)b.classList.add('incorrect')});
-   quizUI.feedback.textContent=right?t.correct:`${t.wrong} ${t.answer} ${q.answer}`;
+   quizUI.feedback.textContent=(right?t.correct:`${t.wrong} ${t.answer}${q.answer}. `)+q.explain[currentLanguage==='vi'?'vi':'en'];
    quizUI.score.textContent=`${t.score}: ${quizCorrect} / ${quizQuestions.length}`;
    quizUI.next.hidden=false;quizUI.next.focus();
   });
@@ -4095,7 +4200,7 @@ function renderChemQuiz(){
   quizUI.options.appendChild(button);
  });
  if(preserveAnswer){
-   quizUI.feedback.textContent=quizSelectedAnswer===q.answer?t.correct:`${t.wrong} ${t.answer} ${q.answer}`;
+   quizUI.feedback.textContent=(quizSelectedAnswer===q.answer?t.correct:`${t.wrong} ${t.answer}${q.answer}. `)+q.explain[currentLanguage==='vi'?'vi':'en'];
    quizUI.next.hidden=false;
  }
 }
