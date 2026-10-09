@@ -1072,6 +1072,26 @@ body.panel-open{overflow:hidden}
 .category-explanation p{font-family:Arial,"Noto Sans",sans-serif;font-size:13px;line-height:1.7;margin:5px 0 0;letter-spacing:0;overflow-wrap:break-word}
 @media(max-width:600px){.category-explanation{padding:11px 13px}.category-explanation p{font-size:12px}}
 
+
+/* Scientific context for the illustrative atom, readable in both languages. */
+#infoPanel .atom-education{margin:13px 0 4px;padding:12px 14px;border:1px solid rgba(211,170,104,.6);border-left:3px solid #e5bb7b;border-radius:10px;background:#122237;color:#f1e7d6;font:13px/1.6 Arial,"Noto Sans",sans-serif}
+#infoPanel .atom-education-title{font-weight:700;color:#f0d39e;margin-bottom:5px}
+#infoPanel .atom-education p{margin:0 0 8px;overflow-wrap:break-word}
+#infoPanel .atom-shell-summary{color:#c9e5fa;font-weight:600}
+#infoPanel .atom-controls{display:flex;justify-content:center;gap:8px;margin-top:8px}
+#infoPanel .atom-pause{border:1px solid #b9915e;background:#20354c;color:#f8dfb3;border-radius:8px;padding:7px 13px;cursor:pointer;font:600 12px Arial,"Noto Sans",sans-serif}
+#infoPanel .atom-pause:focus-visible{outline:2px solid #f0d39e;outline-offset:2px}
+
+
+/* Educational transparency footer */
+.science-footer{max-width:1180px;margin:30px auto 22px;padding:16px 20px;border-top:1px solid rgba(214,182,129,.35);color:#d7dfeb;font:13px/1.7 Arial,"Noto Sans",sans-serif;text-align:left}
+.science-footer details{border:1px solid rgba(214,182,129,.32);border-radius:11px;background:rgba(11,24,42,.85);padding:12px 16px}
+.science-footer summary{cursor:pointer;color:#efd5a6;font-weight:700;list-style-position:inside}
+.science-footer summary:focus-visible{outline:2px solid #efd5a6;outline-offset:4px}
+.science-footer p{margin:10px 0 0;line-height:1.7}
+.science-footer a{color:#b9def7;text-decoration:underline;text-underline-offset:2px}
+.science-footer .science-footer-sources{margin-top:10px}
+@media(max-width:600px){.science-footer{margin:20px 12px;padding:12px 0;font-size:12px}}
 </style>
 </head>
 
@@ -1226,7 +1246,7 @@ body.panel-open{overflow:hidden}
     <div class="electron-section">
 
         <div class="section-title">
-            <strong>Electron structure</strong>
+            <strong>3D Electron Shell Illustration</strong>
 
             <span
                 class="valence-badge"
@@ -1245,6 +1265,11 @@ body.panel-open{overflow:hidden}
             class="shell-info"
             id="shellInfo"
         ></div>
+        <div class="atom-education" id="atomEducation" aria-live="polite">
+            <div class="atom-education-title" id="atomEducationTitle">Illustrative model · Not to scale</div>
+            <p id="atomEducationText">This Bohr-style illustration shows how electrons are distributed among shells. The animated paths are visual aids only: electrons are described by quantum-mechanical orbitals, not fixed trajectories.</p>
+            <div class="atom-shell-summary" id="atomShellSummary"></div>
+        </div>
 
     </div>
 
@@ -1269,6 +1294,14 @@ body.panel-open{overflow:hidden}
 </aside>
 
 </main>
+
+<footer class="science-footer" aria-label="Scientific accuracy and sources" id="scienceFooter">
+  <details>
+    <summary id="scienceFooterTitle">About &amp; Scientific Accuracy</summary>
+    <p id="scienceFooterDescription">Moonlit Japan is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values.</p>
+    <p class="science-footer-sources"><span id="scienceFooterSourcesLabel">Authoritative references:</span> <a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener noreferrer">IUPAC</a> · <a href="https://www.rsc.org/periodic-table" target="_blank" rel="noopener noreferrer">Royal Society of Chemistry</a> · <a href="https://physics.nist.gov/PhysRefData/ASD/" target="_blank" rel="noopener noreferrer">NIST</a></p>
+  </details>
+</footer>
 
 </div>
 
@@ -1925,6 +1958,12 @@ function displayGroup(element) {
 
 function categoryLabel(category) { return currentLanguage === 'vi' ? categoryTranslations[category] : category.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase()); }
 function translateStaticUI() {
+    const viDisclaimer = currentLanguage === 'vi';
+    document.getElementById('scienceFooterTitle').textContent = viDisclaimer ? 'Giới thiệu & Độ chính xác khoa học' : 'About & Scientific Accuracy';
+    document.getElementById('scienceFooterDescription').textContent = viDisclaimer
+      ? 'Moonlit Japan là tài liệu tham khảo phục vụ học tập. Mô hình nguyên tử chuyển động chỉ minh họa sự phân bố electron theo lớp, không mô tả quỹ đạo chuyển động thực tế của electron. Các giá trị khoa học có thể phụ thuộc vào điều kiện đo; một số tính chất, đặc biệt ở các nguyên tố tổng hợp tồn tại rất ngắn, chỉ là dự đoán, chưa chắc chắn hoặc chưa được đo. Không phải hồ sơ của mọi nguyên tố đều đã được kiểm chứng riêng; hãy tham khảo các nguồn khoa học được dẫn liên kết trước khi sử dụng số liệu cụ thể.'
+      : 'Moonlit Japan is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values.';
+    document.getElementById('scienceFooterSourcesLabel').textContent = viDisclaimer ? 'Nguồn tham khảo khoa học:' : 'Authoritative references:';
     document.documentElement.lang = currentLanguage;
     document.title = currentLanguage === 'vi' ? 'Bảng tuần hoàn các nguyên tố hóa học' : 'Interactive Periodic Table';
     document.querySelectorAll('[data-original-text]').forEach(node => {
@@ -2274,6 +2313,13 @@ function createElectronDiagram(element) {
     electronDiagram.replaceChildren();
     shellInfo.replaceChildren();
     const shells = element.shells;
+    const vi = currentLanguage === 'vi';
+    document.querySelector('.electron-section .section-title strong').textContent = vi ? 'Minh họa 3D các lớp electron' : '3D Electron Shell Illustration';
+    document.getElementById('atomEducationTitle').textContent = vi ? 'Mô hình minh họa · Không theo tỉ lệ thực' : 'Illustrative model · Not to scale';
+    document.getElementById('atomEducationText').textContent = vi
+        ? 'Mô hình kiểu Bohr này minh họa sự phân bố electron theo các lớp. Các đường chuyển động chỉ giúp trực quan hóa; electron thực tế được mô tả bằng orbital theo cơ học lượng tử, không phải quỹ đạo cố định.'
+        : 'This Bohr-style illustration shows how electrons are distributed among shells. The animated paths are visual aids only: electrons are described by quantum-mechanical orbitals, not fixed trajectories.';
+    document.getElementById('atomShellSummary').textContent = (vi ? 'Phân bố electron theo lớp: ' : 'Electrons per shell: ') + shells.join(' · ');
     const outermost = shells.length - 1;
     valenceCount.textContent = `${shells[outermost]} ${currentLanguage === "vi" ? "e⁻ hóa trị" : "valence e⁻"}`;
     shells.forEach((count, index) => {
@@ -2293,6 +2339,20 @@ function createElectronDiagram(element) {
     hint.className = 'atom-3d-hint';
     hint.textContent = currentLanguage === 'vi' ? 'Kéo để xoay · Cuộn để thu phóng · Nhấp đúp để đặt lại' : 'Drag to rotate · Scroll to zoom · Double-click to reset';
     electronDiagram.appendChild(hint);
+    const controls = document.createElement('div');
+    controls.className = 'atom-controls';
+    const pauseButton = document.createElement('button');
+    pauseButton.type = 'button';
+    pauseButton.className = 'atom-pause';
+    let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const updatePauseLabel = () => {
+        pauseButton.textContent = paused ? (currentLanguage === 'vi' ? '▶ Phát' : '▶ Play') : (currentLanguage === 'vi' ? 'Ⅱ Tạm dừng' : 'Ⅱ Pause');
+        pauseButton.setAttribute('aria-pressed', String(paused));
+    };
+    updatePauseLabel();
+    pauseButton.addEventListener('click', () => { paused = !paused; updatePauseLabel(); });
+    controls.appendChild(pauseButton);
+    electronDiagram.appendChild(controls);
     const ctx = canvas.getContext('2d');
     if (!ctx) { hint.textContent = '3D canvas unavailable'; return; }
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -2371,7 +2431,7 @@ function createElectronDiagram(element) {
     }
     function frame(now) {
         if(disposed) return;
-        if(!motion.matches && !document.hidden) {
+        if(!paused && !document.hidden) {
             phase+=Math.min((now-(lastTime||now))/1000,.05);
             draw();
         }
