@@ -1,9 +1,20 @@
 <!DOCTYPE html>
+<!--
+PHASE 10 SCIENTIFIC AUDIT STATUS (2026-10-09)
+Completed: 118 unique element records, electron-shell totals, 118 bilingual
+expanded profile structures, source URL patterns, targeted physical-state and
+chemical corrections, and superheavy uncertainty labeling.
+Unresolved: individual external verification of every chemical claim, live
+checking of all reference destinations, independent validation of every
+electron configuration and isotope choice. Do not describe this website as
+fully scientifically verified.
+-->
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Periodic Table</title>
+<title>Periodic Table of the Elements</title>
 
 <style>
 :root {
@@ -1117,6 +1128,7 @@ body.panel-open{overflow:hidden}
         <input
             id="searchInput"
             type="search"
+            aria-label="Search elements / Tìm nguyên tố"
             placeholder="Search element name, symbol, or atomic number..."
             autocomplete="off"
         >
@@ -1160,7 +1172,7 @@ body.panel-open{overflow:hidden}
 <div id="chemQuizOverlay" class="quiz-overlay" role="presentation">
   <section class="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="quizHeading" tabindex="-1">
     <div class="quiz-head"><h2 id="quizHeading">Chemistry Quiz</h2><button class="quiz-close" id="closeChemQuiz" type="button" aria-label="Close">×</button></div>
-    <p id="quizIntro" class="quiz-muted"></p><div class="quiz-progress"><div id="quizProgress"></div></div>
+    <p id="quizIntro" class="quiz-muted"></p><div class="quiz-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="quizProgress"></div></div>
     <p id="quizQuestion" class="quiz-question"></p><div id="quizOptions" class="quiz-options"></div>
     <div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div>
     <div class="quiz-footer"><span id="quizScore" class="quiz-muted"></span><button class="quiz-action" id="quizNext" type="button" hidden></button></div>
@@ -1614,72 +1626,72 @@ const elements = [
 },
 {
     n:58,s:"Ce",name:"Cerium",mass:"140.12",
-    category:"lanthanide",period:6,group:4,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,19,9,2]
 },
 {
     n:59,s:"Pr",name:"Praseodymium",mass:"140.91",
-    category:"lanthanide",period:6,group:5,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,21,8,2]
 },
 {
     n:60,s:"Nd",name:"Neodymium",mass:"144.24",
-    category:"lanthanide",period:6,group:6,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,22,8,2]
 },
 {
     n:61,s:"Pm",name:"Promethium",mass:"145",
-    category:"lanthanide",period:6,group:7,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,23,8,2]
 },
 {
     n:62,s:"Sm",name:"Samarium",mass:"150.36",
-    category:"lanthanide",period:6,group:8,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,24,8,2]
 },
 {
     n:63,s:"Eu",name:"Europium",mass:"151.96",
-    category:"lanthanide",period:6,group:9,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,25,8,2]
 },
 {
     n:64,s:"Gd",name:"Gadolinium",mass:"157.25",
-    category:"lanthanide",period:6,group:10,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,25,9,2]
 },
 {
     n:65,s:"Tb",name:"Terbium",mass:"158.93",
-    category:"lanthanide",period:6,group:11,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,27,8,2]
 },
 {
     n:66,s:"Dy",name:"Dysprosium",mass:"162.50",
-    category:"lanthanide",period:6,group:12,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,28,8,2]
 },
 {
     n:67,s:"Ho",name:"Holmium",mass:"164.93",
-    category:"lanthanide",period:6,group:13,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,29,8,2]
 },
 {
     n:68,s:"Er",name:"Erbium",mass:"167.26",
-    category:"lanthanide",period:6,group:14,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,30,8,2]
 },
 {
     n:69,s:"Tm",name:"Thulium",mass:"168.93",
-    category:"lanthanide",period:6,group:15,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,31,8,2]
 },
 {
     n:70,s:"Yb",name:"Ytterbium",mass:"173.05",
-    category:"lanthanide",period:6,group:16,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,32,8,2]
 },
 {
     n:71,s:"Lu",name:"Lutetium",mass:"174.97",
-    category:"lanthanide",period:6,group:17,
+    category:"lanthanide",period:6,group:null,
     shells:[2,8,18,32,9,2]
 },
 
@@ -1780,72 +1792,72 @@ const elements = [
 },
 {
     n:90,s:"Th",name:"Thorium",mass:"232.04",
-    category:"actinide",period:7,group:4,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,18,10,2]
 },
 {
     n:91,s:"Pa",name:"Protactinium",mass:"231.04",
-    category:"actinide",period:7,group:5,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,20,9,2]
 },
 {
     n:92,s:"U",name:"Uranium",mass:"238.03",
-    category:"actinide",period:7,group:6,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,21,9,2]
 },
 {
     n:93,s:"Np",name:"Neptunium",mass:"237",
-    category:"actinide",period:7,group:7,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,22,9,2]
 },
 {
     n:94,s:"Pu",name:"Plutonium",mass:"244",
-    category:"actinide",period:7,group:8,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,24,8,2]
 },
 {
     n:95,s:"Am",name:"Americium",mass:"243",
-    category:"actinide",period:7,group:9,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,25,8,2]
 },
 {
     n:96,s:"Cm",name:"Curium",mass:"247",
-    category:"actinide",period:7,group:10,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,25,9,2]
 },
 {
     n:97,s:"Bk",name:"Berkelium",mass:"247",
-    category:"actinide",period:7,group:11,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,27,8,2]
 },
 {
     n:98,s:"Cf",name:"Californium",mass:"251",
-    category:"actinide",period:7,group:12,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,28,8,2]
 },
 {
     n:99,s:"Es",name:"Einsteinium",mass:"252",
-    category:"actinide",period:7,group:13,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,29,8,2]
 },
 {
     n:100,s:"Fm",name:"Fermium",mass:"257",
-    category:"actinide",period:7,group:14,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,30,8,2]
 },
 {
     n:101,s:"Md",name:"Mendelevium",mass:"258",
-    category:"actinide",period:7,group:15,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,31,8,2]
 },
 {
     n:102,s:"No",name:"Nobelium",mass:"259",
-    category:"actinide",period:7,group:16,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,32,8,2]
 },
 {
     n:103,s:"Lr",name:"Lawrencium",mass:"266",
-    category:"actinide",period:7,group:17,
+    category:"actinide",period:7,group:null,
     shells:[2,8,18,32,32,8,3]
 },
 
@@ -1964,16 +1976,32 @@ for (const element of elements) {
         source: hasStandard ? 'CIAAW Abridged Standard Atomic Weights 2024' : (isotopeConfirmed ? 'CIAAW radioactive elements — NUBASE2020 (2022 table)' : 'Isotope identity not independently verified'),
         reference: hasStandard ? SCIENTIFIC_REFERENCE_URLS.atomicWeights : CIAAW_ISOTOPE_REFERENCE
     };
+    // Palladium has the observed [Kr] 4d10 5s0 ground state: four occupied
+    // principal shells despite its placement in period 5. Do not force a
+    // fifth occupied shell to satisfy a simplistic period/shell-count rule.
+    element.shellPeriodException = element.n === 46
+        ? 'Palladium: [Kr] 4d10 5s0; period 5 but four occupied principal shells.'
+        : null;
     element.electronConfigurationReview = {
         verification: element.n >= 104 ? 'predictedRequiresReview' : 'pendingIndividualReferenceCheck',
         reference: SCIENTIFIC_REFERENCE_URLS.configurations,
         note: element.n >= 104 ? 'Ground-state configuration is theoretical or uncertain; verify independently.' : 'Electron-count and shell consistency checks do not constitute external scientific verification.'
     };
     element.classificationReview = {
-        verification: 'pending',
-        note: 'Teaching category; boundaries are conventional and distinct from numbered groups.'
+        verification: element.n >= 104 ? 'provisionalSuperheavyChemistry' :
+            ([57,71,89,103].includes(element.n) ? 'disputedGroup3Convention' :
+             ([52,84,85].includes(element.n) || ['metalloid','post-transition'].includes(element.category) || element.group === 12
+               ? 'conventionalClassification' : 'groupOrBroadTeachingCategory')),
+        source: 'https://periodic-table.rsc.org/',
+        note: element.n >= 104
+            ? 'Placement follows periodic-table convention; detailed chemical properties may be predicted.'
+            : ([57,71,89,103].includes(element.n)
+                ? 'Group 3 membership is debated (La/Ac versus Lu/Lr); this table uses a traditional display convention.'
+                : (element.group === null
+                    ? 'f-block row position is not an IUPAC group number.'
+                    : 'Colored categories are teaching conventions and not identical to numbered groups.'))
     };
-    element.profileReview = 'pending';
+    element.profileReview = 'expandedPendingIndependentScientificVerification';
     element.displayColumn = element.group;
 }
 
@@ -2013,7 +2041,7 @@ const traditionalGroupLabels = {
     13:'IIIA', 14:'IVA', 15:'VA', 16:'VIA', 17:'VIIA', 18:'VIIIA'
 };
 function displayGroup(element) {
-    if (currentLanguage !== 'vi') return element.group || '—';
+    if (currentLanguage !== 'vi') return element.group ?? '—';
     // The f-block series does not have an individual A/B group assignment.
     if ((element.category === 'lanthanide' || element.category === 'actinide') &&
         element.n !== 57 && element.n !== 89) return '—';
@@ -2029,10 +2057,11 @@ function translateStaticUI() {
       : 'This periodic table is an educational reference. Its animated atomic model is a simplified illustration of electron-shell distribution, not a depiction of real electron trajectories. Scientific measurements may depend on conditions, and some properties—especially for short-lived synthetic elements—are predicted, uncertain, or not yet measured. Not every element profile has been individually verified; consult the linked scientific references before relying on specific values. Atomic weights use CIAAW 2024 abridged values where available; bracketed whole numbers represent isotope mass numbers, not standard atomic weights. The 34 isotope mass numbers have been aligned with the CIAAW/NUBASE2020 reference table; some isotopes have multiple plausible selections.';
     document.getElementById('scienceFooterSourcesLabel').textContent = viDisclaimer ? 'Nguồn tham khảo khoa học:' : 'Authoritative references:';
     document.documentElement.lang = currentLanguage;
-    document.title = currentLanguage === 'vi' ? 'Bảng tuần hoàn các nguyên tố hóa học' : 'Interactive Periodic Table';
+    document.title = currentLanguage === 'vi' ? 'Bảng tuần hoàn các nguyên tố hóa học' : 'Periodic Table of the Elements';
     document.querySelectorAll('[data-original-text]').forEach(node => {
         node.textContent = currentLanguage === 'vi' ? (interfaceTranslations[node.dataset.originalText] || node.dataset.originalText) : node.dataset.originalText;
     });
+    document.querySelector('.quiz-progress').setAttribute('aria-label', currentLanguage === 'vi' ? 'Tiến độ bài trắc nghiệm' : 'Quiz progress');
     document.getElementById('searchInput').placeholder = currentLanguage === 'vi'
       ? 'Tìm theo tên nguyên tố, kí hiệu hoặc số hiệu nguyên tử...'
       : 'Search element name, symbol, or atomic number...';
@@ -2051,10 +2080,6 @@ function setLanguage(language) {
     buildTable();
     if (selectedElement) selectElement(selectedElement, false);
     performSearch();
-    const activeCategory = document.querySelector('.legend button.active')?.dataset.category || 'all';
-    if (activeCategory !== 'all') document.querySelectorAll('.element').forEach(card => {
-        if (card.dataset.category !== activeCategory) card.classList.add('dimmed');
-    });
 }
 
 function getDescription(element) {
@@ -2718,8 +2743,823 @@ document.querySelectorAll('[data-copy-config]').forEach(button => {
 });
 
 
-/* Carefully sourced initial entries. All other elements explicitly remain pending review. */
-const VERIFIED_ENCYCLOPEDIA = {
+/* Expanded educational summaries: individual scientific fact-checking remains pending. */
+/* Physical-state spot checks: RSC element pages for Br(35), Hg(80), At(85), Fr(87). */
+const EXPANDED_ENCYCLOPEDIA = {
+  113: {
+    overview: {en:"Nihonium is a synthetic, highly radioactive superheavy element in group 13.",vi:"Nihonium là nguyên tố siêu nặng tổng hợp có tính phóng xạ cao, thuộc nhóm 13."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Only a few atoms have been produced; its chemical behavior and bulk physical properties remain largely unmeasured.",vi:"Chỉ có rất ít nguyên tử được tạo ra; tính chất hóa học và vật lý của vật liệu khối phần lớn chưa được đo."},
+    uses: {en:"Nihonium has no applications outside fundamental scientific research.",vi:"Nihonium chưa có ứng dụng ngoài nghiên cứu khoa học cơ bản."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/113/nihonium"]]
+  },
+  114: {
+    overview: {en:"Flerovium is a synthetic, highly radioactive element in group 14.",vi:"Flerovium là nguyên tố tổng hợp có tính phóng xạ cao, thuộc nhóm 14."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemical behavior has been investigated with very few atoms; many properties remain uncertain, including its bulk physical state.",vi:"Tính chất hóa học được nghiên cứu trên số lượng nguyên tử rất nhỏ; nhiều đặc tính, kể cả trạng thái của vật liệu khối, vẫn chưa chắc chắn."},
+    uses: {en:"Flerovium is studied to test models of superheavy-element structure and chemistry.",vi:"Flerovium được nghiên cứu nhằm kiểm tra các mô hình cấu trúc và hóa học nguyên tố siêu nặng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/114/flerovium"]]
+  },
+  115: {
+    overview: {en:"Moscovium is a synthetic, short-lived radioactive element in group 15.",vi:"Moscovium là nguyên tố phóng xạ tổng hợp có thời gian tồn tại ngắn, thuộc nhóm 15."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemical properties are not well established experimentally; most predictions rely on theoretical calculations.",vi:"Tính chất hóa học chưa được xác lập rõ bằng thực nghiệm; phần lớn dự đoán dựa trên tính toán lý thuyết."},
+    uses: {en:"Moscovium has no practical applications and is used only in nuclear research.",vi:"Moscovium chưa có ứng dụng thực tiễn và chỉ phục vụ nghiên cứu hạt nhân."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/115/moscovium"]]
+  },
+  116: {
+    overview: {en:"Livermorium is a synthetic, highly radioactive superheavy element in group 16.",vi:"Livermorium là nguyên tố siêu nặng tổng hợp có tính phóng xạ cao, thuộc nhóm 16."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Only a small number of atoms have been observed, so its chemical and bulk physical properties are largely unknown.",vi:"Mới chỉ quan sát được một số ít nguyên tử nên các tính chất hóa học và vật lý của vật liệu khối phần lớn chưa được biết rõ."},
+    uses: {en:"Livermorium is produced exclusively for fundamental research.",vi:"Livermorium chỉ được tạo ra để phục vụ nghiên cứu cơ bản."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/116/livermorium"]]
+  },
+  117: {
+    overview: {en:"Tennessine is a synthetic, highly radioactive element in group 17, the halogen column.",vi:"Tennessine là nguyên tố tổng hợp có tính phóng xạ cao, thuộc nhóm 17, cùng cột với các halogen."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its halogen-like behavior is predicted from its position, but direct chemical measurements remain extremely limited.",vi:"Tính chất giống halogen được dự đoán từ vị trí trong bảng tuần hoàn, nhưng phép đo hóa học trực tiếp còn cực kỳ hạn chế."},
+    uses: {en:"Tennessine has no practical uses; research investigates its nuclear stability and predicted chemistry.",vi:"Tennessine chưa có ứng dụng thực tiễn; nghiên cứu tập trung vào độ bền hạt nhân và tính chất hóa học dự đoán."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/117/tennessine"]]
+  },
+  118: {
+    overview: {en:"Oganesson is a synthetic, extremely short-lived element in group 18, the noble-gas column.",vi:"Oganesson là nguyên tố tổng hợp có thời gian tồn tại cực ngắn, thuộc nhóm 18, cùng cột với khí hiếm."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemical and physical behavior has not been directly established; theoretical models suggest it may differ substantially from lighter noble gases.",vi:"Tính chất hóa học và vật lý chưa được xác lập trực tiếp; các mô hình lý thuyết cho thấy nó có thể khác đáng kể so với các khí hiếm nhẹ hơn."},
+    uses: {en:"Oganesson has no uses outside research on the heaviest elements.",vi:"Oganesson chưa có ứng dụng ngoài nghiên cứu các nguyên tố nặng nhất."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/118/oganesson"]]
+  },
+  101: {
+    overview: {en:"Mendelevium is a synthetic, highly radioactive actinide produced in extremely small quantities.",vi:"Mendelevium là nguyên tố actini tổng hợp, có tính phóng xạ cao và chỉ được tạo ra với lượng cực nhỏ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemistry has been studied with trace amounts; +3 is an important oxidation state, and +2 is also known.",vi:"Hóa học của Mendelevium được nghiên cứu ở lượng vết; +3 là số oxi hóa quan trọng và +2 cũng đã được ghi nhận."},
+    uses: {en:"Mendelevium has no commercial uses; it is studied in nuclear chemistry.",vi:"Mendelevium không có ứng dụng thương mại; nguyên tố này được nghiên cứu trong hóa học hạt nhân."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/101/mendelevium"]]
+  },
+  102: {
+    overview: {en:"Nobelium is a synthetic radioactive actinide.",vi:"Nobelium là nguyên tố actini tổng hợp có tính phóng xạ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Nobelium exhibits +2 and +3 oxidation states; +2 is the more stable state in aqueous solution under ordinary non-oxidizing conditions.",vi:"Nobelium có số oxi hóa +2 và +3; trong dung dịch nước ở điều kiện thông thường không có chất oxi hóa mạnh, trạng thái +2 bền hơn."},
+    uses: {en:"Nobelium is used only for scientific research.",vi:"Nobelium chỉ được dùng trong nghiên cứu khoa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/102/nobelium"]]
+  },
+  103: {
+    overview: {en:"Lawrencium is a synthetic radioactive element at the end of the actinide series.",vi:"Lawrencium là nguyên tố phóng xạ tổng hợp ở cuối dãy actini."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Experiments support the +3 oxidation state; many bulk properties remain unmeasured.",vi:"Thực nghiệm ủng hộ trạng thái oxi hóa +3; nhiều tính chất của vật liệu khối vẫn chưa được đo."},
+    uses: {en:"Lawrencium has no practical applications outside research.",vi:"Lawrencium chưa có ứng dụng thực tiễn ngoài nghiên cứu."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/103/lawrencium"]]
+  },
+  104: {
+    overview: {en:"Rutherfordium is a synthetic, short-lived element in group 4.",vi:"Rutherfordium là nguyên tố tổng hợp có thời gian tồn tại ngắn, thuộc nhóm 4."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Experiments with very small numbers of atoms support chemical similarities to hafnium, including +4 behavior.",vi:"Các thí nghiệm trên số lượng nguyên tử rất nhỏ cho thấy tính chất hóa học tương tự Hafnium, bao gồm trạng thái +4."},
+    uses: {en:"Rutherfordium is studied to understand the chemistry of superheavy elements.",vi:"Rutherfordium được nghiên cứu nhằm tìm hiểu hóa học của các nguyên tố siêu nặng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/104/rutherfordium"]]
+  },
+  105: {
+    overview: {en:"Dubnium is a synthetic, short-lived element in group 5.",vi:"Dubnium là nguyên tố tổng hợp có thời gian tồn tại ngắn, thuộc nhóm 5."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemical behavior has been investigated atom by atom; +5 chemistry is expected and supported by limited experiments.",vi:"Tính chất hóa học của Dubnium được nghiên cứu ở cấp độ từng nguyên tử; hóa học trạng thái +5 được dự đoán và có bằng chứng thực nghiệm hạn chế."},
+    uses: {en:"Dubnium has no commercial uses and is studied in fundamental research.",vi:"Dubnium không có ứng dụng thương mại và được nghiên cứu trong khoa học cơ bản."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/105/dubnium"]]
+  },
+  106: {
+    overview: {en:"Seaborgium is a synthetic, short-lived element in group 6.",vi:"Seaborgium là nguyên tố tổng hợp có thời gian tồn tại ngắn, thuộc nhóm 6."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Limited experiments indicate behavior broadly resembling tungsten and molybdenum.",vi:"Các thí nghiệm hạn chế cho thấy tính chất nhìn chung tương tự Tungsten và Molybdenum."},
+    uses: {en:"Seaborgium is produced only for scientific investigation.",vi:"Seaborgium chỉ được tạo ra để phục vụ nghiên cứu khoa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/106/seaborgium"]]
+  },
+  107: {
+    overview: {en:"Bohrium is a synthetic, highly radioactive element in group 7.",vi:"Bohrium là nguyên tố tổng hợp có tính phóng xạ cao, thuộc nhóm 7."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Experiments on a few atoms suggest chemical similarities to rhenium.",vi:"Các thí nghiệm trên một số ít nguyên tử cho thấy tính chất hóa học tương tự Rhenium."},
+    uses: {en:"Bohrium has no known uses outside basic research.",vi:"Bohrium chưa có ứng dụng nào được biết đến ngoài nghiên cứu cơ bản."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/107/bohrium"]]
+  },
+  108: {
+    overview: {en:"Hassium is a synthetic, short-lived element in group 8.",vi:"Hassium là nguyên tố tổng hợp có thời gian tồn tại ngắn, thuộc nhóm 8."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Studies of volatile hassium compounds support similarities to osmium, although evidence is limited.",vi:"Nghiên cứu các hợp chất dễ bay hơi của Hassium cho thấy nét tương đồng với Osmium, dù bằng chứng còn hạn chế."},
+    uses: {en:"Hassium is used exclusively in superheavy-element research.",vi:"Hassium chỉ được sử dụng trong nghiên cứu nguyên tố siêu nặng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/108/hassium"]]
+  },
+  109: {
+    overview: {en:"Meitnerium is a synthetic, highly radioactive element in group 9.",vi:"Meitnerium là nguyên tố tổng hợp có tính phóng xạ cao, thuộc nhóm 9."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemical properties are poorly established because very few atoms have been produced.",vi:"Các tính chất hóa học của Meitnerium chưa được xác định rõ vì chỉ có rất ít nguyên tử được tạo ra."},
+    uses: {en:"Meitnerium has no practical uses; research focuses on its nuclear properties.",vi:"Meitnerium không có ứng dụng thực tiễn; nghiên cứu chủ yếu tập trung vào tính chất hạt nhân."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/109/meitnerium"]]
+  },
+  110: {
+    overview: {en:"Darmstadtium is a synthetic, highly radioactive element in group 10.",vi:"Darmstadtium là nguyên tố tổng hợp có tính phóng xạ cao, thuộc nhóm 10."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its bulk properties have not been measured; comparisons with platinum-group metals are largely theoretical.",vi:"Tính chất vật liệu khối của Darmstadtium chưa được đo; các so sánh với kim loại nhóm platin phần lớn dựa trên lý thuyết."},
+    uses: {en:"Darmstadtium is produced only for fundamental research.",vi:"Darmstadtium chỉ được tạo ra cho nghiên cứu cơ bản."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/110/darmstadtium"]]
+  },
+  111: {
+    overview: {en:"Roentgenium is a synthetic, short-lived element in group 11.",vi:"Roentgenium là nguyên tố tổng hợp có thời gian tồn tại ngắn, thuộc nhóm 11."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Its chemical behavior remains largely predicted rather than experimentally established.",vi:"Tính chất hóa học của Roentgenium phần lớn vẫn là dự đoán, chưa được xác lập bằng thực nghiệm."},
+    uses: {en:"Roentgenium has no known uses outside scientific research.",vi:"Roentgenium chưa có ứng dụng nào được biết đến ngoài nghiên cứu khoa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/111/roentgenium"]]
+  },
+  112: {
+    overview: {en:"Copernicium is a synthetic, highly radioactive element in group 12.",vi:"Copernicium là nguyên tố tổng hợp có tính phóng xạ cao, thuộc nhóm 12."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Not experimentally established','Chưa được xác định bằng thực nghiệm']],
+    chemical: {en:"Experiments on individual atoms suggest unusual volatility; its bulk physical state is not experimentally established.",vi:"Thí nghiệm trên từng nguyên tử gợi ý tính dễ bay hơi khác thường; trạng thái vật lý của vật liệu khối chưa được xác định bằng thực nghiệm."},
+    uses: {en:"Copernicium is studied to test predictions about superheavy-element chemistry.",vi:"Copernicium được nghiên cứu để kiểm tra các dự đoán về hóa học nguyên tố siêu nặng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/112/copernicium"]]
+  },
+  91: {
+    overview: {en:"Protactinium is a rare, radioactive actinide metal.",vi:"Protactinium là kim loại thuộc dãy actini, hiếm và có tính phóng xạ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"The +5 oxidation state is especially characteristic of protactinium compounds.",vi:"Số oxi hóa +5 đặc biệt tiêu biểu trong các hợp chất của Protactinium."},
+    uses: {en:"Its scarcity, radioactivity and cost largely limit it to scientific research.",vi:"Do hiếm, phóng xạ và đắt đỏ, Protactinium chủ yếu được dùng trong nghiên cứu khoa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/91/protactinium"]]
+  },
+  92: {
+    overview: {en:"Uranium is a dense, naturally occurring radioactive actinide metal.",vi:"Uranium là kim loại actini có khối lượng riêng lớn, tồn tại trong tự nhiên và có tính phóng xạ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Uranium can exhibit several oxidation states; +4 and +6 are important in its chemistry.",vi:"Uranium có nhiều số oxi hóa; +4 và +6 đặc biệt quan trọng trong hóa học của nguyên tố này."},
+    uses: {en:"Uranium is used as fuel in certain nuclear reactors, after appropriate processing.",vi:"Uranium được dùng làm nhiên liệu trong một số lò phản ứng hạt nhân sau khi được xử lý phù hợp."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/92/uranium"]]
+  },
+  93: {
+    overview: {en:"Neptunium is a radioactive actinide, first produced artificially and also present in trace natural quantities.",vi:"Neptunium là nguyên tố actini phóng xạ, lần đầu được tạo ra nhân tạo và cũng có mặt trong tự nhiên với lượng vết."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Neptunium exhibits several oxidation states, notably +4, +5 and +6.",vi:"Neptunium có nhiều số oxi hóa, đáng chú ý là +4, +5 và +6."},
+    uses: {en:"Its applications are primarily scientific research, including nuclear chemistry.",vi:"Neptunium chủ yếu phục vụ nghiên cứu khoa học, trong đó có hóa học hạt nhân."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/93/neptunium"]]
+  },
+  94: {
+    overview: {en:"Plutonium is a radioactive actinide metal with multiple isotopes.",vi:"Plutonium là kim loại actini phóng xạ với nhiều đồng vị."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Plutonium has complex chemistry with several accessible oxidation states, including +3, +4, +5 and +6.",vi:"Plutonium có hóa học phức tạp với nhiều số oxi hóa, gồm +3, +4, +5 và +6."},
+    uses: {en:"Some plutonium isotopes are used in nuclear energy systems and radioisotope power sources.",vi:"Một số đồng vị Plutonium được dùng trong hệ thống năng lượng hạt nhân và nguồn điện đồng vị phóng xạ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/94/plutonium"]]
+  },
+  95: {
+    overview: {en:"Americium is a synthetic, radioactive actinide metal.",vi:"Americium là kim loại actini tổng hợp có tính phóng xạ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid (RSC reference classification)","Rắn (phân loại tham chiếu của RSC)"]],
+    chemical: {en:"The +3 oxidation state is common in americium compounds.",vi:"Số oxi hóa +3 phổ biến trong các hợp chất của Americium."},
+    uses: {en:"Americium-241 is used in certain ionization-type smoke detectors.",vi:"Americium-241 được dùng trong một số đầu báo khói kiểu ion hóa."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/95/americium"]]
+  },
+  96: {
+    overview: {en:"Curium is a synthetic, radioactive actinide element.",vi:"Curium là nguyên tố actini tổng hợp có tính phóng xạ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid (RSC reference classification)","Rắn (phân loại tham chiếu của RSC)"]],
+    chemical: {en:"Curium most commonly forms compounds in the +3 oxidation state.",vi:"Curium thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Curium is primarily used in research and as a source material for producing heavier elements.",vi:"Curium chủ yếu được dùng trong nghiên cứu và làm vật liệu ban đầu để tạo các nguyên tố nặng hơn."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/96/curium"]]
+  },
+  97: {
+    overview: {en:"Berkelium is a synthetic, radioactive actinide produced in very small amounts.",vi:"Berkelium là nguyên tố actini tổng hợp có tính phóng xạ, chỉ được tạo ra với lượng rất nhỏ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid (RSC reference classification)","Rắn (phân loại tham chiếu của RSC)"]],
+    chemical: {en:"Berkelium commonly exhibits the +3 oxidation state; +4 is also known.",vi:"Berkelium thường có số oxi hóa +3; số oxi hóa +4 cũng đã được ghi nhận."},
+    uses: {en:"Berkelium is used in scientific research and the synthesis of heavier elements.",vi:"Berkelium được dùng trong nghiên cứu khoa học và tổng hợp các nguyên tố nặng hơn."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/97/berkelium"]]
+  },
+  98: {
+    overview: {en:"Californium is a synthetic, highly radioactive actinide.",vi:"Californium là nguyên tố actini tổng hợp có tính phóng xạ cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid (RSC reference classification)","Rắn (phân loại tham chiếu của RSC)"]],
+    chemical: {en:"The +3 oxidation state is common in californium compounds.",vi:"Số oxi hóa +3 phổ biến trong các hợp chất của Californium."},
+    uses: {en:"Californium-252 is used as a neutron source in certain industrial and scientific applications.",vi:"Californium-252 được dùng làm nguồn neutron trong một số ứng dụng công nghiệp và khoa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/98/californium"]]
+  },
+  99: {
+    overview: {en:"Einsteinium is a synthetic, radioactive actinide available only in extremely small quantities.",vi:"Einsteinium là nguyên tố actini tổng hợp có tính phóng xạ, chỉ tồn tại với lượng cực nhỏ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid (RSC reference classification)","Rắn (phân loại tham chiếu của RSC)"]],
+    chemical: {en:"The +3 oxidation state is the best established in its compounds.",vi:"Số oxi hóa +3 là trạng thái được xác lập rõ nhất trong các hợp chất của Einsteinium."},
+    uses: {en:"Einsteinium has no routine commercial applications and is studied mainly in research.",vi:"Einsteinium không có ứng dụng thương mại thông thường và chủ yếu được nghiên cứu trong phòng thí nghiệm."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/99/einsteinium"]]
+  },
+  100: {
+    overview: {en:"Fermium is a synthetic, radioactive actinide produced atom by atom or in minute quantities.",vi:"Fermium là nguyên tố actini tổng hợp có tính phóng xạ, được tạo ra ở quy mô từng nguyên tử hoặc với lượng cực nhỏ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid (RSC reference classification)","Rắn (phân loại tham chiếu của RSC)"]],
+    chemical: {en:"Fermium commonly exhibits the +3 oxidation state; its chemistry is difficult to study because of limited sample sizes.",vi:"Fermium thường có số oxi hóa +3; việc nghiên cứu hóa học của nó gặp khó khăn vì lượng mẫu rất hạn chế."},
+    uses: {en:"Fermium has no practical commercial applications; its use is confined to scientific research.",vi:"Fermium không có ứng dụng thương mại thực tế và chỉ được dùng trong nghiên cứu khoa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/100/fermium"]]
+  },
+  81: {
+    overview: {en:"Thallium is a soft, dense, silvery metal that is highly toxic.",vi:"Thallium là kim loại mềm, có khối lượng riêng lớn, màu trắng bạc và rất độc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Thallium commonly forms compounds in the +1 oxidation state; +3 compounds also exist.",vi:"Thallium thường tạo hợp chất có số oxi hóa +1; cũng tồn tại hợp chất có số oxi hóa +3."},
+    uses: {en:"Thallium compounds have limited specialized uses in electronics and research.",vi:"Các hợp chất Thallium có một số ứng dụng chuyên biệt, hạn chế trong điện tử và nghiên cứu."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/81/thallium"]]
+  },
+  82: {
+    overview: {en:"Lead is a dense, soft metal that is toxic, especially to the nervous system.",vi:"Lead là kim loại mềm, có khối lượng riêng lớn và độc hại, đặc biệt đối với hệ thần kinh."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Lead commonly exhibits +2 and +4 oxidation states, with +2 generally more stable.",vi:"Lead thường có số oxi hóa +2 và +4, trong đó +2 nhìn chung bền hơn."},
+    uses: {en:"Lead is used in lead–acid batteries and some radiation-shielding materials.",vi:"Lead được dùng trong ắc quy chì–axit và một số vật liệu che chắn bức xạ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/82/lead"]]
+  },
+  83: {
+    overview: {en:"Bismuth is a brittle, relatively low-toxicity post-transition metal.",vi:"Bismuth là kim loại hậu chuyển tiếp giòn, có độc tính tương đối thấp so với nhiều kim loại nặng khác."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Bismuth commonly forms +3 compounds; the +5 oxidation state is less common.",vi:"Bismuth thường tạo hợp chất có số oxi hóa +3; số oxi hóa +5 ít gặp hơn."},
+    uses: {en:"Bismuth compounds are used in some medicines, while bismuth alloys can have low melting points.",vi:"Hợp chất Bismuth được dùng trong một số loại thuốc; một số hợp kim chứa Bismuth có nhiệt độ nóng chảy thấp."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/83/bismuth"]]
+  },
+  84: {
+    overview: {en:"Polonium is an extremely radioactive element with no stable isotopes.",vi:"Polonium là nguyên tố phóng xạ rất mạnh, không có đồng vị bền."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Polonium exhibits several oxidation states, including +2 and +4.",vi:"Polonium có nhiều số oxi hóa, trong đó có +2 và +4."},
+    uses: {en:"Polonium has only very limited specialized applications because of its radioactivity.",vi:"Polonium chỉ có một số ứng dụng chuyên biệt rất hạn chế do tính phóng xạ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/84/polonium"]]
+  },
+  85: {
+    overview: {en:"Astatine is a very rare, radioactive halogen with no stable isotopes.",vi:"Astatine là halogen phóng xạ rất hiếm và không có đồng vị bền."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid (reference classification; bulk state not directly confirmed)','Rắn (theo bảng tham khảo; chưa xác nhận trực tiếp ở dạng khối)']],
+    stateEvidence: {en:'The Royal Society of Chemistry lists solid at 20°C; direct bulk measurements are limited by the element’s rarity and radioactivity.',vi:'Royal Society of Chemistry xếp nguyên tố này ở thể rắn tại 20°C; dữ liệu đo trực tiếp trên vật liệu khối bị hạn chế do độ hiếm và tính phóng xạ.'},
+    chemical: {en:"Its chemistry is difficult to study because only tiny quantities are available; several oxidation states are predicted or observed in specialized experiments.",vi:"Hóa học của Astatine khó nghiên cứu vì chỉ có lượng cực nhỏ; một số số oxi hóa được dự đoán hoặc quan sát trong thí nghiệm chuyên biệt."},
+    uses: {en:"Astatine-211 is being researched for targeted alpha-particle cancer therapy.",vi:"Astatine-211 đang được nghiên cứu cho liệu pháp điều trị ung thư bằng hạt alpha nhắm đích."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/85/astatine"]]
+  },
+  86: {
+    overview: {en:"Radon is a radioactive noble gas produced in natural radioactive decay chains.",vi:"Radon là khí hiếm phóng xạ, được tạo thành trong các chuỗi phân rã phóng xạ tự nhiên."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Radon is relatively unreactive, although a few compounds have been studied.",vi:"Radon tương đối trơ, dù một số hợp chất của nó đã được nghiên cứu."},
+    uses: {en:"Radon exposure is an indoor-air health concern; it has few practical applications today.",vi:"Phơi nhiễm Radon trong không khí trong nhà là vấn đề sức khỏe; hiện nay nguyên tố này có rất ít ứng dụng thực tế."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/86/radon"]]
+  },
+  87: {
+    overview: {en:"Francium is an extremely rare and highly radioactive alkali metal.",vi:"Francium là kim loại kiềm cực hiếm và có tính phóng xạ rất cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid (reference classification; bulk state not directly confirmed)','Rắn (theo bảng tham khảo; chưa xác nhận trực tiếp ở dạng khối)']],
+    stateEvidence: {en:'The Royal Society of Chemistry lists solid at 20°C; direct bulk measurements are limited by the element’s rarity and radioactivity.',vi:'Royal Society of Chemistry xếp nguyên tố này ở thể rắn tại 20°C; dữ liệu đo trực tiếp trên vật liệu khối bị hạn chế do độ hiếm và tính phóng xạ.'},
+    chemical: {en:"Francium is expected to form predominantly +1 ions, consistent with its position in group 1.",vi:"Francium được dự đoán chủ yếu tạo ion có điện tích +1, phù hợp với vị trí ở nhóm 1."},
+    uses: {en:"Francium is used mainly in specialized atomic-physics research.",vi:"Francium chủ yếu được dùng trong nghiên cứu vật lý nguyên tử chuyên biệt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/87/francium"]]
+  },
+  88: {
+    overview: {en:"Radium is a radioactive alkaline-earth metal.",vi:"Radium là kim loại kiềm thổ có tính phóng xạ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Radium commonly forms compounds containing Ra²⁺ ions.",vi:"Radium thường tạo hợp chất chứa ion Ra²⁺."},
+    uses: {en:"Radium was historically used in luminous paints; radium-223 is used in certain cancer treatments.",vi:"Radium từng được dùng trong sơn phát quang; radium-223 được sử dụng trong một số phương pháp điều trị ung thư."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/88/radium"]]
+  },
+  89: {
+    overview: {en:"Actinium is a radioactive metal often placed at the beginning of the actinide series.",vi:"Actinium là kim loại phóng xạ, thường được xếp ở đầu dãy actini."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Actinium most commonly exhibits the +3 oxidation state.",vi:"Actinium thường có số oxi hóa +3."},
+    uses: {en:"Actinium-225 is being investigated and used in specialized targeted alpha therapies.",vi:"Actinium-225 đang được nghiên cứu và sử dụng trong một số liệu pháp alpha nhắm đích chuyên biệt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/89/actinium"]]
+  },
+  90: {
+    overview: {en:"Thorium is a naturally occurring radioactive actinide metal.",vi:"Thorium là kim loại thuộc dãy actini, có tính phóng xạ và tồn tại trong tự nhiên."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Thorium commonly forms compounds in the +4 oxidation state.",vi:"Thorium thường tạo hợp chất có số oxi hóa +4."},
+    uses: {en:"Thorium has been studied as a potential nuclear-fuel resource and has had limited uses in specialty materials.",vi:"Thorium được nghiên cứu như nguồn nhiên liệu hạt nhân tiềm năng và từng có một số ứng dụng hạn chế trong vật liệu chuyên dụng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/90/thorium"]]
+  },
+  71: {
+    overview: {en:"Lutetium is a dense, silvery metal usually grouped with the lanthanides.",vi:"Luteti là kim loại màu trắng bạc, có khối lượng riêng lớn và thường được xếp vào dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Lutetium predominantly forms compounds in the +3 oxidation state.",vi:"Luteti chủ yếu tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Lutetium compounds are used in some scintillator crystals for medical imaging.",vi:"Hợp chất luteti được dùng trong một số tinh thể nhấp nháy phục vụ chẩn đoán hình ảnh."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/71/lutetium"]]
+  },
+  72: {
+    overview: {en:"Hafnium is a corrosion-resistant metal chemically similar to zirconium.",vi:"Hafni là kim loại chống ăn mòn, có tính chất hóa học gần giống zirconi."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Hafnium commonly exhibits the +4 oxidation state and has a high neutron-absorption capacity.",vi:"Hafni thường có số oxi hóa +4 và khả năng hấp thụ neutron cao."},
+    uses: {en:"Hafnium is used in nuclear-reactor control rods and some high-temperature alloys.",vi:"Hafni được dùng trong thanh điều khiển lò phản ứng hạt nhân và một số hợp kim chịu nhiệt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/72/hafnium"]]
+  },
+  73: {
+    overview: {en:"Tantalum is a dense, corrosion-resistant refractory metal.",vi:"Tantali là kim loại chịu nhiệt, có khối lượng riêng lớn và chống ăn mòn tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Tantalum commonly forms +5 compounds and develops a stable protective oxide layer.",vi:"Tantali thường tạo hợp chất có số oxi hóa +5 và hình thành lớp oxit bảo vệ bền."},
+    uses: {en:"Tantalum is used in electronic capacitors and corrosion-resistant equipment.",vi:"Tantali được dùng trong tụ điện và thiết bị chống ăn mòn."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/73/tantalum"]]
+  },
+  74: {
+    overview: {en:"Tungsten has the highest melting point of any pure metal.",vi:"Vonfram có nhiệt độ nóng chảy cao nhất trong các kim loại nguyên chất."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Tungsten can form compounds in several oxidation states, including +6.",vi:"Vonfram có thể tạo hợp chất với nhiều số oxi hóa, trong đó có +6."},
+    uses: {en:"Tungsten is used in hard cutting tools, high-temperature components and electrodes.",vi:"Vonfram được dùng trong dụng cụ cắt cứng, linh kiện chịu nhiệt và điện cực."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/74/tungsten"]]
+  },
+  75: {
+    overview: {en:"Rhenium is a dense, high-melting-point transition metal.",vi:"Rheni là kim loại chuyển tiếp có khối lượng riêng lớn và nhiệt độ nóng chảy cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Rhenium forms compounds in several oxidation states, including +7.",vi:"Rheni tạo hợp chất với nhiều số oxi hóa, trong đó có +7."},
+    uses: {en:"Rhenium is used in high-temperature superalloys and some industrial catalysts.",vi:"Rheni được dùng trong siêu hợp kim chịu nhiệt và một số chất xúc tác công nghiệp."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/75/rhenium"]]
+  },
+  76: {
+    overview: {en:"Osmium is an exceptionally dense, hard platinum-group metal.",vi:"Osmi là kim loại rất đặc và cứng, thuộc nhóm kim loại platin."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Osmium forms several oxidation states; osmium tetroxide is highly toxic.",vi:"Osmi có nhiều số oxi hóa; osmi tetroxit là hợp chất có độc tính rất cao."},
+    uses: {en:"Osmium has limited specialized uses, including certain wear-resistant alloys.",vi:"Osmi có một số ứng dụng chuyên biệt, bao gồm hợp kim chống mài mòn."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/76/osmium"]]
+  },
+  77: {
+    overview: {en:"Iridium is a dense platinum-group metal with exceptional corrosion resistance.",vi:"Iridi là kim loại có khối lượng riêng lớn thuộc nhóm kim loại platin, chống ăn mòn rất tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Iridium is chemically resistant under many conditions and forms compounds in several oxidation states.",vi:"Iridi bền hóa học trong nhiều điều kiện và tạo hợp chất với nhiều số oxi hóa."},
+    uses: {en:"Iridium is used in specialized electrodes, spark plugs and high-temperature equipment.",vi:"Iridi được dùng trong điện cực chuyên dụng, bugi và thiết bị chịu nhiệt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/77/iridium"]]
+  },
+  78: {
+    overview: {en:"Platinum is a dense, malleable precious metal valued for corrosion resistance.",vi:"Platin là kim loại quý có khối lượng riêng lớn, dễ dát mỏng và chống ăn mòn tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Platinum commonly forms compounds in the +2 and +4 oxidation states and is an important catalyst.",vi:"Platin thường tạo hợp chất có số oxi hóa +2 và +4, đồng thời là chất xúc tác quan trọng."},
+    uses: {en:"Platinum is used in catalytic converters, laboratory equipment and some medicines.",vi:"Platin được dùng trong bộ chuyển đổi xúc tác, thiết bị phòng thí nghiệm và một số loại thuốc."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/78/platinum"]]
+  },
+  79: {
+    overview: {en:"Gold is a yellow, highly malleable metal that resists oxidation.",vi:"Vàng là kim loại màu vàng, rất dễ dát mỏng và khó bị oxi hóa."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Gold commonly forms compounds in the +1 and +3 oxidation states.",vi:"Vàng thường tạo hợp chất có số oxi hóa +1 và +3."},
+    uses: {en:"Gold is used in jewelry, corrosion-resistant electrical contacts and some electronics.",vi:"Vàng được dùng trong trang sức, tiếp điểm điện chống ăn mòn và một số thiết bị điện tử."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/79/gold"]]
+  },
+  80: {
+    overview: {en:"Mercury is the only metallic element that is liquid at 20°C.",vi:"Thủy ngân là nguyên tố kim loại duy nhất ở thể lỏng tại 20°C."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Liquid","Lỏng"]],
+    chemical: {en:"Mercury has common +1 and +2 oxidation states; mercury(I) generally occurs as the paired Hg₂²⁺ ion rather than isolated Hg⁺. Mercury and many of its compounds are toxic.",vi:"Thủy ngân thường có số oxi hóa +1 và +2; thủy ngân(I) thường tồn tại dưới dạng ion ghép Hg₂²⁺ thay vì ion Hg⁺ riêng lẻ. Thủy ngân và nhiều hợp chất của nó có độc tính."},
+    uses: {en:"Mercury was formerly common in thermometers and switches, but safer alternatives have replaced it in many applications.",vi:"Thủy ngân từng phổ biến trong nhiệt kế và công tắc, nhưng đã được thay thế bằng lựa chọn an toàn hơn trong nhiều ứng dụng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/80/mercury"]]
+  },
+  61: {
+    overview: {en:"Promethium is a radioactive lanthanide with no stable isotopes.",vi:"Prometi là nguyên tố thuộc dãy lantan, có tính phóng xạ và không có đồng vị bền."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Promethium commonly forms compounds in the +3 oxidation state.",vi:"Prometi thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Promethium-147 has been used in specialized beta-radiation sources and measurement devices.",vi:"Prometi-147 từng được dùng trong nguồn bức xạ beta chuyên dụng và thiết bị đo."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/61/promethium"]]
+  },
+  62: {
+    overview: {en:"Samarium is a silvery lanthanide metal.",vi:"Samari là kim loại màu trắng bạc thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Samarium most commonly forms +3 compounds, though +2 compounds also exist.",vi:"Samari thường tạo hợp chất có số oxi hóa +3, nhưng cũng có hợp chất +2."},
+    uses: {en:"Samarium–cobalt magnets are used where high-temperature performance is important.",vi:"Nam châm samari–coban được dùng khi cần hoạt động ở nhiệt độ cao."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/62/samarium"]]
+  },
+  63: {
+    overview: {en:"Europium is a relatively reactive lanthanide metal.",vi:"Europi là kim loại thuộc dãy lantan có tính phản ứng tương đối cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Europium can form compounds in both +2 and +3 oxidation states.",vi:"Europi có thể tạo hợp chất với số oxi hóa +2 và +3."},
+    uses: {en:"Europium compounds are used as phosphors in some displays and lighting technologies.",vi:"Các hợp chất europi được dùng làm chất phát quang trong một số công nghệ màn hình và chiếu sáng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/63/europium"]]
+  },
+  64: {
+    overview: {en:"Gadolinium is a silvery lanthanide with notable magnetic properties.",vi:"Gadolini là kim loại màu trắng bạc thuộc dãy lantan, có tính chất từ đáng chú ý."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Gadolinium commonly forms +3 compounds.",vi:"Gadolini thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Certain gadolinium compounds are used as contrast agents in magnetic resonance imaging under medical supervision.",vi:"Một số hợp chất gadolini được dùng làm chất tương phản trong chụp cộng hưởng từ theo chỉ định y tế."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/64/gadolinium"]]
+  },
+  65: {
+    overview: {en:"Terbium is a silvery lanthanide metal.",vi:"Terbi là kim loại màu trắng bạc thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Terbium commonly forms +3 compounds and can also exhibit +4 chemistry.",vi:"Terbi thường tạo hợp chất có số oxi hóa +3 và cũng có thể có số oxi hóa +4."},
+    uses: {en:"Terbium compounds are used in green-emitting phosphors and some magnetic materials.",vi:"Các hợp chất terbi được dùng trong chất phát quang màu xanh lục và một số vật liệu từ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/65/terbium"]]
+  },
+  66: {
+    overview: {en:"Dysprosium is a lanthanide metal with strong magnetic behavior at low temperatures.",vi:"Dysprosi là kim loại thuộc dãy lantan, có tính chất từ mạnh ở nhiệt độ thấp."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Dysprosium commonly forms compounds in the +3 oxidation state.",vi:"Dysprosi thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Dysprosium is added to some permanent magnets to improve their performance at elevated temperatures.",vi:"Dysprosi được bổ sung vào một số nam châm vĩnh cửu để cải thiện khả năng hoạt động ở nhiệt độ cao."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/66/dysprosium"]]
+  },
+  67: {
+    overview: {en:"Holmium is a silvery lanthanide metal.",vi:"Holmi là kim loại màu trắng bạc thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Holmium usually forms compounds in the +3 oxidation state.",vi:"Holmi thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Holmium is used in specialized lasers and magnetic research.",vi:"Holmi được dùng trong laser chuyên dụng và nghiên cứu từ học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/67/holmium"]]
+  },
+  68: {
+    overview: {en:"Erbium is a silvery lanthanide metal.",vi:"Erbi là kim loại màu trắng bạc thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Erbium commonly forms +3 compounds, some of which are pink in color.",vi:"Erbi thường tạo hợp chất có số oxi hóa +3, một số hợp chất có màu hồng."},
+    uses: {en:"Erbium-doped optical fibers are used to amplify signals in telecommunications.",vi:"Sợi quang pha tạp erbi được dùng để khuếch đại tín hiệu trong viễn thông."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/68/erbium"]]
+  },
+  69: {
+    overview: {en:"Thulium is a relatively rare lanthanide metal.",vi:"Tuli là kim loại tương đối hiếm thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Thulium usually forms +3 compounds, while +2 compounds are also known.",vi:"Tuli thường tạo hợp chất có số oxi hóa +3; các hợp chất +2 cũng đã được biết đến."},
+    uses: {en:"Thulium is used in certain specialized lasers and research instruments.",vi:"Tuli được dùng trong một số laser chuyên dụng và thiết bị nghiên cứu."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/69/thulium"]]
+  },
+  70: {
+    overview: {en:"Ytterbium is a soft, silvery lanthanide metal.",vi:"Yterbi là kim loại mềm, màu trắng bạc thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Ytterbium forms both +2 and +3 compounds.",vi:"Yterbi tạo hợp chất có số oxi hóa +2 và +3."},
+    uses: {en:"Ytterbium is used in some fiber lasers and precision atomic-clock research.",vi:"Yterbi được dùng trong một số laser sợi quang và nghiên cứu đồng hồ nguyên tử chính xác."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/70/ytterbium"]]
+  },
+  51: {
+    overview: {en:"Antimony is a brittle metalloid with a silvery appearance.",vi:"Antimon là á kim giòn, có vẻ ngoài màu trắng bạc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Antimony commonly forms compounds in the +3 and +5 oxidation states.",vi:"Antimon thường tạo hợp chất có số oxi hóa +3 và +5."},
+    uses: {en:"Antimony compounds are used in some flame-retardant formulations, while the metal is used in alloys.",vi:"Các hợp chất antimon được dùng trong một số chất chống cháy, còn kim loại antimon được dùng trong hợp kim."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/51/antimony"]]
+  },
+  52: {
+    overview: {en:"Tellurium is a brittle element often classified as a metalloid.",vi:"Telua là nguyên tố giòn, thường được xếp vào nhóm á kim."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Tellurium forms compounds with oxidation states including −2, +4 and +6.",vi:"Telua tạo hợp chất với các số oxi hóa gồm −2, +4 và +6."},
+    uses: {en:"Tellurium is used in some semiconductor materials and thermoelectric devices.",vi:"Telua được dùng trong một số vật liệu bán dẫn và thiết bị nhiệt điện."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/52/tellurium"]]
+  },
+  53: {
+    overview: {en:"Iodine is a halogen that forms a dark solid at room temperature.",vi:"Iốt là halogen tồn tại ở thể rắn sẫm màu tại nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Iodine commonly forms iodide ions and is less reactive than chlorine and bromine.",vi:"Iốt thường tạo ion iodua và kém hoạt động hơn clo và brom."},
+    uses: {en:"Iodine compounds are used in iodized salt and some medical antiseptics.",vi:"Các hợp chất iốt được dùng trong muối iốt và một số chất sát khuẩn y tế."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/53/iodine"]]
+  },
+  54: {
+    overview: {en:"Xenon is a dense noble gas present in trace amounts in air.",vi:"Xenon là khí hiếm có khối lượng riêng lớn, hiện diện với lượng rất nhỏ trong không khí."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Although relatively unreactive, xenon can form compounds, particularly with fluorine.",vi:"Dù tương đối trơ, xenon có thể tạo hợp chất, đặc biệt với flo."},
+    uses: {en:"Xenon is used in specialized lamps and some medical applications.",vi:"Xenon được dùng trong các loại đèn chuyên dụng và một số ứng dụng y tế."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/54/xenon"]]
+  },
+  55: {
+    overview: {en:"Caesium is a very soft alkali metal with a low melting point.",vi:"Xesi là kim loại kiềm rất mềm, có nhiệt độ nóng chảy thấp."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It is highly reactive and commonly forms Cs⁺ ions.",vi:"Xesi có tính phản ứng mạnh và thường tạo ion Cs⁺."},
+    uses: {en:"Caesium-133 is used to define the SI second in atomic timekeeping.",vi:"Đồng vị xesi-133 được dùng để định nghĩa giây SI trong đo thời gian nguyên tử."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/55/caesium"]]
+  },
+  56: {
+    overview: {en:"Barium is a reactive alkaline earth metal.",vi:"Bari là kim loại kiềm thổ có tính phản ứng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It commonly forms Ba²⁺ compounds; soluble barium salts can be toxic.",vi:"Bari thường tạo hợp chất chứa Ba²⁺; các muối bari tan có thể gây độc."},
+    uses: {en:"Barium sulfate is used as a contrast agent in some medical imaging procedures.",vi:"Bari sunfat được dùng làm chất cản quang trong một số kỹ thuật chẩn đoán hình ảnh."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/56/barium"]]
+  },
+  57: {
+    overview: {en:"Lanthanum is a soft, silvery metal commonly included among the lanthanides.",vi:"Lantan là kim loại mềm, màu trắng bạc, thường được xếp vào dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Lanthanum predominantly forms compounds in the +3 oxidation state.",vi:"Lantan chủ yếu tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Lanthanum compounds are used in optical glasses and some catalysts.",vi:"Các hợp chất lantan được dùng trong thủy tinh quang học và một số chất xúc tác."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/57/lanthanum"]]
+  },
+  58: {
+    overview: {en:"Cerium is a reactive, silvery lanthanide metal.",vi:"Xeri là kim loại thuộc dãy lantan, màu trắng bạc và có tính phản ứng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Cerium commonly exhibits +3 and +4 oxidation states.",vi:"Xeri thường có số oxi hóa +3 và +4."},
+    uses: {en:"Cerium oxide is used in glass polishing and catalytic applications.",vi:"Xeri oxit được dùng để đánh bóng thủy tinh và trong các ứng dụng xúc tác."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/58/cerium"]]
+  },
+  59: {
+    overview: {en:"Praseodymium is a soft, silvery lanthanide metal.",vi:"Praseodymi là kim loại mềm, màu trắng bạc, thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Its compounds are most commonly found in the +3 oxidation state.",vi:"Các hợp chất của praseodymi thường có số oxi hóa +3."},
+    uses: {en:"Praseodymium is used in some high-performance magnets and specialty glasses.",vi:"Praseodymi được dùng trong một số nam châm hiệu năng cao và thủy tinh chuyên dụng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/59/praseodymium"]]
+  },
+  60: {
+    overview: {en:"Neodymium is a silvery lanthanide metal.",vi:"Neodymi là kim loại màu trắng bạc thuộc dãy lantan."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Neodymium commonly forms compounds in the +3 oxidation state.",vi:"Neodymi thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Neodymium is a key component of powerful neodymium–iron–boron permanent magnets.",vi:"Neodymi là thành phần quan trọng của nam châm vĩnh cửu neodymi–sắt–bo có lực từ mạnh."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/60/neodymium"]]
+  },
+  41: {
+    overview: {en:"Niobium is a ductile, corrosion-resistant transition metal.",vi:"Niobi là kim loại chuyển tiếp dẻo, chống ăn mòn tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"It commonly forms compounds in the +5 oxidation state.",vi:"Niobi thường tạo hợp chất có số oxi hóa +5."},
+    uses: {en:"Niobium is used in superconducting magnets and high-strength steels.",vi:"Niobi được dùng trong nam châm siêu dẫn và thép cường độ cao."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/41/niobium"]]
+  },
+  42: {
+    overview: {en:"Molybdenum is a refractory metal with a high melting point.",vi:"Molypden là kim loại chịu nhiệt có nhiệt độ nóng chảy cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"It exhibits several oxidation states, particularly +6.",vi:"Molypden có nhiều số oxi hóa, đặc biệt là +6."},
+    uses: {en:"Molybdenum is used in alloy steels and industrial catalysts.",vi:"Molypden được dùng trong thép hợp kim và chất xúc tác công nghiệp."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/42/molybdenum"]]
+  },
+  43: {
+    overview: {en:"Technetium is a radioactive metal with no stable isotopes.",vi:"Tecneti là kim loại phóng xạ không có đồng vị bền."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"It forms compounds in several oxidation states, including +7 in pertechnetate.",vi:"Tecneti tạo hợp chất với nhiều số oxi hóa, gồm +7 trong ion pertecnatat."},
+    uses: {en:"Technetium-99m is widely used as a tracer in medical imaging.",vi:"Tecneti-99m được dùng rộng rãi làm chất đánh dấu trong chẩn đoán hình ảnh y học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/43/technetium"]]
+  },
+  44: {
+    overview: {en:"Ruthenium is a hard platinum-group metal.",vi:"Ruteni là kim loại cứng thuộc nhóm kim loại platin."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"It forms compounds with a range of oxidation states and can act as a catalyst.",vi:"Ruteni tạo hợp chất với nhiều số oxi hóa và có thể đóng vai trò chất xúc tác."},
+    uses: {en:"Ruthenium is used in certain electrical contacts and chemical catalysts.",vi:"Ruteni được dùng trong một số tiếp điểm điện và chất xúc tác hóa học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/44/ruthenium"]]
+  },
+  45: {
+    overview: {en:"Rhodium is a rare, reflective platinum-group metal.",vi:"Rhodi là kim loại hiếm, có độ phản xạ cao, thuộc nhóm kim loại platin."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"It resists corrosion and is useful in catalytic reactions.",vi:"Rhodi chống ăn mòn tốt và hữu ích trong các phản ứng xúc tác."},
+    uses: {en:"Rhodium is widely used in vehicle catalytic converters.",vi:"Rhodi được sử dụng rộng rãi trong bộ chuyển đổi xúc tác của xe."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/45/rhodium"]]
+  },
+  46: {
+    overview: {en:"Palladium is a silvery platinum-group metal.",vi:"Paladi là kim loại màu trắng bạc thuộc nhóm kim loại platin."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Palladium forms compounds in several oxidation states, notably 0 and +2 in catalysis. It can absorb substantial amounts of hydrogen and catalyze many reactions.",vi:"Palladium có nhiều số oxi hóa, đáng chú ý là 0 và +2 trong xúc tác. Kim loại này có thể hấp thụ lượng đáng kể hydro và xúc tác nhiều phản ứng."},
+    uses: {en:"Palladium is used in catalytic converters and electronics.",vi:"Paladi được dùng trong bộ chuyển đổi xúc tác và thiết bị điện tử."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/46/palladium"]]
+  },
+  47: {
+    overview: {en:"Silver is a lustrous metal with very high electrical conductivity.",vi:"Bạc là kim loại sáng bóng, có độ dẫn điện rất cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Silver commonly forms compounds containing Ag⁺ ions and can tarnish in sulfur-containing environments.",vi:"Bạc thường tạo hợp chất chứa ion Ag⁺ và có thể bị xỉn màu trong môi trường chứa lưu huỳnh."},
+    uses: {en:"Silver is used in electrical contacts, jewelry and some photographic materials.",vi:"Bạc được dùng trong tiếp điểm điện, đồ trang sức và một số vật liệu nhiếp ảnh."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/47/silver"]]
+  },
+  48: {
+    overview: {en:"Cadmium is a soft metal that is toxic and requires careful handling.",vi:"Cadimi là kim loại mềm, có độc tính và cần được xử lý cẩn thận."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Cadmium commonly forms compounds in the +2 oxidation state.",vi:"Cadimi thường tạo hợp chất có số oxi hóa +2."},
+    uses: {en:"Cadmium has been used in nickel–cadmium batteries and certain pigments, although use is restricted in many places.",vi:"Cadimi từng được dùng trong pin niken–cadimi và một số chất màu, dù việc sử dụng bị hạn chế ở nhiều nơi."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/48/cadmium"]]
+  },
+  49: {
+    overview: {en:"Indium is a soft, silvery metal.",vi:"Indi là kim loại mềm, màu trắng bạc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Indium commonly forms compounds in the +3 oxidation state.",vi:"Indi thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Indium tin oxide is used as a transparent conductive coating in displays.",vi:"Oxit indi thiếc được dùng làm lớp phủ dẫn điện trong suốt cho màn hình."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/49/indium"]]
+  },
+  50: {
+    overview: {en:"Tin is a relatively soft, silvery metal.",vi:"Thiếc là kim loại tương đối mềm, màu trắng bạc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C','Solid','Rắn']],
+    chemical: {en:"Tin commonly forms compounds in the +2 and +4 oxidation states.",vi:"Thiếc thường tạo hợp chất có số oxi hóa +2 và +4."},
+    uses: {en:"Tin is used in solder, protective coatings and alloys such as bronze.",vi:"Thiếc được dùng trong vật liệu hàn, lớp phủ bảo vệ và hợp kim như đồng thiếc."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/50/tin"]]
+  },
+  31: {
+    overview: {en:"Gallium is a soft, silvery metal that melts near room temperature.",vi:"Gali là kim loại mềm, màu trắng bạc, nóng chảy ở nhiệt độ gần nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Gallium commonly forms compounds with the +3 oxidation state.",vi:"Gali thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Gallium compounds such as gallium arsenide and gallium nitride are used in electronic and optoelectronic devices.",vi:"Các hợp chất gali như gali arsenua và gali nitrua được dùng trong thiết bị điện tử và quang điện tử."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/31/gallium"]]
+  },
+  32: {
+    overview: {en:"Germanium is a grayish metalloid with semiconductor properties.",vi:"Gecmani là á kim màu xám có tính chất bán dẫn."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Germanium commonly forms covalent compounds, including compounds in the +4 oxidation state.",vi:"Gecmani thường tạo hợp chất cộng hóa trị, trong đó có các hợp chất với số oxi hóa +4."},
+    uses: {en:"Germanium is used in some semiconductor devices, infrared optics and optical fibers.",vi:"Gecmani được dùng trong một số thiết bị bán dẫn, quang học hồng ngoại và sợi quang."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/32/germanium"]]
+  },
+  33: {
+    overview: {en:"Arsenic is a metalloid that occurs in several forms.",vi:"Asen là á kim tồn tại ở một số dạng khác nhau."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Arsenic forms compounds in multiple oxidation states, especially −3, +3 and +5; many arsenic compounds are toxic.",vi:"Asen tạo hợp chất với nhiều số oxi hóa, đặc biệt là −3, +3 và +5; nhiều hợp chất asen có độc tính cao."},
+    uses: {en:"Arsenic compounds have specialized uses in semiconductor materials, but their toxicity restricts many applications.",vi:"Một số hợp chất asen được dùng trong vật liệu bán dẫn chuyên dụng, nhưng độc tính hạn chế nhiều ứng dụng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/33/arsenic"]]
+  },
+  34: {
+    overview: {en:"Selenium is a nonmetal with several allotropes and photoconductive properties.",vi:"Selen là phi kim có nhiều dạng thù hình và có tính quang dẫn."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Selenium forms selenides and oxides and can exhibit several oxidation states.",vi:"Selen tạo các hợp chất selenua, oxit và có thể có nhiều số oxi hóa."},
+    uses: {en:"Selenium is used in glass production and some electronic materials; it is also a trace nutrient in small amounts.",vi:"Selen được dùng trong sản xuất thủy tinh và một số vật liệu điện tử; ở lượng nhỏ, đây cũng là nguyên tố vi lượng thiết yếu."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/34/selenium"]]
+  },
+  35: {
+    overview: {en:"Bromine is a reddish-brown liquid halogen at room temperature.",vi:"Brom là halogen ở thể lỏng màu nâu đỏ tại nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Liquid","Lỏng"]],
+    chemical: {en:"Bromine is reactive and often forms bromide ions in compounds.",vi:"Brom có tính phản ứng và thường tạo ion bromua trong các hợp chất."},
+    uses: {en:"Bromine compounds are used in chemical synthesis and some flame-retardant formulations.",vi:"Các hợp chất brom được dùng trong tổng hợp hóa học và một số công thức chất chống cháy."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/35/bromine"]]
+  },
+  36: {
+    overview: {en:"Krypton is a colorless noble gas present in trace amounts in air.",vi:"Krypton là khí hiếm không màu, có hàm lượng rất nhỏ trong không khí."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Krypton is generally unreactive, although a small number of krypton compounds are known.",vi:"Krypton nhìn chung ít phản ứng, dù đã biết một số ít hợp chất của krypton."},
+    uses: {en:"Krypton is used in specialized lamps and certain laser systems.",vi:"Krypton được dùng trong đèn chuyên dụng và một số hệ thống laser."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/36/krypton"]]
+  },
+  37: {
+    overview: {en:"Rubidium is a very soft, highly reactive alkali metal.",vi:"Rubidi là kim loại kiềm rất mềm và có tính phản ứng mạnh."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Rubidium reacts vigorously with water and typically forms Rb⁺ ions.",vi:"Rubidi phản ứng mạnh với nước và thường tạo ion Rb⁺."},
+    uses: {en:"Rubidium is used in research and some atomic-frequency standards.",vi:"Rubidi được dùng trong nghiên cứu và một số chuẩn tần số nguyên tử."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/37/rubidium"]]
+  },
+  38: {
+    overview: {en:"Strontium is a silvery alkaline earth metal.",vi:"Stronti là kim loại kiềm thổ màu trắng bạc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Strontium commonly forms Sr²⁺ ions and reacts with water.",vi:"Stronti thường tạo ion Sr²⁺ và phản ứng với nước."},
+    uses: {en:"Strontium compounds are used in some ceramics and red-colored pyrotechnic formulations.",vi:"Các hợp chất stronti được dùng trong một số vật liệu gốm và chế phẩm tạo màu đỏ trong pháo hoa."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/38/strontium"]]
+  },
+  39: {
+    overview: {en:"Yttrium is a silvery metal commonly associated with rare-earth minerals.",vi:"Ytri là kim loại màu trắng bạc, thường có trong các khoáng vật đất hiếm."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Yttrium most commonly forms compounds in the +3 oxidation state.",vi:"Ytri thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Yttrium compounds are used in phosphors, lasers and advanced ceramics.",vi:"Các hợp chất ytri được dùng trong vật liệu phát quang, laser và gốm kỹ thuật cao."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/39/yttrium"]]
+  },
+  40: {
+    overview: {en:"Zirconium is a corrosion-resistant metal with a high melting point.",vi:"Zirconi là kim loại chống ăn mòn tốt và có nhiệt độ nóng chảy cao."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"A protective oxide layer contributes to zirconium’s resistance to corrosion; +4 is a common oxidation state.",vi:"Lớp oxit bảo vệ góp phần giúp zirconi chống ăn mòn; +4 là số oxi hóa phổ biến."},
+    uses: {en:"Zirconium alloys are used in some nuclear-reactor components, while zirconia is used in ceramics.",vi:"Hợp kim zirconi được dùng trong một số bộ phận lò phản ứng hạt nhân, còn zirconi đioxit được dùng trong gốm."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/40/zirconium"]]
+  },
+  21: {
+    overview: {en:"Scandium is a silvery transition metal often associated with rare-earth mineral deposits.",vi:"Scandi là kim loại chuyển tiếp màu trắng bạc, thường có trong các mỏ khoáng vật đất hiếm."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Scandium commonly forms compounds in the +3 oxidation state.",vi:"Scandi thường tạo hợp chất có số oxi hóa +3."},
+    uses: {en:"Small additions of scandium can improve certain aluminium alloys.",vi:"Lượng nhỏ scandi có thể cải thiện một số hợp kim nhôm."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/21/scandium"]]
+  },
+  22: {
+    overview: {en:"Titanium is a strong, relatively lightweight metal with good corrosion resistance.",vi:"Titan là kim loại bền, tương đối nhẹ và chống ăn mòn tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"A protective oxide film forms on its surface; +4 is a common oxidation state.",vi:"Bề mặt titan tạo lớp oxit bảo vệ; +4 là số oxi hóa phổ biến."},
+    uses: {en:"Titanium alloys are used in aerospace and medical implants.",vi:"Hợp kim titan được dùng trong hàng không vũ trụ và thiết bị cấy ghép y tế."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/22/titanium"]]
+  },
+  23: {
+    overview: {en:"Vanadium is a hard transition metal used in alloy steels.",vi:"Vanadi là kim loại chuyển tiếp cứng, được dùng trong thép hợp kim."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Vanadium exhibits several oxidation states, including +2, +3, +4 and +5.",vi:"Vanadi có nhiều số oxi hóa, gồm +2, +3, +4 và +5."},
+    uses: {en:"Vanadium is used in high-strength steels and some redox-flow batteries.",vi:"Vanadi được dùng trong thép cường độ cao và một số loại pin dòng oxi hóa-khử."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/23/vanadium"]]
+  },
+  24: {
+    overview: {en:"Chromium is a hard, corrosion-resistant transition metal.",vi:"Crom là kim loại chuyển tiếp cứng, chống ăn mòn tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Chromium commonly occurs in +3 and +6 oxidation states; compounds containing chromium(VI) are hazardous.",vi:"Crom thường có số oxi hóa +3 và +6; các hợp chất chứa crom(VI) có độc tính cao."},
+    uses: {en:"Chromium is important in stainless steel and some surface coatings.",vi:"Crom quan trọng trong thép không gỉ và một số lớp phủ bề mặt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/24/chromium"]]
+  },
+  25: {
+    overview: {en:"Manganese is a hard, brittle metal used extensively in steelmaking.",vi:"Mangan là kim loại cứng, giòn, được dùng rộng rãi trong luyện thép."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Manganese exhibits multiple oxidation states; permanganate contains manganese in the +7 state.",vi:"Mangan có nhiều số oxi hóa; trong ion pemanganat, mangan có số oxi hóa +7."},
+    uses: {en:"Manganese is used in steel production and some battery materials.",vi:"Mangan được dùng trong sản xuất thép và một số vật liệu pin."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/25/manganese"]]
+  },
+  27: {
+    overview: {en:"Cobalt is a ferromagnetic transition metal at room temperature.",vi:"Coban là kim loại chuyển tiếp có tính sắt từ ở nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Cobalt commonly forms compounds in the +2 and +3 oxidation states.",vi:"Coban thường tạo hợp chất có số oxi hóa +2 và +3."},
+    uses: {en:"Cobalt is used in some rechargeable battery materials and high-temperature alloys.",vi:"Coban được dùng trong một số vật liệu pin sạc và hợp kim chịu nhiệt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/27/cobalt"]]
+  },
+  28: {
+    overview: {en:"Nickel is a silvery metal with good corrosion resistance.",vi:"Niken là kim loại màu trắng bạc, có khả năng chống ăn mòn tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Nickel commonly forms Ni²⁺ compounds and is an important alloying element.",vi:"Niken thường tạo hợp chất chứa Ni²⁺ và là nguyên tố quan trọng trong hợp kim."},
+    uses: {en:"Nickel is used in stainless steel, plating and certain rechargeable batteries.",vi:"Niken được dùng trong thép không gỉ, mạ kim loại và một số loại pin sạc."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/28/nickel"]]
+  },
+  29: {
+    overview: {en:"Copper is a reddish metal with excellent electrical and thermal conductivity.",vi:"Đồng là kim loại màu đỏ, dẫn điện và dẫn nhiệt rất tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Copper commonly forms compounds in the +1 and +2 oxidation states.",vi:"Đồng thường tạo hợp chất có số oxi hóa +1 và +2."},
+    uses: {en:"Copper is widely used in electrical wiring, plumbing and heat exchangers.",vi:"Đồng được dùng rộng rãi trong dây điện, đường ống và bộ trao đổi nhiệt."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/29/copper"]]
+  },
+  30: {
+    overview: {en:"Zinc is a bluish-silver metal commonly used to protect iron from corrosion.",vi:"Kẽm là kim loại màu trắng bạc ánh xanh, thường dùng để bảo vệ sắt khỏi ăn mòn."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Zinc predominantly forms compounds in the +2 oxidation state.",vi:"Kẽm chủ yếu tạo hợp chất có số oxi hóa +2."},
+    uses: {en:"Zinc is used for galvanizing steel, in brass and in some batteries.",vi:"Kẽm được dùng để mạ bảo vệ thép, chế tạo đồng thau và trong một số loại pin."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/30/zinc"]]
+  },
+  11: {
+    overview: {en:"Sodium is a soft, silvery alkali metal.",vi:"Natri là kim loại kiềm mềm, màu trắng bạc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It reacts readily with water and usually forms Na⁺ ions.",vi:"Natri phản ứng dễ dàng với nước và thường tạo ion Na⁺."},
+    uses: {en:"Sodium compounds are used in glassmaking and chemical manufacturing.",vi:"Các hợp chất natri được dùng trong sản xuất thủy tinh và công nghiệp hóa chất."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/11/sodium"]]
+  },
+  12: {
+    overview: {en:"Magnesium is a lightweight, silvery metal.",vi:"Magiê là kim loại nhẹ, màu trắng bạc."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It usually forms Mg²⁺ ions and burns with a bright white light when ignited.",vi:"Magiê thường tạo ion Mg²⁺ và cháy với ánh sáng trắng mạnh khi được đốt."},
+    uses: {en:"Magnesium alloys are used in lightweight engineering components.",vi:"Hợp kim magiê được dùng để chế tạo các bộ phận kỹ thuật nhẹ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/12/magnesium"]]
+  },
+  13: {
+    overview: {en:"Aluminium is a lightweight metal with good thermal and electrical conductivity.",vi:"Nhôm là kim loại nhẹ, dẫn nhiệt và dẫn điện tốt."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"A thin oxide layer protects aluminium from further corrosion in many environments.",vi:"Lớp oxit mỏng giúp bảo vệ nhôm khỏi bị ăn mòn tiếp trong nhiều môi trường."},
+    uses: {en:"Aluminium is used in transport, packaging and construction.",vi:"Nhôm được dùng trong giao thông vận tải, bao bì và xây dựng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/13/aluminium"]]
+  },
+  14: {
+    overview: {en:"Silicon is a metalloid and an important semiconductor material.",vi:"Silic là á kim và là vật liệu bán dẫn quan trọng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Silicon forms strong covalent bonds and occurs widely in silicate minerals and silica.",vi:"Silic tạo liên kết cộng hóa trị bền và có nhiều trong khoáng vật silicat và silica."},
+    uses: {en:"High-purity silicon is used in electronics and solar cells.",vi:"Silic có độ tinh khiết cao được dùng trong điện tử và pin mặt trời."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/14/silicon"]]
+  },
+  15: {
+    overview: {en:"Phosphorus is a nonmetal with several allotropes, including white and red phosphorus.",vi:"Photpho là phi kim có nhiều dạng thù hình, trong đó có photpho trắng và đỏ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Its reactivity varies substantially between allotropes; phosphates are widespread compounds.",vi:"Mức độ phản ứng khác nhau đáng kể giữa các dạng thù hình; các hợp chất photphat rất phổ biến."},
+    uses: {en:"Phosphorus compounds are important in fertilizers and biological molecules.",vi:"Các hợp chất photpho quan trọng trong phân bón và phân tử sinh học."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/15/phosphorus"]]
+  },
+  16: {
+    overview: {en:"Sulfur is a yellow nonmetal that is solid at room temperature.",vi:"Lưu huỳnh là phi kim màu vàng, ở thể rắn tại nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It forms sulfides and oxides and occurs in multiple oxidation states.",vi:"Lưu huỳnh tạo các hợp chất sulfua, oxit và có nhiều số oxi hóa."},
+    uses: {en:"Sulfur is widely used to manufacture sulfuric acid.",vi:"Lưu huỳnh được sử dụng rộng rãi để sản xuất axit sulfuric."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/16/sulfur"]]
+  },
+  17: {
+    overview: {en:"Chlorine is a greenish-yellow halogen gas at room temperature.",vi:"Clo là khí halogen màu vàng lục ở nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"It is a reactive oxidizing agent and commonly forms chloride ions in compounds.",vi:"Clo có tính oxi hóa mạnh và thường tạo ion clorua trong hợp chất."},
+    uses: {en:"Chlorine compounds are used in water disinfection and chemical manufacturing.",vi:"Các hợp chất clo được dùng trong khử trùng nước và công nghiệp hóa chất."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/17/chlorine"]]
+  },
+  18: {
+    overview: {en:"Argon is a noble gas that makes up about 0.93% of Earth's atmosphere by volume.",vi:"Argon là khí hiếm chiếm khoảng 0,93% thể tích khí quyển Trái Đất."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Argon is very unreactive under ordinary conditions.",vi:"Argon rất ít phản ứng trong điều kiện thông thường."},
+    uses: {en:"Argon is used as a shielding gas in welding and in some lighting applications.",vi:"Argon được dùng làm khí bảo vệ khi hàn và trong một số ứng dụng chiếu sáng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/18/argon"]]
+  },
+  19: {
+    overview: {en:"Potassium is a soft alkali metal.",vi:"Kali là kim loại kiềm mềm."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It reacts vigorously with water and commonly forms K⁺ ions.",vi:"Kali phản ứng mạnh với nước và thường tạo ion K⁺."},
+    uses: {en:"Potassium compounds are widely used in fertilizers.",vi:"Các hợp chất kali được dùng rộng rãi trong phân bón."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/19/potassium"]]
+  },
+  20: {
+    overview: {en:"Calcium is a reactive alkaline earth metal.",vi:"Canxi là kim loại kiềm thổ có tính phản ứng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"It commonly forms Ca²⁺ ions; calcium compounds include limestone and gypsum.",vi:"Canxi thường tạo ion Ca²⁺; các hợp chất của canxi gồm đá vôi và thạch cao."},
+    uses: {en:"Calcium compounds are used in cement and construction materials.",vi:"Các hợp chất canxi được dùng trong xi măng và vật liệu xây dựng."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/20/calcium"]]
+  },
+  1: {
+    overview: {en:"Hydrogen is the lightest element and commonly exists as diatomic H₂ gas.",vi:"Hydro là nguyên tố nhẹ nhất và thường tồn tại dưới dạng khí H₂ gồm hai nguyên tử."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Hydrogen reacts with many elements and is present in water and organic compounds.",vi:"Hydro phản ứng với nhiều nguyên tố và có trong nước cùng các hợp chất hữu cơ."},
+    uses: {en:"Hydrogen is used in ammonia production and in some fuel-cell systems.",vi:"Hydro được sử dụng để sản xuất amoniac và trong một số hệ thống pin nhiên liệu."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/1/hydrogen"]]
+  },
+  2: {
+    overview: {en:"Helium is a very light noble gas with a low boiling point.",vi:"Heli là khí hiếm rất nhẹ, có nhiệt độ sôi thấp."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Helium is chemically very unreactive under ordinary conditions.",vi:"Heli rất ít phản ứng hóa học trong điều kiện thông thường."},
+    uses: {en:"Helium is used in cryogenic cooling and leak detection.",vi:"Heli được dùng trong làm lạnh nhiệt độ cực thấp và phát hiện rò rỉ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/2/helium"]]
+  },
+  3: {
+    overview: {en:"Lithium is a soft, lightweight alkali metal.",vi:"Liti là kim loại kiềm mềm và nhẹ."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Lithium readily forms compounds containing Li⁺ ions and reacts with water.",vi:"Liti dễ tạo hợp chất chứa ion Li⁺ và phản ứng với nước."},
+    uses: {en:"Lithium compounds are important in rechargeable batteries.",vi:"Các hợp chất liti có vai trò quan trọng trong pin sạc."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/3/lithium"]]
+  },
+  4: {
+    overview: {en:"Beryllium is a lightweight, relatively stiff metal.",vi:"Beri là kim loại nhẹ và tương đối cứng vững."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Beryllium commonly forms compounds in the +2 oxidation state.",vi:"Beri thường tạo hợp chất có số oxi hóa +2."},
+    uses: {en:"Beryllium-containing materials have specialized aerospace and X-ray applications.",vi:"Vật liệu chứa beri có các ứng dụng chuyên dụng trong hàng không vũ trụ và công nghệ tia X."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/4/beryllium"]]
+  },
+  5: {
+    overview: {en:"Boron is a metalloid found in several hard compounds.",vi:"Bo là á kim có mặt trong nhiều hợp chất cứng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Solid","Rắn"]],
+    chemical: {en:"Boron commonly forms covalent compounds.",vi:"Bo thường tạo các hợp chất có liên kết cộng hóa trị."},
+    uses: {en:"Boron compounds are used in borosilicate glass and detergents.",vi:"Các hợp chất bo được dùng trong thủy tinh borosilicat và chất tẩy rửa."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/5/boron"]]
+  },
+  7: {
+    overview: {en:"Nitrogen is a major component of Earth's atmosphere, mainly as N₂.",vi:"Nitơ là thành phần chủ yếu của khí quyển Trái Đất, chủ yếu ở dạng N₂."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Molecular nitrogen is relatively unreactive under ordinary conditions, but nitrogen forms many compounds.",vi:"Phân tử nitơ tương đối kém phản ứng trong điều kiện thường, nhưng nitơ tạo nhiều hợp chất."},
+    uses: {en:"Nitrogen is used to produce ammonia and to provide inert atmospheres.",vi:"Nitơ được dùng để sản xuất amoniac và tạo môi trường khí trơ."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/7/nitrogen"]]
+  },
+  8: {
+    overview: {en:"Oxygen is a gas that makes up roughly one fifth of Earth's atmosphere.",vi:"Oxy là chất khí chiếm khoảng một phần năm khí quyển Trái Đất."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Oxygen supports combustion and participates in many oxidation reactions.",vi:"Oxy duy trì sự cháy và tham gia nhiều phản ứng oxi hóa."},
+    uses: {en:"Oxygen is used in medical care and steelmaking.",vi:"Oxy được dùng trong y tế và sản xuất thép."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/8/oxygen"]]
+  },
+  9: {
+    overview: {en:"Fluorine is a pale-yellow halogen gas at room temperature.",vi:"Flo là khí halogen màu vàng nhạt ở nhiệt độ phòng."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Elemental fluorine is extremely reactive and forms fluorides with many elements.",vi:"Flo đơn chất có tính phản ứng rất mạnh và tạo florua với nhiều nguyên tố."},
+    uses: {en:"Fluorine-containing compounds are used in fluoropolymers and some dental products.",vi:"Các hợp chất chứa flo được dùng trong polyme flo hóa và một số sản phẩm nha khoa."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/9/fluorine"]]
+  },
+  10: {
+    overview: {en:"Neon is a noble gas that is present in small amounts in air.",vi:"Neon là khí hiếm có hàm lượng nhỏ trong không khí."},
+    physical: [['State at 20°C','Trạng thái ở 20°C',"Gas","Khí"]],
+    chemical: {en:"Neon is chemically very unreactive under ordinary conditions.",vi:"Neon rất ít phản ứng hóa học trong điều kiện thông thường."},
+    uses: {en:"Neon is used in illuminated discharge tubes and indicator lamps.",vi:"Neon được dùng trong ống phóng điện phát sáng và đèn báo."},
+    sources: [['Royal Society of Chemistry',"https://periodic-table.rsc.org/element/10/neon"]]
+  },
   6: {
     overview: {en:'Carbon forms several allotropes, including diamond and graphite, and is central to the chemistry of living things.',vi:'Carbon tồn tại ở nhiều dạng thù hình, trong đó có kim cương và than chì, đồng thời giữ vai trò trung tâm trong hóa học của sự sống.'},
     physical: [
@@ -2765,7 +3605,10 @@ const CATEGORY_CONTEXT = {
 };
 function referenceProfile(element) {
   const vi=currentLanguage==='vi';
-  const context=CATEGORY_CONTEXT[element.category] || ['Properties depend on the element.','Tính chất phụ thuộc từng nguyên tố.'];
+  const context=element.n>=104
+    ? ['This superheavy element is placed here by periodic-table convention; much of its chemistry is predicted or incompletely characterized.',
+       'Nguyên tố siêu nặng này được xếp theo quy ước bảng tuần hoàn; nhiều tính chất hóa học vẫn là dự đoán hoặc chưa được xác định đầy đủ.']
+    : (CATEGORY_CONTEXT[element.category] || ['Properties depend on the element.','Tính chất phụ thuộc từng nguyên tố.']);
   const state=ELEMENT_STATES_UNCERTAIN.has(element.n)
     ? [ 'Not reliably established', 'Chưa được xác định đáng tin cậy' ]
     : ELEMENT_STATES_GAS.has(element.n) ? ['Gas','Khí']
@@ -2782,7 +3625,7 @@ function referenceProfile(element) {
 function renderEncyclopedia(element) {
   const host=document.getElementById('elementEncyclopedia');
   if (!host) return;
-  const vi=currentLanguage==='vi', entry=VERIFIED_ENCYCLOPEDIA[element.n];
+  const vi=currentLanguage==='vi', entry=EXPANDED_ENCYCLOPEDIA[element.n];
   host.replaceChildren();
   const heading=document.createElement('h3');heading.textContent=vi?'Khám phá nguyên tố':'Explore this element';host.append(heading);
   const intro=document.createElement('div');intro.className='encyclopedia-intro';
@@ -2811,11 +3654,62 @@ function renderEncyclopedia(element) {
   addSection(vi?'Tính chất vật lí':'Physical properties',body=>{
     entry.physical.forEach(f=>{const row=document.createElement('div');row.className='fact';const label=document.createElement('span');label.textContent=f[vi?1:0];const value=document.createElement('span');value.textContent=f[vi?3:2];row.append(label,value);body.append(row);});
   },true);
+  if (entry.stateEvidence) { const evidence=document.createElement('p'); evidence.className='review-status'; evidence.textContent=entry.stateEvidence[vi?'vi':'en']; host.append(evidence); }
+  if (element.n >= 95 && element.n <= 100) {
+    const classification=document.createElement('p');
+    classification.className='review-status';
+    classification.textContent=vi
+      ? 'Royal Society of Chemistry phân loại nguyên tố này ở thể rắn tại 20°C. Với các nguyên tố rất hiếm, dữ liệu thực nghiệm trên mẫu vật liệu khối vẫn có thể hạn chế.'
+      : 'The Royal Society of Chemistry classifies this element as solid at 20°C. For very rare elements, direct measurements on bulk samples may still be limited.';
+    host.append(classification);
+  }
+  if (element.n >= 101) {
+    const uncertainty=document.createElement('p');
+    uncertainty.className='review-status';
+    uncertainty.textContent=vi
+      ? 'Lưu ý: chưa có phép đo trực tiếp xác định trạng thái của vật liệu khối ở 20°C; không nên coi dự đoán là dữ liệu đo.'
+      : 'Evidence note: no direct bulk-state measurement at 20°C is established; theoretical predictions must not be presented as measured facts.';
+    host.append(uncertainty);
+  }
+  if (element.n >= 104) {
+    const chemistryEvidence=document.createElement('p');
+    chemistryEvidence.className='review-status';
+    chemistryEvidence.textContent=element.n <= 108
+      ? (vi
+          ? 'Mức độ bằng chứng hóa học: đã có một số thí nghiệm với rất ít nguyên tử; nhiều đặc tính vẫn cần xác nhận.'
+          : 'Chemical evidence: limited atom-at-a-time experiments exist; many properties remain unconfirmed.')
+      : (vi
+          ? 'Mức độ bằng chứng hóa học: dữ liệu thực nghiệm trực tiếp rất hạn chế; phần lớn mô tả là dự đoán lý thuyết.'
+          : 'Chemical evidence: direct experiments are extremely limited; most descriptions rely on theoretical predictions.');
+    host.append(chemistryEvidence);
+  }
+  if ([30,48,80,112].includes(element.n)) {
+    const categoryNote=document.createElement('p');
+    categoryNote.className='review-status';
+    categoryNote.textContent=vi
+      ? 'Lưu ý phân loại: nguyên tố nhóm 12 được tô màu cùng các kim loại khối d theo quy ước giảng dạy. Theo định nghĩa chuyển tiếp chặt chẽ của IUPAC (phân lớp d chưa bão hòa ở nguyên tử hoặc ion dương), cách xếp loại có thể khác; Copernicium còn thiếu nhiều dữ liệu thực nghiệm.'
+      : 'Classification note: group 12 is colored with the d-block metals as a teaching convention. Under the stricter IUPAC transition-element definition (an incomplete d subshell in the atom or a cation), classifications can differ; Copernicium also lacks extensive experimental data.';
+    host.append(categoryNote);
+  }
+  if ([57,71,89,103].includes(element.n)) {
+    const groupNote=document.createElement('p');
+    groupNote.className='review-status';
+    groupNote.textContent=vi
+      ? 'Lưu ý nhóm 3: ranh giới giữa nhóm 3 và các dãy f được trình bày khác nhau trong một số cách bố trí bảng tuần hoàn; vị trí hiển thị không phải là sự đồng thuận tuyệt đối về phân nhóm.'
+      : 'Group 3 note: the boundary between group 3 and the f-block series varies across periodic-table conventions; this layout is not a universal group-assignment consensus.';
+    host.append(groupNote);
+  }
   addSection(vi?'Tính chất hóa học':'Chemical properties',body=>{body.textContent=entry.chemical[vi?'vi':'en'];});
   addSection(vi?'Ứng dụng thực tế':'Real-world applications',body=>{body.textContent=entry.uses[vi?'vi':'en'];});
+  const verificationNote=document.createElement('p');
+  verificationNote.className='review-status';
+  verificationNote.textContent=vi
+    ? 'Hồ sơ đã mở rộng · Nội dung đang chờ đối chiếu độc lập từng nhận định với nguồn khoa học.'
+    : 'Expanded profile · Individual scientific claims are pending independent source verification.';
+  host.append(verificationNote);
   addSection(vi?'Nguồn tham khảo':'Sources',body=>{
     entry.sources.forEach(([label,url])=>{const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label;body.append(a);});
-    const note=document.createElement('p');note.className='review-status';note.textContent=vi?'Các giá trị phụ thuộc điều kiện đo hoặc dạng thù hình nếu có ghi chú.':'Values may depend on measurement conditions or allotrope as noted.';body.append(note);
+    const note=document.createElement('p');note.className='review-status';note.textContent=vi?'Liên kết là tài liệu tham khảo để tra cứu thêm, chưa phải chứng nhận độc lập cho từng nhận định.':'These are further-reading references, not independently checked citations for each claim.';body.append(note);
   });
 }
 
@@ -2929,41 +3823,18 @@ function selectElement(element, openPanel = true) {
 ========================================================= */
 
 function performSearch() {
-
-    const query =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-    const cards =
-        document.querySelectorAll(".element");
-
-
-    if (!query) {
-
-        cards.forEach(card => {
-            card.classList.remove("dimmed");
-        });
-
-        return;
-    }
-
-
-    cards.forEach(card => {
-
-        const matches =
+    const query = searchInput.value.trim().toLowerCase();
+    const category = document.querySelector('.legend button.active')?.dataset.category || 'all';
+    document.querySelectorAll('.element').forEach(card => {
+        const matchesSearch = !query ||
             card.dataset.number === query ||
-            (card.dataset.name.includes(query) || card.dataset.viName.includes(query)) ||
+            card.dataset.name.includes(query) ||
+            card.dataset.viName.includes(query) ||
             card.dataset.symbol === query;
-
-        card.classList.toggle(
-            "dimmed",
-            !matches
-        );
+        const matchesCategory = category === 'all' || card.dataset.category === category;
+        card.classList.toggle('dimmed', !(matchesSearch && matchesCategory));
     });
 }
-
 
 searchInput.addEventListener(
     "input",
@@ -2988,8 +3859,8 @@ clearSearch.addEventListener(
 /* Category descriptions: explanations, not redundant element lists. */
 const CATEGORY_EXPLANATIONS = {
   all: {
-    en:['Why are elements classified?','The periodic table arranges elements by atomic number. Elements in the same column often have similar valence-electron structures and chemical behavior; the colored categories also group elements by broader shared properties.'],
-    vi:['Vì sao các nguyên tố được phân loại?','Bảng tuần hoàn sắp xếp các nguyên tố theo số hiệu nguyên tử. Các nguyên tố cùng cột thường có cấu trúc electron hóa trị và tính chất hóa học tương tự; các nhóm màu còn phân loại theo những đặc điểm chung rộng hơn.']
+    en:['Why are elements classified?','The periodic table arranges elements by atomic number. Numbered groups are columns, while the colored categories are broader teaching classifications. The separated f-block rows are not assigned numbered groups by their display positions; some classification boundaries vary by reference.'],
+    vi:['Vì sao các nguyên tố được phân loại?','Bảng tuần hoàn sắp xếp các nguyên tố theo số hiệu nguyên tử. Nhóm được đánh số là các cột, còn nhóm màu là cách phân loại rộng hơn để học tập. Vị trí của các nguyên tố khối f ở hai hàng tách riêng không phải số nhóm; ranh giới một số loại nguyên tố có thể khác nhau tùy tài liệu.']
   },
   alkali: {
     en:['Alkali metals','These Group 1 metals (excluding hydrogen) have one valence electron. They readily lose it to form +1 ions and are generally highly reactive.'],
@@ -3000,8 +3871,8 @@ const CATEGORY_EXPLANATIONS = {
     vi:['Kim loại kiềm thổ','Các kim loại nhóm IIA có hai electron hóa trị và thường tạo ion +2. Chúng có những tính chất kim loại và khả năng phản ứng tương đồng, nhưng mức độ phản ứng khác nhau giữa các nguyên tố.']
   },
   transition: {
-    en:['Transition metals','These metals occupy the central d-block region. Many form ions with incomplete d subshells, show multiple oxidation states, and form coordination compounds; individual properties vary.'],
-    vi:['Kim loại chuyển tiếp','Các kim loại này nằm ở vùng khối d giữa bảng tuần hoàn. Nhiều nguyên tố tạo ion có phân lớp d chưa bão hòa, có nhiều số oxi hóa và tạo hợp chất phối trí; tính chất cụ thể có thể khác nhau.']
+    en:['Transition metals','This teaching category broadly covers the central d-block metals. In the stricter IUPAC definition, a transition element has an atom with an incomplete d subshell or forms cations with an incomplete d subshell; therefore some group 12 metals are classified differently by different references.'],
+    vi:['Kim loại chuyển tiếp','Nhóm dùng trong giảng dạy này nhìn chung bao gồm các kim loại khối d. Theo định nghĩa chặt chẽ của IUPAC, nguyên tố chuyển tiếp có nguyên tử hoặc ion dương với phân lớp d chưa bão hòa; vì vậy một số kim loại nhóm 12 được phân loại khác nhau tùy nguồn.']
   },
   'post-transition': {
     en:['Post-transition metals','This conventional category covers several metals beyond the d-block. They generally show metallic bonding but often have lower melting points or different bonding behavior than many transition metals; the exact membership varies by source.'],
@@ -3016,12 +3887,12 @@ const CATEGORY_EXPLANATIONS = {
     vi:['Phi kim','Các nguyên tố này nhìn chung không có những tính chất đặc trưng của kim loại và thường tạo liên kết cộng hóa trị. Trạng thái vật chất và khả năng phản ứng rất đa dạng, vì vậy đây là nhóm có các đặc điểm chung chứ không hoàn toàn giống nhau.']
   },
   halogen: {
-    en:['Halogens','Group 17 elements have seven valence electrons in their neutral atoms. They often gain or share one electron in compounds and commonly form salts with metals; reactivity varies down the group.'],
-    vi:['Halogen','Các nguyên tố nhóm VIIA có bảy electron hóa trị trong nguyên tử trung hòa. Chúng thường nhận hoặc dùng chung một electron khi tạo hợp chất và dễ tạo muối với kim loại; mức độ phản ứng thay đổi trong nhóm.']
+    en:['Halogens','Group 17 elements generally have seven valence electrons and commonly form salts with metals. For superheavy tennessine, many chemical properties remain predicted rather than experimentally established.'],
+    vi:['Halogen','Các nguyên tố nhóm VIIA thường có bảy electron hóa trị và hay tạo muối với kim loại. Với Tennessine siêu nặng, nhiều tính chất hóa học vẫn là dự đoán, chưa được xác nhận bằng thực nghiệm.']
   },
   noble: {
-    en:['Noble gases','Group 18 elements have filled outer electron shells (helium has two electrons). This makes most of them relatively unreactive, although some heavier noble gases can form compounds.'],
-    vi:['Khí hiếm','Các nguyên tố nhóm VIIIA có lớp electron ngoài cùng đã bão hòa (Helium có hai electron). Vì vậy, phần lớn khá kém hoạt động hóa học, dù một số khí hiếm nặng vẫn có thể tạo hợp chất.']
+    en:['Noble gases','Group 18 elements generally have filled outer electron shells (helium has two electrons). Several heavier noble gases form compounds; the chemistry of superheavy oganesson remains largely theoretical, so its behavior should not be assumed identical to lighter noble gases.'],
+    vi:['Khí hiếm','Các nguyên tố nhóm VIIIA nhìn chung có lớp electron ngoài cùng bão hòa (Helium có hai electron). Một số khí hiếm nặng vẫn tạo hợp chất; hóa học của Oganesson siêu nặng phần lớn còn mang tính lý thuyết, không nên mặc định giống các khí hiếm nhẹ.']
   },
   lanthanide: {
     en:['Lanthanides','This series is associated with filling the 4f subshell. Many members show similar chemistry, commonly form +3 ions, and are often discussed together as rare-earth elements.'],
@@ -3062,31 +3933,7 @@ document
                 updateCategoryExplanation();
 
 
-                const category =
-                    button.dataset.category;
-
-
-                document
-                    .querySelectorAll(".element")
-                    .forEach(card => {
-
-                        if (
-                            category === "all"
-                        ) {
-
-                            card.classList.remove(
-                                "dimmed"
-                            );
-
-                        } else {
-
-                            card.classList.toggle(
-                                "dimmed",
-                                card.dataset.category !==
-                                category
-                            );
-                        }
-                    });
+                performSearch();
             }
         );
     });
@@ -3136,6 +3983,7 @@ document.addEventListener('keydown',e=>{
     const focusable=[...infoPanel.querySelectorAll('button:not([disabled]),a[href],input,select,[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length);
     if(!focusable.length)return;
     const first=focusable[0],last=focusable[focusable.length-1];
+    if(!infoPanel.contains(document.activeElement)){e.preventDefault();(e.shiftKey?last:first).focus();return}
     if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus()}
     else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus()}
   }
@@ -3188,7 +4036,7 @@ const quizUI = {
   feedback:document.getElementById('quizFeedback'),score:document.getElementById('quizScore'),
   next:document.getElementById('quizNext'),progress:document.getElementById('quizProgress')
 };
-let quizQuestions=[],quizIndex=0,quizCorrect=0,quizAnswered=false,quizPreviousFocus=null;
+let quizQuestions=[],quizIndex=0,quizCorrect=0,quizAnswered=false,quizSelectedAnswer=null,quizPreviousFocus=null;
 const quizText = {
  en:{title:'Chemistry Quiz',intro:'10 questions · Elements, symbols, atomic numbers and periods',
  score:'Score',next:'Next question',results:'Round complete!',again:'Play again',
@@ -3212,45 +4060,59 @@ function createQuizQuestion(element,type){
 function startChemQuiz(){
  const chosen=quizShuffle(elements).slice(0,10);
  quizQuestions=chosen.map((e,i)=>createQuizQuestion(e,i%4));
- quizIndex=0;quizCorrect=0;renderChemQuiz();
+ quizIndex=0;quizCorrect=0;quizAnswered=false;quizSelectedAnswer=null;renderChemQuiz();
 }
 function renderChemQuiz(){
  const t=quizText[currentLanguage==='vi'?'vi':'en'];
  quizUI.heading.textContent=t.title;quizUI.intro.textContent=t.intro;
- quizUI.options.replaceChildren();quizUI.feedback.textContent='';quizAnswered=false;
+ const preserveAnswer=quizAnswered && quizSelectedAnswer!==null;
+ quizUI.options.replaceChildren();quizUI.feedback.textContent='';if(!preserveAnswer)quizAnswered=false;
  quizUI.progress.style.width=`${quizIndex/quizQuestions.length*100}%`;
+ quizUI.progress.parentElement.setAttribute('aria-valuenow',String(quizIndex));
  quizUI.score.textContent=`${t.score}: ${quizCorrect} / ${quizQuestions.length}`;
  if(quizIndex>=quizQuestions.length){
+   quizUI.options.replaceChildren();quizAnswered=false;quizSelectedAnswer=null;
    quizUI.question.textContent=`${t.results} ${quizCorrect} / ${quizQuestions.length}`;
-   quizUI.progress.style.width='100%';quizUI.next.hidden=false;quizUI.next.textContent=t.again;return;
+   quizUI.progress.style.width='100%';quizUI.progress.parentElement.setAttribute('aria-valuenow','10');quizUI.next.hidden=false;quizUI.next.textContent=t.again;return;
  }
  const q=quizQuestions[quizIndex];quizUI.question.textContent=`${quizIndex+1}. ${t.questions[q.type](q.element)}`;
  quizUI.next.hidden=true;quizUI.next.textContent=t.next;
  q.options.forEach(opt=>{
   const button=document.createElement('button');button.type='button';button.className='quiz-option';button.textContent=opt;
   button.addEventListener('click',()=>{
-   if(quizAnswered)return;quizAnswered=true;
+   if(quizAnswered)return;quizAnswered=true;quizSelectedAnswer=opt;
    const right=opt===q.answer;if(right)quizCorrect++;
    quizUI.options.querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.textContent===q.answer)b.classList.add('correct');else if(b===button)b.classList.add('incorrect')});
    quizUI.feedback.textContent=right?t.correct:`${t.wrong} ${t.answer} ${q.answer}`;
    quizUI.score.textContent=`${t.score}: ${quizCorrect} / ${quizQuestions.length}`;
    quizUI.next.hidden=false;quizUI.next.focus();
   });
+  if(preserveAnswer){
+    button.disabled=true;
+    if(opt===q.answer)button.classList.add('correct');
+    else if(opt===quizSelectedAnswer)button.classList.add('incorrect');
+  }
   quizUI.options.appendChild(button);
  });
+ if(preserveAnswer){
+   quizUI.feedback.textContent=quizSelectedAnswer===q.answer?t.correct:`${t.wrong} ${t.answer} ${q.answer}`;
+   quizUI.next.hidden=false;
+ }
 }
 function openChemQuiz(){quizPreviousFocus=document.activeElement;quizUI.overlay.classList.add('open');document.body.style.overflow='hidden';startChemQuiz();document.getElementById('closeChemQuiz').focus()}
 function closeChemQuiz(){quizUI.overlay.classList.remove('open');document.body.style.overflow='';quizPreviousFocus?.focus()}
 document.getElementById('openChemQuiz').addEventListener('click',openChemQuiz);
 document.getElementById('closeChemQuiz').addEventListener('click',closeChemQuiz);
-quizUI.next.addEventListener('click',()=>{if(quizIndex>=quizQuestions.length)startChemQuiz();else{quizIndex++;renderChemQuiz()}});
+quizUI.next.addEventListener('click',()=>{if(quizIndex>=quizQuestions.length)startChemQuiz();else{quizIndex++;quizAnswered=false;quizSelectedAnswer=null;renderChemQuiz()}});
 quizUI.overlay.addEventListener('click',e=>{if(e.target===quizUI.overlay)closeChemQuiz()});
 document.addEventListener('keydown',e=>{
  if(!quizUI.overlay.classList.contains('open'))return;
  if(e.key==='Escape'){e.preventDefault();closeChemQuiz();return}
  if(e.key==='Tab'){
-  const focusable=[...quizUI.dialog.querySelectorAll('button:not([hidden]):not([disabled])')];
+  const focusable=[...quizUI.dialog.querySelectorAll('button:not([hidden]):not([disabled])')].filter(el=>el.getClientRects().length);
+  if(!focusable.length)return;
   const first=focusable[0],last=focusable[focusable.length-1];
+  if(!focusable.includes(document.activeElement)){e.preventDefault();(e.shiftKey?last:first).focus();return}
   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
  }
