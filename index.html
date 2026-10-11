@@ -1637,6 +1637,7 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
   <li id="periodicCoreRule2"><strong>Period:</strong> The period number tells you how many electron shells are occupied in a ground-state atom.</li>
   <li id="periodicCoreRule3"><strong>Main group (A):</strong> The A-group number indicates the number of outer-shell electrons for typical main-group elements (IA–VIIIA; helium is an exception). In modern groups 1–18, groups 1–2 have 1–2 outer electrons and groups 13–18 usually have 3–8.</li>
  </ol>
+ <p id="periodicCoreMemoryTip" style="margin:14px 0 0;padding:12px 15px;border-left:4px solid #b68d4e;background:#f3ead8;border-radius:7px;line-height:1.65"><strong>Memory tip:</strong> Period = electron shells; main group A = outer-shell electrons; elements are ordered by increasing atomic number.</p>
 </section>
 <section class="table-panel" id="periodicTableSection">
 
@@ -4971,9 +4972,15 @@ document.querySelectorAll('h1, .subtitle, .clear-btn, .legend button, .info-labe
 });
 document.getElementById('langEN').addEventListener('click', () => setLanguage('en'));
 document.getElementById('langVI').addEventListener('click', () => setLanguage('vi'));
+const periodicMemoryTip=document.getElementById('periodicCoreMemoryTip');
+function updatePeriodicMemoryTip(){periodicMemoryTip.innerHTML=currentLanguage==='vi'?'<strong>✦ Mẹo ghi nhớ:</strong> Chu kì = số lớp electron; nhóm A = số electron lớp ngoài cùng (trừ ngoại lệ như Helium); các nguyên tố xếp theo chiều tăng dần điện tích hạt nhân.':'<strong>✦ Memory tip:</strong> Period = occupied electron shells; main group A = outer-shell electrons (with exceptions such as Helium); elements are ordered by increasing atomic number.';}
+document.getElementById('langEN').addEventListener('click',updatePeriodicMemoryTip);
+document.getElementById('langVI').addEventListener('click',updatePeriodicMemoryTip);
+
 try { currentLanguage = localStorage.getItem('periodic-table-language') === 'vi' ? 'vi' : 'en'; } catch (e) {}
 document.documentElement.lang = currentLanguage;
 translateStaticUI();
+updatePeriodicMemoryTip();
 renderNonmetalTrends();
 showBookPage(location.hash==="#trends"?"trends":"table",{updateHash:false});
 updateQuizLearning(0);
@@ -5128,6 +5135,20 @@ nmCelebrationModal.addEventListener('keydown',e=>{
 
 /* Chapter 2: focused practice with bilingual prompts; element names remain English. */
 const nmPracticeBank=[
+
+ /* Beginner theory questions requested by the customer. Keep element names in English. */
+ {basicTheory:true,en:'What does nonmetallic character describe?',vi:'Tính phi kim là gì?',opts:['The tendency of an atom to gain electrons and form a negative ion','The tendency to lose protons','The number of neutrons','The tendency to form positive ions'],optsVi:['Khả năng nguyên tử dễ nhận electron để trở thành ion âm','Khả năng nhường proton','Số neutron trong nguyên tử','Khả năng dễ tạo ion dương'],correct:0,whyEn:'In the textbook definition, an atom with stronger nonmetallic character more readily gains electrons to form a negative ion.',whyVi:'Theo định nghĩa trong sách, nguyên tử càng dễ nhận electron để trở thành ion âm thì tính phi kim càng mạnh.'},
+ {basicTheory:true,en:'What kind of ion usually forms when an atom gains electrons?',vi:'Nguyên tử nhận thêm electron thường tạo thành loại ion nào?',opts:['Positive ion','Negative ion','Proton','Neutral neutron'],optsVi:['Ion dương','Ion âm','Proton','Neutron trung hòa'],correct:1,whyEn:'Electrons have negative charge, so gaining electrons can make an atom a negatively charged ion.',whyVi:'Electron mang điện tích âm nên khi nhận thêm electron, nguyên tử có thể trở thành ion âm.'},
+ {basicTheory:true,en:'How does nonmetallic character generally change from left to right across a main-group period?',vi:'Trong một chu kì, từ trái sang phải, tính phi kim nhìn chung thay đổi thế nào?',opts:['Decreases','Increases','Always stays the same','Disappears'],optsVi:['Giảm dần','Tăng dần','Luôn không đổi','Biến mất'],correct:1,whyEn:'The number of protons increases while the number of occupied shells stays the same, so attraction for electrons generally grows.',whyVi:'Số proton tăng trong khi số lớp electron không đổi, nên lực hút electron nhìn chung mạnh hơn và tính phi kim tăng.'},
+ {basicTheory:true,en:'How does nonmetallic character generally change down a main group?',vi:'Trong một nhóm A, từ trên xuống dưới, tính phi kim nhìn chung thay đổi thế nào?',opts:['Increases','Decreases','Always stays the same','Becomes zero for all elements'],optsVi:['Tăng dần','Giảm dần','Luôn không đổi','Bằng 0 với mọi nguyên tố'],correct:1,whyEn:'Lower atoms have more electron shells; the outer region is farther from the nucleus and more shielded.',whyVi:'Càng xuống dưới, nguyên tử có nhiều lớp electron hơn, lớp ngoài xa hạt nhân hơn nên lực hút electron thường yếu đi.'},
+ {basicTheory:true,en:'Which element has the strongest nonmetallic character?',vi:'Nguyên tố nào có tính phi kim mạnh nhất?',opts:['Oxygen','Chlorine','Fluorine','Nitrogen'],optsVi:['Oxygen','Chlorine','Fluorine','Nitrogen'],correct:2,whyEn:'Fluorine is the most strongly nonmetallic element.',whyVi:'Fluorine (F) là nguyên tố có tính phi kim mạnh nhất trong bảng tuần hoàn.'},
+ {basicTheory:true,en:'What does the period number indicate for a ground-state atom?',vi:'Số thứ tự chu kì cho biết điều gì về nguyên tử ở trạng thái cơ bản?',opts:['The number of occupied electron shells','The number of neutrons','The number of valence protons','The atomic mass'],optsVi:['Số lớp electron có electron','Số neutron','Số proton hóa trị','Khối lượng nguyên tử'],correct:0,whyEn:'For example, Sodium is in Period 3 and has the shell electron configuration 2–8–1: three occupied shells.',whyVi:'Ví dụ: Sodium ở chu kì 3 có cấu hình electron theo lớp 2–8–1, tức có 3 lớp electron.'},
+ {basicTheory:true,en:'What is the main rule for ordering elements in the periodic table?',vi:'Các nguyên tố trong bảng tuần hoàn được sắp xếp theo quy tắc chính nào?',opts:['Increasing atomic number','Increasing atomic mass only','Alphabetical order','Increasing number of electron shells only'],optsVi:['Theo chiều tăng dần số hiệu nguyên tử (điện tích hạt nhân)','Chỉ theo khối lượng nguyên tử tăng dần','Theo thứ tự chữ cái','Chỉ theo số lớp electron tăng dần'],correct:0,whyEn:'Atomic number equals the number of protons in the nucleus. Elements are ordered by increasing atomic number.',whyVi:'Số hiệu nguyên tử bằng số proton trong hạt nhân. Các nguyên tố được xếp theo chiều tăng dần số hiệu nguyên tử.'},
+ {basicTheory:true,en:'For a typical main-group element in Group VIIA, how many outer-shell electrons are there?',vi:'Nguyên tố điển hình thuộc nhóm VIIA có bao nhiêu electron lớp ngoài cùng?',opts:['1','2','7','8'],optsVi:['1','2','7','8'],correct:2,whyEn:'Main-group Group VIIA elements such as Chlorine have seven outer-shell electrons (Chlorine: 2–8–7).',whyVi:'Các nguyên tố nhóm VIIA như Chlorine có 7 electron lớp ngoài cùng (cấu hình theo lớp: 2–8–7).'},
+ {basicTheory:true,en:'Which pair consists of two nonmetal elements?',vi:'Cặp nào gồm hai nguyên tố phi kim?',opts:['Potassium and Calcium','Magnesium and Oxygen','Carbon and Sulfur','Aluminium and Chlorine'],optsVi:['Potassium và Calcium','Magnesium và Oxygen','Carbon và Sulfur','Aluminium và Chlorine'],correct:2,whyEn:'Carbon and Sulfur are both nonmetals; the other pairs include at least one metal.',whyVi:'Carbon và Sulfur đều là phi kim; các cặp còn lại có ít nhất một kim loại.'},
+ {basicTheory:true,en:'How many electrons does a neutral Oxygen atom tend to gain to complete its outer shell?',vi:'Nguyên tử Oxygen có xu hướng nhận thêm bao nhiêu electron để đạt 8 electron lớp ngoài cùng?',opts:['1','2','3','4'],optsVi:['1','2','3','4'],correct:1,whyEn:'Oxygen has the shell electron configuration 2–6. It needs two more electrons to reach eight in the outer shell.',whyVi:'Oxygen có cấu hình electron theo lớp 2–6, nên cần nhận thêm 2 electron để có 8 electron ở lớp ngoài cùng.'},
+ {basicTheory:true,en:'Which of these elements belongs to the noble gases?',vi:'Nguyên tố nào thuộc nhóm khí hiếm?',opts:['Fluorine','Chlorine','Neon','Oxygen'],optsVi:['Fluorine','Chlorine','Neon','Oxygen'],correct:2,whyEn:'Neon belongs to Group VIIIA (Group 18) and has a filled outer electron shell.',whyVi:'Neon thuộc nhóm VIIIA (nhóm khí hiếm), có lớp electron ngoài cùng đã bão hòa.'},
+ {basicTheory:true,en:'Which statement correctly describes the electron shells of elements in one period?',vi:'Các nguyên tố trong cùng một chu kì có đặc điểm nào về lớp electron?',opts:['They have the same number of occupied shells','They have the same atomic number','They all have seven outer electrons','They all belong to the same group'],optsVi:['Có cùng số lớp electron','Có cùng số hiệu nguyên tử','Đều có 7 electron lớp ngoài cùng','Đều thuộc cùng một nhóm'],correct:0,whyEn:'Elements in the same period have the same number of occupied electron shells in the ground state.',whyVi:'Các nguyên tố cùng chu kì có cùng số lớp electron ở trạng thái cơ bản.'},
  {en:'Across Period 3, which element generally has greater nonmetallic character?',vi:'Trong chu kì 3, nguyên tố nào thường có tính phi kim mạnh hơn?',opts:['Sodium','Magnesium','Sulfur','Aluminium'],optsVi:['Sodium', 'Magnesium', 'Sulfur', 'Aluminium'],correct:2,whyEn:'Sulfur is farther right than the other choices in Period 3.',whyVi:'Sulfur nằm bên phải các lựa chọn còn lại trong chu kì 3.'},
  {en:'Within Group VIIA, which element generally has greater nonmetallic character?',vi:'Trong nhóm VIIA, nguyên tố nào thường có tính phi kim mạnh hơn?',opts:['Iodine','Bromine','Chlorine','Fluorine'],optsVi:['Iodine', 'Bromine', 'Chlorine', 'Fluorine'],correct:3,whyEn:'Fluorine is highest among these Group VIIA elements.',whyVi:'Fluorine nằm cao nhất trong số các nguyên tố nhóm VIIA này.'},
  {en:'Which pair is best compared using the left-to-right trend?',vi:'Cặp nào phù hợp nhất để áp dụng quy luật từ trái sang phải?',opts:['Sodium and Chlorine','Fluorine and Chlorine','Lithium and Sodium','Boron and Aluminium'],optsVi:['Sodium và Chlorine', 'Fluorine và Chlorine', 'Lithium và Sodium', 'Boron và Aluminium'],correct:0,whyEn:'Sodium and Chlorine are both in Period 3; the other pairs share a group.',whyVi:'Sodium và Chlorine cùng chu kì 3; các cặp còn lại cùng nhóm.'},
@@ -5209,7 +5230,9 @@ function nmPickByLevel(type,count,level){
 }
 function nmNewRound(){
  const level=nmDifficultyTargets[nmMode]||1;
- const multiple=nmPickByLevel('multiple',8,level).map(q=>{
+ const trainingTheory=nmMode==='training'?nmShuffle(nmPracticeBank.filter(q=>q.basicTheory)).slice(0,6):[];
+ const otherMultiple=nmMode==='training'?nmPickByLevel('multiple',8,level).filter(q=>!q.basicTheory).slice(0,2):nmPickByLevel('multiple',8,level);
+ const multiple=[...trainingTheory,...otherMultiple].map(q=>{
   const order=nmShuffle([0,1,2,3]);
   return {...q,opts:order.map(i=>q.opts[i]),optsVi:order.map(i=>(q.optsVi||q.opts)[i]),correct:order.indexOf(q.correct)};
  });
