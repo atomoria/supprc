@@ -5033,7 +5033,7 @@ renderNonmetalTrends=function(){
   if(i){const sep=document.createElement('span');sep.className='nm-demo-between';sep.textContent=nmExampleMode==='group'?'↑':nmExampleMode==='period'?'→':'↔';demo.append(sep)}
   const tile=document.createElement('div');tile.className='nm-demo-element';
   const sym=document.createElement('b');sym.textContent=e.symbol;
-  const label=document.createElement('small');label.textContent=`P${e.period} · G${e.group}`;
+  const label=document.createElement('small');label.textContent=e.name;
   tile.append(sym,label);demo.append(tile);
  }
 };
