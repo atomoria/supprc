@@ -5222,20 +5222,53 @@ const nmPracticeBank=[
 {"type": "short", "en": "In Group IIIA, which generally has greater nonmetallic character: Boron or Aluminium? Answer with an English element name or symbol.", "vi": "Trong nhóm IIIA, Boron hay Aluminium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["boron", "b"], "display": "Boron (B)", "whyEn": "Boron is higher in Group IIIA.", "whyVi": "Boron nằm cao hơn trong nhóm IIIA."},
 {"type": "short", "en": "In Group IVA, which generally has greater nonmetallic character: Carbon or Silicon? Answer with an English element name or symbol.", "vi": "Trong nhóm IVA, Carbon hay Silicon nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["carbon", "c"], "display": "Carbon (C)", "whyEn": "Carbon is higher in Group IVA.", "whyVi": "Carbon nằm cao hơn trong nhóm IVA."}
  ];
-/* Accuracy guard: comparisons between two metals or two metalloids do not
-   belong in a beginner quiz about identifying nonmetallic character. These
-   remain represented in the periodic table, but not as "which nonmetal" tasks. */
-const nmAmbiguousTrendPairs=[
- ['Lithium','Beryllium'],['Beryllium','Boron'],['Sodium','Magnesium'],
- ['Magnesium','Aluminium'],['Lithium','Potassium'],['Sodium','Potassium'],
- ['Beryllium','Magnesium'],['Magnesium','Calcium'],['Boron','Aluminium'],
- ['Silicon','Germanium']
-];
-for(let i=nmPracticeBank.length-1;i>=0;i--){
- const q=nmPracticeBank[i];
+/* Comparisons of nonmetallic character are valid even when both elements
+   are metals. Keep these educational examples and explicitly identify the
+   classifications so a trend comparison is not mistaken for classification. */
+const nmTrendClassificationNotes={
+ 'Lithium or Beryllium':['Lithium and Beryllium are both metals. Beryllium is farther right in Period 2. Comparing nonmetallic character does not classify either as a nonmetal.','Lithium và Beryllium đều là kim loại. Beryllium nằm bên phải Lithium trong chu kì 2. So sánh tính phi kim không có nghĩa chúng là phi kim.'],
+ 'Sodium or Magnesium':['Sodium and Magnesium are both metals. Magnesium is farther right in Period 3 and has greater nonmetallic character; it is still a metal.','Sodium và Magnesium đều là kim loại. Magnesium nằm bên phải Sodium trong chu kì 3 và có tính phi kim lớn hơn, nhưng vẫn là kim loại.'],
+ 'Magnesium or Aluminium':['Magnesium and Aluminium are both metals. Aluminium is farther right in Period 3; neither becomes a nonmetal because of this comparison.','Magnesium và Aluminium đều là kim loại. Aluminium nằm bên phải Magnesium trong chu kì 3; phép so sánh này không biến nguyên tố nào thành phi kim.'],
+ 'Lithium or Potassium':['Lithium and Potassium are both metals in Group IA. Lithium is higher in the group and has greater nonmetallic character.','Lithium và Potassium đều là kim loại nhóm IA. Lithium ở phía trên nên có tính phi kim lớn hơn theo xu hướng chung.'],
+ 'Sodium or Potassium':['Sodium and Potassium are both metals in Group IA. Sodium is higher in the group and has greater nonmetallic character.','Sodium và Potassium đều là kim loại nhóm IA. Sodium ở phía trên nên có tính phi kim lớn hơn theo xu hướng chung.'],
+ 'Beryllium or Magnesium':['Beryllium and Magnesium are both metals in Group IIA. Beryllium is higher and has greater nonmetallic character.','Beryllium và Magnesium đều là kim loại nhóm IIA. Beryllium ở phía trên nên có tính phi kim lớn hơn.'],
+ 'Magnesium or Calcium':['Magnesium and Calcium are both metals in Group IIA. Magnesium is higher and has greater nonmetallic character.','Magnesium và Calcium đều là kim loại nhóm IIA. Magnesium ở phía trên nên có tính phi kim lớn hơn.'],
+ 'Boron or Aluminium':['Boron is a metalloid; Aluminium is a metal. Boron is higher in Group IIIA and has greater nonmetallic character.','Boron là á kim, Aluminium là kim loại. Boron ở phía trên trong nhóm IIIA và có tính phi kim lớn hơn.'],
+ 'Silicon or Germanium':['Silicon and Germanium are metalloids, not ordinary nonmetals. Silicon is higher in Group IVA and has greater nonmetallic character.','Silicon và Germanium là á kim, không phải phi kim thông thường. Silicon ở phía trên nhóm IVA nên có tính phi kim lớn hơn.'],
+ 'Beryllium or Boron':['Beryllium is a metal and Boron is a metalloid. Boron is farther right in Period 2 and has greater nonmetallic character.','Beryllium là kim loại, Boron là á kim. Boron nằm bên phải trong chu kì 2 và có tính phi kim lớn hơn.']
+};
+for(const q of nmPracticeBank){
  if(!/nonmetallic character/i.test(q.en))continue;
- if(nmAmbiguousTrendPairs.some(([a,b])=>q.en.includes(a+' or '+b)))nmPracticeBank.splice(i,1);
+ for(const [pair,notes] of Object.entries(nmTrendClassificationNotes)){
+  if(q.en.includes(pair)){
+   q.whyEn=(q.whyEn||'')+' '+notes[0];
+   q.whyVi=(q.whyVi||'')+' '+notes[1];
+   break;
+  }
+ }
 }
+// Make the classification takeaway visually unmistakable in answer feedback.
+for(const [pair, notes] of Object.entries(nmTrendClassificationNotes)){
+ if(/both metals|is a metal/i.test(notes[0])){
+  notes[0] += ' IMPORTANT: Being compared for nonmetallic character does NOT make a metal a nonmetal.';
+  notes[1] += ' LƯU Ý: So sánh tính phi kim KHÔNG làm kim loại trở thành phi kim.';
+ }
+}
+function nmEmphasizeMetalReminder(node){
+ const raw=node.textContent;
+ const pattern=/(IMPORTANT: Being compared for nonmetallic character does NOT make a metal a nonmetal\.|LƯU Ý: So sánh tính phi kim KHÔNG làm kim loại trở thành phi kim\.|it is still a metal\.|nhưng vẫn là kim loại\.)/gi;
+ const parts=raw.split(pattern);
+ if(parts.length===1)return;
+ node.replaceChildren();
+ for(const part of parts){
+  if(pattern.test(part)){const mark=document.createElement('strong');mark.className='nm-metal-warning';mark.textContent=part;node.append(mark)}
+  else node.append(document.createTextNode(part));
+  pattern.lastIndex=0;
+ }
+}
+const nmMetalHighlightStyle=document.createElement('style');
+nmMetalHighlightStyle.textContent='.nm-metal-warning{display:inline-block;font-weight:800;color:#773500;background:#ffdf93;border:1px solid #c98e3c;border-radius:5px;padding:2px 7px;margin:3px 2px;line-height:1.6}';
+document.head.append(nmMetalHighlightStyle);
 const nmPracticeOptionVi = {"Right to left": "Từ phải sang trái", "Left to right": "Từ trái sang phải", "Top to bottom": "Từ trên xuống dưới", "No general direction": "Không có hướng chung", "Atoms gain more occupied shells": "Nguyên tử có thêm lớp electron", "Effective nuclear attraction generally increases": "Lực hút hạt nhân hiệu dụng nhìn chung tăng", "Atomic number decreases": "Số hiệu nguyên tử giảm", "Electron shielding always vanishes": "Hiệu ứng chắn electron luôn biến mất", "The upper element": "Nguyên tố ở phía trên", "The lower element": "Nguyên tố ở phía dưới", "Both always equal": "Cả hai luôn bằng nhau", "The one with more occupied shells": "Nguyên tố có nhiều lớp electron hơn"};
 function nmShuffle(list){const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* Three difficulty pools: concepts, applied comparisons, and scientific reasoning.
@@ -5452,6 +5485,7 @@ function renderNmPractice(){
    input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!check.disabled)check.click()});
    wrap.append(input,check);nmPracticeUI.choices.append(wrap);
    nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===1?(vi?'Chính xác! ':'Correct! '):(vi?`Chưa đúng. Đáp án: ${q.display}. `:`Not quite. Answer: ${q.display}. `)}${q[vi?'whyVi':'whyEn']}`;
+ if(p.chosen!==null)nmEmphasizeMetalReminder(nmPracticeUI.feedback);
    nmPracticeUI.next.disabled=p.chosen===null;
    nmPracticeUI.next.textContent=p.index===nmPracticeRound.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
    return;
@@ -5463,6 +5497,7 @@ function renderNmPractice(){
   nmPracticeUI.choices.append(btn);
  }
  nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===q.correct?(vi?'Chính xác! ':'Correct! '):(vi?'Chưa đúng. ':'Not quite. ')}${q[vi?'whyVi':'whyEn']}`;
+ if(p.chosen!==null)nmEmphasizeMetalReminder(nmPracticeUI.feedback);
  nmPracticeUI.next.disabled=p.chosen===null;
  nmPracticeUI.next.textContent=p.index===nmPracticeRound.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
  nmPracticeUI.restart.textContent=vi?'Làm lại':'Restart';
