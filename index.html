@@ -1109,7 +1109,8 @@ body.panel-open{overflow:hidden}
 @media(max-width:600px){.science-footer{margin:20px 12px;padding:12px 0;font-size:12px}}
 .guide-launch-btn{white-space:nowrap;border-color:#d8b778;color:#f8e2ad;background:linear-gradient(135deg,#2c3850,#384461);font-weight:700}
 .guide-launch-btn:hover{background:#455676;border-color:#f2d39b}
-.element-guide-dialog{max-width:650px;max-height:min(84vh,760px);overflow-y:auto}
+.element-guide-dialog{max-width:650px;max-height:min(84dvh,760px);overflow-y:auto;overscroll-behavior:contain}
+@media(max-width:650px){#elementGuideOverlay{padding:12px}#elementGuideOverlay .element-guide-dialog{max-height:calc(100dvh - 24px);padding:18px}}
 .element-guide-content ul{padding-left:23px;line-height:1.65;color:#e3ebf7}
 .element-guide-content li{margin-bottom:12px}
 @media(max-width:540px){.search-area{flex-wrap:wrap}.guide-launch-btn{flex:1 1 auto}}
@@ -4834,6 +4835,11 @@ document.addEventListener('keydown',e=>{
 });
 // The element guide is accessible from the main search toolbar.
 const elementGuideOverlay=document.getElementById('elementGuideOverlay');
+// Render the guide at document level: the textbook page uses isolation:isolate,
+// which otherwise traps this fixed dialog behind the chapter navigation.
+document.body.appendChild(elementGuideOverlay);
+// The Chapter 1 quiz is a modal too and must not be clipped by the book page.
+document.body.appendChild(document.getElementById('chemQuizOverlay'));
 const elementGuideLaunch=document.getElementById('openElementGuide');
 const elementGuideClose=document.getElementById('closeElementGuide');
 function closeElementGuide(){elementGuideOverlay.classList.remove('open');elementGuideLaunch.focus()}
