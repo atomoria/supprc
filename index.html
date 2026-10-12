@@ -1385,6 +1385,12 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 @media(max-width:650px){.nm-concept-cards{grid-template-columns:1fr}.nm-bond-atom{width:65px;height:65px;font-size:22px}.nm-lesson-jump{position:relative;top:auto}}
 @media(prefers-reduced-motion:reduce){.nm-bond-electron,.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:none;left:50%}}
 
+/* Ionic model: moving electron is counted once; products appear after transfer. */
+.nm-gained-electron,.nm-ion-label{opacity:0;animation:nmIonicProductReveal 3.4s steps(1,end) forwards}
+@keyframes nmIonicProductReveal{0%,84%{opacity:0}85%,100%{opacity:1}}
+.nm-bond-stage[data-mode="ionic"] #nmBondElectron{animation:nmElectronTransfer 3.4s ease-in-out forwards,nmTransferredElectronHide 3.4s steps(1,end) forwards}
+@keyframes nmTransferredElectronHide{0%,84%{opacity:1}85%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.nm-gained-electron,.nm-ion-label{animation:none;opacity:1}.nm-bond-stage[data-mode="ionic"] #nmBondElectron{animation:none;opacity:0}}
 /* Polar covalent model: two contributed electrons converge into a shared, polarized bond. */
 #nmBondCovalentModel{display:none}
 .nm-bond-stage[data-mode="covalent"] #nmBondCovalentModel{display:block}
@@ -1670,6 +1676,11 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
 
  <nav class="nm-lesson-jump" aria-label="Chapter lesson sections" id="nmLessonJump"><a href="#nmConcept" data-en="01 · Concept" data-vi="01 · Khái niệm">01 · Concept</a><a href="#nmPattern" data-en="02 · Trend" data-vi="02 · Xu hướng">02 · Trend</a><a href="#nmLab" data-en="03 · Explore" data-vi="03 · Khám phá">03 · Explore</a><a href="#nmBonding" data-en="04 · Bonding" data-vi="04 · Liên kết">04 · Bonding</a><a href="#nmLaunchPractice" data-en="05 · Practice" data-vi="05 · Luyện tập">05 · Practice</a></nav>
  <article class="nm-scroll-panel nm-concept-panel" id="nmConcept"><div class="nm-panel-kicker" data-en="01 / UNDERSTAND" data-vi="01 / HIỂU BẢN CHẤT">01 / UNDERSTAND</div><h3 data-en="What does nonmetallic character mean?" data-vi="Tính phi kim là gì?">What does nonmetallic character mean?</h3><p data-en="Nonmetallic character is the property of an element whose atoms readily gain electrons to form negative ions. The more readily its atoms gain electrons to form negative ions, the stronger the element’s nonmetallic character." data-vi="Tính phi kim là tính chất của một nguyên tố mà nguyên tử của nó dễ nhận electron để trở thành ion âm. Nguyên tử của nguyên tố nào càng dễ nhận electron để trở thành ion âm, tính phi kim của nguyên tố đó càng mạnh.">Nonmetallic character is the property of an element whose atoms readily gain electrons to form negative ions. The more readily its atoms gain electrons to form negative ions, the stronger the element’s nonmetallic character.</p><div class="nm-concept-cards"><div><b data-en="Across a period" data-vi="Trong một chu kì">Across a period</b><span class="nm-large-arrow">→</span><small data-en="Generally increases" data-vi="Nhìn chung tăng dần">Generally increases</small></div><div><b data-en="Up a group" data-vi="Trong một nhóm, đi lên">Up a group</b><span class="nm-large-arrow">↑</span><small data-en="Generally increases" data-vi="Nhìn chung tăng dần">Generally increases</small></div></div></article>
+ <div class="periodic-law-summary nm-scroll-panel" style="margin-top:16px;padding:15px 17px;background:#edf2ef;border:1px solid #c6d8cf;border-radius:10px;line-height:1.7">
+  <h3 id="periodicLawTitle" style="margin:0 0 7px;color:#153a46">Periodic law</h3>
+  <p id="periodicLawDefinition" style="margin:0 0 10px">When elements are arranged by increasing atomic number, their physical and chemical properties show repeating patterns (periodicity).</p>
+  <p id="periodicLawTrend" style="margin:0"><strong>Nonmetallic-character trend (main-group elements):</strong> Generally increases from left to right across a period and decreases from top to bottom down a group. This describes a trend; it does not change whether an element is a metal, metalloid, or nonmetal.</p>
+ </div>
  <div class="nm-scroll-panel nm-pattern-panel" id="nmPattern"><div class="nm-panel-kicker" data-en="02 / NOTICE THE PATTERN" data-vi="02 / QUAN SÁT QUY LUẬT">02 / NOTICE THE PATTERN</div>
  <div class="nm-takeaway"><span class="nm-kicker" id="nmTakeawayLabel">REMEMBER THIS</span><div class="nm-rule-grid"><div><span class="nm-rule-arrow">→</span><strong id="nmAcross">Across a period: increases to the right</strong></div><div><span class="nm-rule-arrow">↑</span><strong id="nmDown">Up a group: increases upward</strong></div></div><p id="nmCoreNote">These are general trends, especially useful for main-group elements.</p></div>
  <div class="nm-lesson-workspace"><div class="nm-workspace-title"><div><span class="nm-kicker" id="nmDiagramTitle">EXPLORE THE PATTERN</span><h3 id="nmExploreTitle">Tap an example</h3></div><span class="nm-step" id="nmStepLabel">STEP 1 OF 2</span></div>
@@ -2629,8 +2640,8 @@ function getAtomicWeightMeaning(element) {
 const vietnameseElementNames = ["Hiđro", "Heli", "Liti", "Beri", "Bo", "Cacbon", "Nitơ", "Oxi", "Flo", "Neon", "Natri", "Magie", "Nhôm", "Silic", "Photpho", "Lưu huỳnh", "Clo", "Argon", "Kali", "Canxi", "Scandi", "Titan", "Vanadi", "Crom", "Mangan", "Sắt", "Coban", "Niken", "Đồng", "Kẽm", "Gali", "Gecmani", "Asen", "Selen", "Brom", "Krypton", "Rubidi", "Stronti", "Ytri", "Zirconi", "Niobi", "Molypden", "Tecneti", "Ruteni", "Rodi", "Paladi", "Bạc", "Cadimi", "Indi", "Thiếc", "Antimon", "Telua", "Iot", "Xenon", "Xesi", "Bari", "Lantan", "Xeri", "Praseodymi", "Neodymi", "Promethi", "Samari", "Europi", "Gadolini", "Terbi", "Dysprosi", "Holmi", "Erbi", "Tuli", "Yterbi", "Luteti", "Hafni", "Tantan", "Vonfram", "Rheni", "Osmi", "Iridi", "Platin", "Vàng", "Thủy ngân", "Tali", "Chì", "Bitmut", "Poloni", "Astatin", "Radon", "Franci", "Radi", "Actini", "Thori", "Protactini", "Urani", "Neptuni", "Plutoni", "Americi", "Curi", "Berkeli", "Californi", "Einsteini", "Fermi", "Mendelevi", "Nobeli", "Lawrenci", "Rutherfordi", "Dubni", "Seaborgi", "Bohri", "Hassi", "Meitneri", "Darmstadti", "Roentgeni", "Copernici", "Nihoni", "Flerovi", "Moscovi", "Livermori", "Tennessine", "Oganesson"];
 let currentLanguage = 'en';
 let selectedElement = null;
-const interfaceTranslations = {"Periodic Table of the Elements": "Bảng tuần hoàn các nguyên tố hóa học", "Explore the elements and their electron structures.": "Khám phá các nguyên tố và cấu trúc electron của chúng.", "Clear": "Xóa", "All": "Tất cả", "Alkali metals": "Kim loại kiềm", "Alkaline earth": "Kim loại kiềm thổ", "Transition metals": "Kim loại chuyển tiếp", "Post-transition": "Kim loại sau chuyển tiếp", "Metalloids": "Á kim", "Nonmetals": "Phi kim", "Halogens": "Halogen", "Noble gases": "Khí hiếm", "Lanthanides": "Họ Lantan", "Actinides": "Họ Actini", "Selected element": "Nguyên tố đã chọn", "Atomic number": "Số hiệu nguyên tử", "Atomic mass": "Nguyên tử khối", "Period": "Chu kì", "Group": "Nhóm", "Electron shells": "Các lớp electron", "Valence electrons": "Electron hóa trị", "Electron configuration": "Cấu hình electron", "Full configuration": "Cấu hình đầy đủ", "Noble-gas shorthand": "Cấu hình rút gọn", "Electron structure": "Cấu trúc electron", "Copy": "Sao chép", "↑ Back to periodic table": "↑ Quay lại bảng tuần hoàn"};
-const categoryTranslations = {"alkali": "Kim loại kiềm", "alkaline": "Kim loại kiềm thổ", "transition": "Kim loại chuyển tiếp", "post-transition": "Kim loại sau chuyển tiếp", "metalloid": "Á kim", "nonmetal": "Phi kim", "halogen": "Halogen", "noble": "Khí hiếm", "lanthanide": "Họ Lantan", "actinide": "Họ Actini"};
+const interfaceTranslations = {"Periodic Table of the Elements": "Bảng tuần hoàn các nguyên tố hóa học", "Explore the elements and their electron structures.": "Khám phá các nguyên tố và cấu trúc electron của chúng.", "Clear": "Xóa", "All": "Tất cả", "Alkali metals": "Kim loại kiềm", "Alkaline earth": "Kim loại kiềm thổ", "Transition metals": "Kim loại chuyển tiếp", "Post-transition": "Kim loại sau chuyển tiếp", "Metalloids": "Á kim", "Nonmetals": "Phi kim", "Halogens": "Halogen", "Noble gases": "Khí hiếm", "Lanthanides": "Lanthanides", "Actinides": "Actinides", "Selected element": "Nguyên tố đã chọn", "Atomic number": "Số hiệu nguyên tử", "Atomic mass": "Nguyên tử khối", "Period": "Chu kì", "Group": "Nhóm", "Electron shells": "Các lớp electron", "Valence electrons": "Electron hóa trị", "Electron configuration": "Cấu hình electron", "Full configuration": "Cấu hình đầy đủ", "Noble-gas shorthand": "Cấu hình rút gọn", "Electron structure": "Cấu trúc electron", "Copy": "Sao chép", "↑ Back to periodic table": "↑ Quay lại bảng tuần hoàn"};
+const categoryTranslations = {"alkali": "Kim loại kiềm", "alkaline": "Kim loại kiềm thổ", "transition": "Kim loại chuyển tiếp", "post-transition": "Kim loại sau chuyển tiếp", "metalloid": "Á kim", "nonmetal": "Phi kim", "halogen": "Halogen", "noble": "Khí hiếm", "lanthanide": "Lanthanides", "actinide": "Actinides"};
 function viName(element) { return vietnameseElementNames[element.n - 1] || element.name; }
 function displayName(element) { return element.name; } // Element names always remain in English.
 
@@ -2664,6 +2675,9 @@ function renderPeriodicCoreRules(){
  ];
  document.getElementById('periodicCoreRulesTitle').textContent=strings[0];
  for(let i=1;i<=3;i++)document.getElementById('periodicCoreRule'+i).innerHTML=strings[i];
+ document.getElementById('periodicLawTitle').textContent=vi?'Quy luật tuần hoàn':'Periodic law';
+ document.getElementById('periodicLawDefinition').textContent=vi?'Khi các nguyên tố được sắp xếp theo chiều tăng dần của số hiệu nguyên tử, tính chất vật lí và hóa học của chúng biến đổi tuần hoàn (có sự lặp lại theo quy luật).':'When elements are arranged by increasing atomic number, their physical and chemical properties show repeating patterns (periodicity).';
+ document.getElementById('periodicLawTrend').innerHTML=vi?'<strong>Quy luật biến đổi tính phi kim (các nguyên tố nhóm A):</strong> Nhìn chung, tính phi kim tăng từ trái sang phải trong một chu kì và giảm từ trên xuống dưới trong một nhóm A. Đây là xu hướng tính chất, không có nghĩa kim loại hay á kim trở thành phi kim.':'<strong>Nonmetallic-character trend (main-group elements):</strong> Generally increases from left to right across a period and decreases from top to bottom down a group. This describes a trend; it does not change whether an element is a metal, metalloid, or nonmetal.';
 }
 function translateStaticUI() {
     renderPeriodicCoreRules();
@@ -2952,7 +2966,7 @@ function buildTable() {
     lanthanideLabel.className = "f-label lanthanide-series";
     lanthanideLabel.style.gridRow = "8";
     lanthanideLabel.style.gridColumn = "1 / span 2";
-    lanthanideLabel.textContent = currentLanguage === "vi" ? "Họ Lantan" : "Lanthanides";
+    lanthanideLabel.textContent = "Lanthanides";
 
     table.appendChild(lanthanideLabel);
 
@@ -2963,7 +2977,7 @@ function buildTable() {
     actinideLabel.className = "f-label actinide-series";
     actinideLabel.style.gridRow = "9";
     actinideLabel.style.gridColumn = "1 / span 2";
-    actinideLabel.textContent = currentLanguage === "vi" ? "Họ Actini" : "Actinides";
+    actinideLabel.textContent = "Actinides";
 
     table.appendChild(actinideLabel);
 
@@ -5678,8 +5692,21 @@ function nmRenderBond(){
   add('circle',{cx:x,cy:center,r:21,fill:'#fff8e9',stroke:'#a88451','stroke-width':2});
   const t=add('text',{x,y:center+5,'text-anchor':'middle',fill:'#28495b','font-size':17,'font-weight':800});t.textContent=symbol;
  };
- draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8,1]:[1]);
+ draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8]:[1]);
  draw('nmBondRightShells',550,'Cl',[2,8,7]);
+ if(nmBondMode==='ionic'){
+  // The moving e⁻ is Sodium's original eleventh electron; do not draw it twice.
+  // Reveal the eighth valence electron on Chlorine only after transfer finishes.
+  const right=document.getElementById('nmBondRightShells');
+  const gained=document.createElementNS(svgNS,'circle');
+  gained.setAttribute('cx','468');gained.setAttribute('cy','140');gained.setAttribute('r','4.2');
+  gained.setAttribute('fill','#b17d3f');gained.setAttribute('class','nm-gained-electron');right.append(gained);
+  for(const [x,label] of [[210,'Na⁺'],[550,'Cl⁻']]){
+   const tag=document.createElementNS(svgNS,'text');tag.setAttribute('x',String(x));tag.setAttribute('y','258');
+   tag.setAttribute('text-anchor','middle');tag.setAttribute('font-size','19');tag.setAttribute('font-weight','800');
+   tag.setAttribute('fill','#28495b');tag.setAttribute('class','nm-ion-label');tag.textContent=label;right.append(tag);
+  }
+ }
  nmBondStage.dataset.mode=nmBondMode;
  document.getElementById('nmBondPairCaption').textContent=vi?'Cặp electron dùng chung, lệch về Cl':'Shared electron pair, shifted toward Cl';
  document.getElementById('nmBondIonic').setAttribute('aria-pressed',String(nmBondMode==='ionic'));
