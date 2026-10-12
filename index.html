@@ -1385,10 +1385,16 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 @media(max-width:650px){.nm-concept-cards{grid-template-columns:1fr}.nm-bond-atom{width:65px;height:65px;font-size:22px}.nm-lesson-jump{position:relative;top:auto}}
 @media(prefers-reduced-motion:reduce){.nm-bond-electron,.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:none;left:50%}}
 
+/* Ionic model: Na begins with a visible third shell (2–8–1), which disappears as Na⁺ forms. */
+.nm-bond-stage[data-mode="ionic"] .nm-na-third-shell{animation:nmNaShellVanish 3.4s steps(1,end) forwards}
+@keyframes nmNaShellVanish{0%,84%{visibility:visible}85%,100%{visibility:hidden}}
+.nm-bond-stage[data-mode="ionic"] #nmBondElectron{animation:nmNaOuterElectronMove 3.4s ease-in-out forwards,nmTransferredElectronHide 3.4s steps(1,end) forwards}
+@keyframes nmNaOuterElectronMove{0%,14%{transform:translate(210px,58px)}85%,100%{transform:translate(468px,140px)}}
+@media(prefers-reduced-motion:reduce){.nm-bond-stage[data-mode="ionic"] .nm-na-third-shell{animation:none;visibility:hidden}}
 /* Ionic model: moving electron is counted once; products appear after transfer. */
 .nm-gained-electron,.nm-ion-label{opacity:0;animation:nmIonicProductReveal 3.4s steps(1,end) forwards}
 @keyframes nmIonicProductReveal{0%,84%{opacity:0}85%,100%{opacity:1}}
-.nm-bond-stage[data-mode="ionic"] #nmBondElectron{animation:nmElectronTransfer 3.4s ease-in-out forwards,nmTransferredElectronHide 3.4s steps(1,end) forwards}
+.nm-bond-stage[data-mode="ionic"] #nmBondElectron{animation:nmNaOuterElectronMove 3.4s ease-in-out forwards,nmTransferredElectronHide 3.4s steps(1,end) forwards}
 @keyframes nmTransferredElectronHide{0%,84%{opacity:1}85%,100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.nm-gained-electron,.nm-ion-label{animation:none;opacity:1}.nm-bond-stage[data-mode="ionic"] #nmBondElectron{animation:none;opacity:0}}
 /* Polar covalent model: two contributed electrons converge into a shared, polarized bond. */
@@ -5710,7 +5716,12 @@ function nmRenderBond(){
  draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8]:[1]);
  draw('nmBondRightShells',550,'Cl',[2,8,7]);
  if(nmBondMode==='ionic'){
-  // The moving e⁻ is Sodium's original eleventh electron; do not draw it twice.
+  // Na starts 2–8–1: draw its third shell while its sole outer electron travels.
+  // The shell vanishes only after electron transfer; the moving electron is not duplicated.
+  const left=document.getElementById('nmBondLeftShells');
+  const thirdShell=document.createElementNS(svgNS,'circle');
+  for(const [key,value] of Object.entries({cx:210,cy:140,r:82,fill:'none',stroke:'#5b8290','stroke-width':1.8,opacity:.62,class:'nm-na-third-shell'}))thirdShell.setAttribute(key,String(value));
+  left.insertBefore(thirdShell,left.firstChild);
   // Reveal the eighth valence electron on Chlorine only after transfer finishes.
   const right=document.getElementById('nmBondRightShells');
   const gained=document.createElementNS(svgNS,'circle');
