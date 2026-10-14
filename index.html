@@ -1377,7 +1377,7 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 .nm-bond-svg{width:100%;height:100%;max-width:900px;overflow:visible}
 #nmBondElectron{transform:translate(292px,140px);animation:nmElectronTransfer 3.4s ease-in-out forwards}
 .nm-bond-stage[data-mode="covalent"] #nmBondElectron{animation:nmElectronShare 3.4s ease-in-out forwards}
-@keyframes nmElectronTransfer{0%,14%{transform:translate(292px,140px)}85%,100%{transform:translate(468px,140px)}}
+@keyframes nmElectronTransfer{0%,14%{transform:translate(292px,140px);opacity:1}85%,99%{transform:translate(468px,140px);opacity:1}100%{transform:translate(468px,140px);opacity:0}}
 @keyframes nmElectronShare{0%,14%{transform:translate(327px,140px)}85%,100%{transform:translate(403px,140px)}}
 @media(prefers-reduced-motion:reduce){#nmBondElectron,.nm-bond-stage[data-mode="covalent"] #nmBondElectron{animation:none;transform:translate(380px,140px)}}
 .nm-bond-explain{min-height:55px}
@@ -1389,8 +1389,10 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
    Cl- has THREE shells (2,8,8). Initial neutral atoms fade out. */
 #nmBondFinalLeftShells,#nmBondFinalRightShells{opacity:0;animation:nmIonsAppear 3.4s steps(1,end) forwards}
 #nmBondLeftShells,#nmBondRightShells{animation:nmNeutralDisappear 3.4s steps(1,end) forwards}
-@keyframes nmIonsAppear{0%,69%{opacity:0}70%,100%{opacity:1}}
-@keyframes nmNeutralDisappear{0%,69%{opacity:1}70%,100%{opacity:0}}
+@keyframes nmIonsAppear{0%,99%{opacity:0}100%{opacity:1}}
+@keyframes nmNeutralDisappear{0%,99%{opacity:1}100%{opacity:0}}
+.nm-bond-stage[data-mode="covalent"] #nmBondLeftShells,
+.nm-bond-stage[data-mode="covalent"] #nmBondRightShells,
 .nm-bond-stage[data-mode="covalent"] #nmBondFinalLeftShells,
 .nm-bond-stage[data-mode="covalent"] #nmBondFinalRightShells{display:none}
 @media(prefers-reduced-motion:reduce){
@@ -5754,7 +5756,8 @@ function nmRenderBond(){
   add('circle',{cx:x,cy:center,r:21,fill:'#fff8e9',stroke:'#a88451','stroke-width':2});
   const t=add('text',{x,y:center+5,'text-anchor':'middle',fill:'#28495b','font-size':17,'font-weight':800});t.textContent=symbol;
  };
- draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8,1]:[1]);
+ // Ionic Na: outer shell electron is rendered ONLY by the moving e- marker.
+ draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8,0]:[1]);
  draw('nmBondRightShells',550,'Cl',[2,8,7]);
  draw('nmBondFinalLeftShells',210,'Na⁺',[2,8]);
  draw('nmBondFinalRightShells',550,'Cl⁻',[2,8,8]);
