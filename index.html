@@ -1514,6 +1514,20 @@ body[data-book-page="trends"] .periodic-core-rules{display:none}
 .nm-demo-metal-notice{margin-top:10px;padding:9px 12px;border:1px solid #efc16b;border-radius:9px;background:#fff1cf;color:#623e0c;text-align:center;font-weight:800;font-size:12px}
 .nm-demo-metal-notice[hidden]{display:none}
 @media(max-width:440px){.nm-demo-element{width:96px;min-height:115px;padding:9px 4px}.nm-demo-trend-arrow{max-width:90px;font-size:10px}.nm-demo-arrow-icon{font-size:27px}.nm-demo-diagram{padding:15px}}
+
+/* Custom comparison: inputs directly precede their live visual result. */
+.nm-lesson .nm-custom{margin:0 0 16px;padding:18px;background:#f4f0e8;border:1px solid #dccbb2;border-radius:14px}
+.nm-lesson .nm-custom h3{margin:0 0 6px;font-size:21px}
+.nm-custom-hint{margin:0 0 12px;color:#526579;line-height:1.5;font-size:14px}
+.nm-lesson .nm-custom .nm-controls{margin:0;gap:12px}
+.nm-lesson .nm-custom select{background:#fff;border:2px solid #8fa7a8;font-size:15px;padding:12px;min-height:46px}
+.nm-lesson .nm-custom select:focus-visible{outline:3px solid #c18c35;outline-offset:2px}
+.nm-lesson .nm-demo{align-items:stretch}
+.nm-lesson .nm-demo-explanation{align-self:stretch;display:flex;flex-direction:column;justify-content:center;background:#f8f5ef;border:1px solid #e7dccc;border-radius:14px;padding:20px}
+.nm-lesson .nm-demo-explanation h4{margin:8px 0 12px}
+.nm-lesson .nm-demo-explanation p{margin:0 0 12px}
+.nm-lesson .nm-reason{margin-top:8px}
+@media(max-width:720px){.nm-lesson .nm-custom{padding:14px}.nm-lesson .nm-demo-explanation{padding:15px}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1715,8 +1729,9 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
  <div class="nm-takeaway"><span class="nm-kicker" id="nmTakeawayLabel">REMEMBER THIS</span><div class="nm-rule-grid"><div><span class="nm-rule-arrow">→</span><strong id="nmAcross">Across a period: increases to the right</strong></div><div><span class="nm-rule-arrow">↑</span><strong id="nmDown">Up a group: increases upward</strong></div></div><p id="nmCoreNote">These are general trends, especially useful for main-group elements.</p></div>
  <div class="nm-lesson-workspace"><div class="nm-workspace-title"><div><span class="nm-kicker" id="nmDiagramTitle">EXPLORE THE PATTERN</span><h3 id="nmExploreTitle">Tap an example</h3></div><span class="nm-step" id="nmStepLabel">STEP 1 OF 2</span></div>
  <div class="nm-example-tabs" role="group" aria-label="Choose a trend example"><button type="button" class="nm-example active" data-nm-example="period" id="nmPresetPeriod" aria-pressed="true">Across a period</button><button type="button" class="nm-example" data-nm-example="group" id="nmPresetGroup" aria-pressed="false">Up a group</button><button type="button" class="nm-example" data-nm-example="custom" id="nmPresetCustom" aria-pressed="false">Try your own</button></div>
+ <div class="nm-custom" id="nmCustom" hidden><h3 id="nmCompareTitle">Choose two elements</h3><p class="nm-custom-hint" id="nmCustomHint">Choose elements below. The diagram and explanation update together.</p><div class="nm-controls"><label><span id="nmLabelA">First element</span><select id="nmElementA"></select></label><label><span id="nmLabelB">Second element</span><select id="nmElementB"></select></label></div></div>
  <div class="nm-demo"><div class="nm-demo-diagram" aria-label="Interactive element position model"><div class="nm-demo-axis" id="nmDiagramNote">Compare positions, not a measured strength scale</div><div class="nm-demo-elements" id="nmDemoElements"></div><div class="nm-demo-direction" id="nmDemoDirection">Increasing nonmetallic character →</div></div><div class="nm-demo-explanation"><span class="nm-kicker" id="nmObservationLabel">WHAT TO NOTICE</span><h4 id="nmDemoHeading">Sodium vs Chlorine</h4><p id="nmResult" aria-live="polite"></p><div class="nm-reason" id="nmReason"></div></div></div>
- <div class="nm-custom" id="nmCustom" hidden><h3 id="nmCompareTitle">Choose two elements</h3><div class="nm-controls"><label><span id="nmLabelA">First element</span><select id="nmElementA"></select></label><label><span id="nmLabelB">Second element</span><select id="nmElementB"></select></label></div></div></div>
+</div>
 
  </div><!-- /nmPattern -->
  <div class="nm-scroll-panel nm-lab-panel"><div class="nm-panel-kicker" data-en="03 / EXPERIMENT" data-vi="03 / THỰC HÀNH">03 / EXPERIMENT</div>
@@ -4959,7 +4974,8 @@ for(const el of nmCandidates){for(const select of [nmA,nmB]){const option=docume
 nmA.value='11';nmB.value='17';
 function renderNonmetalTrends(){const l=nmText[currentLanguage==='vi'?'vi':'en'];for(const [id,val] of Object.entries({nmTitle:l.title,nmSubtitle:l.subtitle,nmTag:l.tag,nmDiagramTitle:l.diagram,nmAcross:l.across,nmDown:l.up,nmDiagramNote:l.diagramNote,nmWhyTitle:l.whyTitle,nmWhy:l.why,nmCompareTitle:l.compare,nmLabelA:l.a,nmLabelB:l.b,nmCaution:l.caution,nmCautionToggle:l.cautionToggle}))document.getElementById(id).textContent=val;
  const a=nmCandidates.find(e=>e.n===Number(nmA.value)),b=nmCandidates.find(e=>e.n===Number(nmB.value));if(!a||!b)return;let result;if(a.n===b.n)result=l.same;else if(a.group===18||b.group===18)result=l.noble;else if(a.period===b.period)result=l.period(a.name,b.name,a.group>b.group?a.name:b.name);else if(a.group===b.group)result=l.group(a.name,b.name,a.period<b.period?a.name:b.name);else result=l.other;document.getElementById('nmResult').textContent=result;}
-nmA.addEventListener('change',renderNonmetalTrends);nmB.addEventListener('change',renderNonmetalTrends);
+// Call the current renderer at event time; later lesson code wraps it.
+nmA.addEventListener('change',()=>renderNonmetalTrends());nmB.addEventListener('change',()=>renderNonmetalTrends());
 
 
 /* Two-chapter book navigation; preserve each chapter's live state when switching. */
@@ -5109,7 +5125,7 @@ renderNonmetalTrends=function(){
  const lang=currentLanguage==='vi'?'vi':'en',t=nmLessonCopy[lang];
  const set=(id,val)=>document.getElementById(id).textContent=val;
  set('nmTakeawayLabel',t.remember);set('nmCoreNote',t.core);set('nmExploreTitle',t.explore);set('nmStepLabel',t.step);set('nmObservationLabel',t.observe);
- set('nmPresetPeriod',t.periodTab);set('nmPresetGroup',t.groupTab);set('nmPresetCustom',t.customTab);set('nmDiagramNote',t.diagram);
+ set('nmPresetPeriod',t.periodTab);set('nmPresetGroup',t.groupTab);set('nmCustomHint',lang==='vi'?'Chọn hai nguyên tố bên dưới. Sơ đồ và lời giải sẽ thay đổi ngay theo lựa chọn.':'Choose two elements below. The diagram and explanation update instantly.');set('nmDiagramNote',t.diagram);
  document.getElementById('nmCustom').hidden=nmExampleMode!=='custom';
  for(const btn of document.querySelectorAll('[data-nm-example]')){const active=btn.dataset.nmExample===nmExampleMode;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
  let a=nmCandidates.find(e=>e.n===Number(nmA.value)),b=nmCandidates.find(e=>e.n===Number(nmB.value));
