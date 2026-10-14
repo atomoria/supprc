@@ -1482,6 +1482,22 @@ html[lang="vi"] .nm-treasure-card h3{font-family:Arial,'Noto Sans',sans-serif;le
 body[data-book-page="trends"] .periodic-core-rules{display:none}
 @media(max-width:600px){.periodic-core-rules{padding:16px;margin:10px 0 18px}.periodic-core-rules ol{padding-left:22px}}
 
+
+/* Clear directional diagrams: row for same period, column for same group. */
+.nm-demo-elements.nm-demo-layout-period{display:flex;flex-direction:row;align-items:center;justify-content:center;flex-wrap:nowrap;gap:12px}
+.nm-demo-elements.nm-demo-layout-group{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.nm-demo-elements.nm-demo-layout-custom{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.nm-demo-element{width:118px;min-height:122px;height:auto;padding:12px 6px;flex-shrink:0}
+.nm-demo-element b{font-size:29px;line-height:1.1}
+.nm-demo-element small{font-size:13px;color:#fff}
+.nm-demo-meta{font-size:10px;line-height:1.45;color:#cce7e5}
+.nm-demo-trend-arrow{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;color:#ffda92;font-size:11px;text-align:center;max-width:125px;font-weight:700}
+.nm-demo-arrow-icon{font-size:35px;line-height:1}
+.nm-demo-layout-group .nm-demo-trend-arrow{flex-direction:column}
+.nm-demo-direction{font-size:13px;line-height:1.5;padding-top:14px}
+.nm-demo-metal-notice{margin-top:10px;padding:9px 12px;border:1px solid #efc16b;border-radius:9px;background:#fff1cf;color:#623e0c;text-align:center;font-weight:800;font-size:12px}
+.nm-demo-metal-notice[hidden]{display:none}
+@media(max-width:440px){.nm-demo-element{width:96px;min-height:115px;padding:9px 4px}.nm-demo-trend-arrow{max-width:90px;font-size:10px}.nm-demo-arrow-icon{font-size:27px}.nm-demo-diagram{padding:15px}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -5104,13 +5120,35 @@ renderNonmetalTrends=function(){
  set('nmReason',nmExampleMode==='period'?t.reasonPeriod:nmExampleMode==='group'?t.reasonGroup:t.reasonCustom);
  set('nmDemoDirection',nmExampleMode==='period'?t.periodDir:nmExampleMode==='group'?t.groupDir:t.customDir);
  const demo=document.getElementById('nmDemoElements');demo.replaceChildren();
- for(const [i,e] of [a,b].entries()){
-  if(i){const sep=document.createElement('span');sep.className='nm-demo-between';sep.textContent=nmExampleMode==='group'?'↑':nmExampleMode==='period'?'→':'↔';demo.append(sep)}
+ const samePeriod=a.period===b.period&&a.n!==b.n;
+ const sameGroup=a.group===b.group&&a.n!==b.n;
+ const direction=samePeriod?'period':sameGroup?'group':'custom';
+ demo.className='nm-demo-elements nm-demo-layout-'+direction;
+ const makeTile=e=>{
   const tile=document.createElement('div');tile.className='nm-demo-element';
-  const sym=document.createElement('b');sym.textContent=e.symbol;
+  const sym=document.createElement('b');sym.textContent=e.s;
   const label=document.createElement('small');label.textContent=e.name;
-  tile.append(sym,label);demo.append(tile);
- }
+  const meta=document.createElement('span');meta.className='nm-demo-meta';
+  meta.textContent=(lang==='vi'?'Chu kì ':'Period ')+e.period+' · '+(lang==='vi'?'Nhóm ':'Group ')+(e.group===1?'IA':e.group===2?'IIA':e.group>=13&&e.group<=18?['IIIA','IVA','VA','VIA','VIIA','VIIIA'][e.group-13]:e.group);
+  tile.append(sym,label,meta);return tile;
+ };
+ const arrow=document.createElement('div');arrow.className='nm-demo-trend-arrow';
+ const arrowIcon=document.createElement('span');arrowIcon.className='nm-demo-arrow-icon';arrowIcon.textContent=direction==='group'?'↑':direction==='period'?'→':'↔';
+ const arrowText=document.createElement('span');arrowText.textContent=direction==='group'?(lang==='vi'?'Tăng khi đi lên':'Increases upward'):direction==='period'?(lang==='vi'?'Tăng từ trái sang phải':'Increases left to right'):(lang==='vi'?'So sánh vị trí':'Compare positions');
+ arrow.append(arrowIcon,arrowText);
+ if(direction==='period'){
+  const sorted=[a,b].sort((x,y)=>x.group-y.group);demo.append(makeTile(sorted[0]),arrow,makeTile(sorted[1]));
+ }else if(direction==='group'){
+  const sorted=[a,b].sort((x,y)=>x.period-y.period);demo.append(makeTile(sorted[0]),arrow,makeTile(sorted[1]));
+ }else{demo.append(makeTile(a),arrow,makeTile(b));}
+ const directionLabel=document.getElementById('nmDemoDirection');
+ directionLabel.textContent=direction==='period'?(lang==='vi'?'Cùng chu kì '+a.period+' · Nguyên tố bên phải có tính phi kim mạnh hơn theo xu hướng chung.':'Same period '+a.period+' · The element on the right is generally more nonmetallic.'):direction==='group'?(lang==='vi'?'Cùng nhóm · Nguyên tố phía trên có tính phi kim mạnh hơn theo xu hướng chung.':'Same group · The element above is generally more nonmetallic.'):(lang==='vi'?'Chỉ dùng quy tắc khi cùng chu kì hoặc cùng nhóm.':'Use the simple trend rule only within the same period or group.');
+ const metalNotice=document.getElementById('nmDemoMetalNotice')||document.createElement('div');
+ metalNotice.id='nmDemoMetalNotice';metalNotice.className='nm-demo-metal-notice';
+ const metalEls=[a,b].filter(e=>['alkali','alkaline','transition','post-transition','lanthanide','actinide'].includes(e.category));
+ metalNotice.hidden=metalEls.length===0;
+ if(metalEls.length){metalNotice.textContent=(lang==='vi'?'LƯU Ý: ':'IMPORTANT: ')+metalEls.map(e=>e.name).join(' & ')+(lang==='vi'?(metalEls.length===1?' VẪN LÀ KIM LOẠI.':' VẪN LÀ KIM LOẠI.'):(metalEls.length===1?' IS STILL A METAL.':' ARE STILL METALS.'));}
+ if(!metalNotice.parentNode)directionLabel.insertAdjacentElement('afterend',metalNotice);
 };
 for(const button of document.querySelectorAll('[data-nm-example]'))button.addEventListener('click',()=>{nmExampleMode=button.dataset.nmExample;if(nmExampleMode==='period'){nmA.value='11';nmB.value='17'}else if(nmExampleMode==='group'){nmA.value='17';nmB.value='9'}renderNonmetalTrends()});
 renderNonmetalTrends();
