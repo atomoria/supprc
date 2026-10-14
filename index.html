@@ -1385,6 +1385,20 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 @media(max-width:650px){.nm-concept-cards{grid-template-columns:1fr}.nm-bond-atom{width:65px;height:65px;font-size:22px}.nm-lesson-jump{position:relative;top:auto}}
 @media(prefers-reduced-motion:reduce){.nm-bond-electron,.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:none;left:50%}}
 
+/* Ion formation: after electron transfer Na+ has TWO shells (2,8);
+   Cl- has THREE shells (2,8,8). Initial neutral atoms fade out. */
+#nmBondFinalLeftShells,#nmBondFinalRightShells{opacity:0;animation:nmIonsAppear 3.4s steps(1,end) forwards}
+#nmBondLeftShells,#nmBondRightShells{animation:nmNeutralDisappear 3.4s steps(1,end) forwards}
+@keyframes nmIonsAppear{0%,69%{opacity:0}70%,100%{opacity:1}}
+@keyframes nmNeutralDisappear{0%,69%{opacity:1}70%,100%{opacity:0}}
+.nm-bond-stage[data-mode="covalent"] #nmBondFinalLeftShells,
+.nm-bond-stage[data-mode="covalent"] #nmBondFinalRightShells{display:none}
+@media(prefers-reduced-motion:reduce){
+ .nm-bond-stage[data-mode="ionic"] #nmBondFinalLeftShells,
+ .nm-bond-stage[data-mode="ionic"] #nmBondFinalRightShells{animation:none;opacity:1}
+ .nm-bond-stage[data-mode="ionic"] #nmBondLeftShells,
+ .nm-bond-stage[data-mode="ionic"] #nmBondRightShells{animation:none;opacity:0}
+}
 /* Polar covalent model: two contributed electrons converge into a shared, polarized bond. */
 #nmBondCovalentModel{display:none}
 .nm-bond-stage[data-mode="covalent"] #nmBondCovalentModel{display:block}
@@ -1711,7 +1725,7 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
   <details class="nm-lab-deep" id="nmShellDetails"><summary id="nmShellSummary">Explore deeper · electron shells</summary><div class="nm-shell-controls"><label id="nmShellLabel" for="nmShellSelect">Element</label><select id="nmShellSelect"></select></div><div id="nmShellModel" class="nm-shell-model" role="img" aria-label="Simplified electron-shell diagram"></div><p id="nmShellCaption"></p></details>
  </div>
 </div><!-- /nm-lab-panel -->
- <article class="nm-scroll-panel nm-bonding-panel" id="nmBonding"><div class="nm-panel-kicker" data-en="04 / WATCH ELECTRONS" data-vi="04 / QUAN SÁT ELECTRON">04 / WATCH ELECTRONS</div><h3 data-en="Two ways electrons behave in bonds" data-vi="Hai cách electron tham gia liên kết">Two ways electrons behave in bonds</h3><p data-en="Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions." data-vi="Chuyển giữa mô hình chuyển electron tạo liên kết ion và mô hình dùng chung electron không đều. Đây là mô phỏng phục vụ học tập, không phải video ghi lại phản ứng thực tế.">Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions.</p><div class="nm-bond-tabs"><button type="button" id="nmBondIonic" aria-pressed="true">Na + Cl</button><button type="button" id="nmBondCovalent" aria-pressed="false">H + Cl</button><button type="button" id="nmBondReplay" data-en="↻ Replay" data-vi="↻ Xem lại">↻ Replay</button></div><div class="nm-bond-stage" id="nmBondStage" role="img" aria-label="Simplified electron interaction"><svg class="nm-bond-svg" viewBox="0 0 760 280" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g id="nmBondLeftShells"></g><g id="nmBondRightShells"></g><g id="nmBondElectron"><circle r="13" fill="#b17d3f"/><text text-anchor="middle" dy="5" font-size="15" font-weight="800" fill="white">e⁻</text></g>
+ <article class="nm-scroll-panel nm-bonding-panel" id="nmBonding"><div class="nm-panel-kicker" data-en="04 / WATCH ELECTRONS" data-vi="04 / QUAN SÁT ELECTRON">04 / WATCH ELECTRONS</div><h3 data-en="Two ways electrons behave in bonds" data-vi="Hai cách electron tham gia liên kết">Two ways electrons behave in bonds</h3><p data-en="Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions." data-vi="Chuyển giữa mô hình chuyển electron tạo liên kết ion và mô hình dùng chung electron không đều. Đây là mô phỏng phục vụ học tập, không phải video ghi lại phản ứng thực tế.">Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions.</p><div class="nm-bond-tabs"><button type="button" id="nmBondIonic" aria-pressed="true">Na + Cl</button><button type="button" id="nmBondCovalent" aria-pressed="false">H + Cl</button><button type="button" id="nmBondReplay" data-en="↻ Replay" data-vi="↻ Xem lại">↻ Replay</button></div><div class="nm-bond-stage" id="nmBondStage" role="img" aria-label="Simplified electron interaction"><svg class="nm-bond-svg" viewBox="0 0 760 280" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g id="nmBondLeftShells"></g><g id="nmBondRightShells"></g><g id="nmBondFinalLeftShells"></g><g id="nmBondFinalRightShells"></g><g id="nmBondElectron"><circle r="13" fill="#b17d3f"/><text text-anchor="middle" dy="5" font-size="15" font-weight="800" fill="white">e⁻</text></g>
 <g id="nmBondCovalentModel" aria-hidden="true">
  <circle cx="310" cy="140" r="54" fill="#74a4b6" fill-opacity=".08" stroke="#5b8290" stroke-width="2" stroke-dasharray="5 5"/>
  <circle cx="470" cy="140" r="76" fill="#c6a06c" fill-opacity=".08" stroke="#b48b51" stroke-width="2" stroke-dasharray="5 5"/>
@@ -5742,6 +5756,8 @@ function nmRenderBond(){
  };
  draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8,1]:[1]);
  draw('nmBondRightShells',550,'Cl',[2,8,7]);
+ draw('nmBondFinalLeftShells',210,'Na⁺',[2,8]);
+ draw('nmBondFinalRightShells',550,'Cl⁻',[2,8,8]);
  nmBondStage.dataset.mode=nmBondMode;
  document.getElementById('nmBondPairCaption').textContent=vi?'Cặp electron dùng chung, lệch về Cl':'Shared electron pair, shifted toward Cl';
  document.getElementById('nmBondIonic').setAttribute('aria-pressed',String(nmBondMode==='ionic'));
