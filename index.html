@@ -2974,10 +2974,10 @@ function buildTable() {
 
     table.innerHTML = "";
 
+    // Every column displays both the IUPAC number and its traditional A/B label.
     const axisLabels = [{row:1,col:1,txt:'↘',kind:'corner'}];
     for(let g=1;g<=18;g++){
-      const groupA={1:'IA',2:'IIA',13:'IIIA',14:'IVA',15:'VA',16:'VIA',17:'VIIA',18:'VIIIA'};
-      axisLabels.push({row:1,col:g+1,txt:groupA[g]||(''+g),sub:groupA[g]?(''+g):'B',kind:'group'});
+      axisLabels.push({row:1,col:g+1,txt:String(g),sub:traditionalGroupLabels[g],kind:'group'});
     }
     for(let period=1;period<=7;period++)axisLabels.push({row:period+1,col:1,txt:''+period,kind:'period'});
     for(const label of axisLabels){
